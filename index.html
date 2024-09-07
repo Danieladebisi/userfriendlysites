@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Friendly Sites - Web Design & Development</title>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">
-                <img src="./images/user friendly sites logo.png" alt="User Friendly Sites Logo">
+                <img src="./images/user friendly sites logo black.png" alt="User Friendly Sites Logo" class="logo-light">
+                <img src="./images/user friendly sites logo.png" alt="User Friendly Sites Logo" class="logo-dark">
             </div>
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#why-website">Why a Website</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -27,7 +30,9 @@
 
     <main>
         <section id="home" class="hero">
-            <div class="background">
+            <div class="hero-background">
+                <div class="cube"></div>
+                <div class="cube"></div>
                 <div class="cube"></div>
                 <div class="cube"></div>
                 <div class="cube"></div>
@@ -35,10 +40,13 @@
                 <div class="cube"></div>
                 <div class="cube"></div>
             </div>
-            <div class="header-content">
-                <h1>Welcome to User Friendly Sites</h1>
-                <p>We create stunning, responsive websites tailored to your needs</p>
-                <button onclick="scrollToSection('contact')">Get Started</button>
+            <div class="hero-content">
+                <h1>User Friendly Sites</h1>
+                <div id="text-animation" class="hero-text"></div>
+                <div class="hero-buttons">
+                    <button onclick="scrollToSection('contact')" class="btn btn-primary">Get Started</button>
+                    <button onclick="openCalculator()" class="btn btn-secondary">Website Calculator</button>
+                </div>
             </div>
         </section>
 
@@ -46,19 +54,48 @@
             <h2>Our Services</h2>
             <div class="service-grid">
                 <div class="service-box">
-                    <i class="fas fa-laptop-code"></i>
+                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3>Web Design & Development</h3>
                     <p>Creating responsive, dynamic websites tailored to your needs.</p>
+                    <a href="#" class="service-link">Learn More</a>
                 </div>
                 <div class="service-box">
-                    <i class="fas fa-search"></i>
+                    <div class="service-icon"><i class="fas fa-search"></i></div>
                     <h3>SEO Optimization</h3>
                     <p>Enhancing your website's visibility on search engines.</p>
+                    <a href="#" class="service-link">Learn More</a>
                 </div>
                 <div class="service-box">
-                    <i class="fas fa-pencil-alt"></i>
+                    <div class="service-icon"><i class="fas fa-pencil-alt"></i></div>
                     <h3>Content Strategy</h3>
                     <p>Effective content strategies to engage your audience.</p>
+                    <a href="#" class="service-link">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-website" class="why-website">
+            <h2>Why Your Business Needs a Website</h2>
+            <div class="reasons-grid">
+                <div class="reason-box">
+                    <i class="fas fa-globe"></i>
+                    <h3>24/7 Availability</h3>
+                    <p>Your website works around the clock, providing information and services to customers anytime, anywhere.</p>
+                </div>
+                <div class="reason-box">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Increased Credibility</h3>
+                    <p>A professional website builds trust and credibility with potential customers, setting you apart from competitors.</p>
+                </div>
+                <div class="reason-box">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Targeted Marketing</h3>
+                    <p>Reach your ideal audience through SEO and online marketing strategies, expanding your customer base.</p>
+                </div>
+                <div class="reason-box">
+                    <i class="fas fa-comments"></i>
+                    <h3>Improved Customer Service</h3>
+                    <p>Provide instant information, FAQs, and support channels to enhance customer satisfaction and loyalty.</p>
                 </div>
             </div>
         </section>
@@ -75,15 +112,25 @@
 
         <section id="testimonials" class="testimonials">
             <h2>Client Testimonials</h2>
-            <div class="testimonial-slider">
+            <div class="testimonial-carousel">
                 <div class="testimonial-box">
-                    <p>"User Friendly Sites transformed our online presence!"</p>
-                    <h4>- Client A</h4>
+                    <img src="client1.jpg" alt="Client 1" class="client-image">
+                    <div class="testimonial-content">
+                        <p>"User Friendly Sites transformed our online presence!"</p>
+                        <h4>- Client A</h4>
+                    </div>
                 </div>
                 <div class="testimonial-box">
-                    <p>"Their SEO strategies brought us new customers."</p>
-                    <h4>- Client B</h4>
+                    <img src="client2.jpg" alt="Client 2" class="client-image">
+                    <div class="testimonial-content">
+                        <p>"Their SEO strategies brought us new customers."</p>
+                        <h4>- Client B</h4>
+                    </div>
                 </div>
+            </div>
+            <div class="carousel-controls">
+                <button id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                <button id="nextBtn"><i class="fas fa-chevron-right"></i></button>
             </div>
         </section>
 
@@ -98,17 +145,25 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="footer">
         <p>&copy; 2024 User Friendly Sites. All rights reserved.</p>
         <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
     </footer>
 
     <button id="scrollToTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+    <div id="calculatorModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Website Calculator</h2>
+            <!-- Add your calculator form here -->
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
