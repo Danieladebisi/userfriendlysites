@@ -4,70 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Friendly Sites</title>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header Section -->
-    <header class="header">
-        <div class="container">
-            <h1 class="hero-text">We Build<span class="sliding-text"></span></h1>
-            <nav class="navbar">
+    <div class="container-fluid">
+        <!-- Background Animation -->
+        <div class="background">
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+        </div>
+
+        <!-- Header Section -->
+        <header>
+            <nav>
                 <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
-        </div>
-    </header>
+            <div class="logo"><span>N</span></div>
+            <section class="header-content" id="home">
+                <h1>Welcome to User Friendly Sites</h1>
+                <p>Your trusted partner in building high-quality, user-friendly websites that make an impact.</p>
+                <button onclick="scrollToSection('services')">Know more</button>
+                <button onclick="scrollToSection('contact')">Meet us</button>
+            </section>
+        </header>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <h2>Our Services</h2>
-        <div class="service-box">
-            <h3>Web Development</h3>
-            <p>Building responsive and user-friendly websites.</p>
-        </div>
-        <div class="service-box">
-            <h3>SEO Optimization</h3>
-            <p>Enhancing your website’s visibility on search engines.</p>
-        </div>
-        <div class="service-box">
-            <h3>Content Management</h3>
-            <p>Effective content strategies to engage your audience.</p>
-        </div>
-    </section>
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <h2>Our Services</h2>
+            <div class="service-box">
+                <h3>Web Development</h3>
+                <p>Creating responsive, dynamic websites tailored to your needs.</p>
+            </div>
+            <div class="service-box">
+                <h3>SEO Optimization</h3>
+                <p>Enhancing your website’s visibility on search engines.</p>
+            </div>
+            <div class="service-box">
+                <h3>Content Management</h3>
+                <p>Effective content strategies to engage your audience.</p>
+            </div>
+        </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio">
-        <h2>Our Work</h2>
-        <img src="portfolio-image-1.jpg" alt="Portfolio 1">
-        <img src="portfolio-image-2.jpg" alt="Portfolio 2">
-    </section>
+        <!-- Portfolio Section -->
+        <section class="portfolio" id="portfolio">
+            <h2>Our Work</h2>
+            <div class="portfolio-grid">
+                <img src="portfolio-image-1.jpg" alt="Portfolio 1">
+                <img src="portfolio-image-2.jpg" alt="Portfolio 2">
+            </div>
+        </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <h2>What Clients Say</h2>
-        <div class="testimonial-box">
-            <p>"User Friendly Sites transformed our online presence!" - Client A</p>
-        </div>
-        <div class="testimonial-box">
-            <p>"Their SEO strategies brought us new customers." - Client B</p>
-        </div>
-    </section>
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <h2>What Clients Say</h2>
+            <div class="testimonial-box">
+                <p>"User Friendly Sites transformed our online presence!" - Client A</p>
+            </div>
+            <div class="testimonial-box">
+                <p>"Their SEO strategies brought us new customers." - Client B</p>
+            </div>
+        </section>
 
-    <!-- CTA Section -->
-    <section id="contact" class="cta">
-        <h2>Ready to elevate your online presence?</h2>
-        <button onclick="scrollToContact()">Contact Us</button>
-    </section>
+        <!-- CTA Section -->
+        <section class="cta">
+            <h2>Ready to elevate your online presence?</h2>
+            <button onclick="scrollToSection('contact')">Contact Us</button>
+        </section>
 
-    <!-- Footer Section -->
-    <footer class="footer">
-        <p>&copy; 2024 User Friendly Sites. All Rights Reserved.</p>
-        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-    </footer>
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <h2>Get in Touch</h2>
+            <form id="contactForm">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <textarea id="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="footer">
+            <p>&copy; 2024 User Friendly Sites. All Rights Reserved.</p>
+            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
