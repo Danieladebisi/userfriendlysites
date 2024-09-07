@@ -1,107 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Friendly Sites</title>
+    <title>User Friendly Sites - Web Design & Development</title>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 </head>
-
 <body>
-    <!-- Header Section -->
     <header>
-        <div class="container">
+        <nav>
             <div class="logo">
-                <img src="User Friendly Sites Logo.png" alt="User Friendly Sites Logo">
+                <img src="logo.png" alt="User Friendly Sites Logo">
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#home" onclick="scrollToSection('home')">Home</a></li>
-                    <li><a href="#services" onclick="scrollToSection('services')">Services</a></li>
-                    <li><a href="#portfolio" onclick="scrollToSection('portfolio')">Our Work</a></li>
-                    <li><a href="#testimonials" onclick="scrollToSection('testimonials')">What Clients Say</a></li>
-                    <li><a href="#contact" onclick="scrollToSection('contact')">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>User Friendly Sites</h1>
-            <h3 class="hero-text">Web Solutions Tailored to Your Needs</h3>
-            <button onclick="scrollToSection('contact')">Get Started</button>
-        </div>
-    </section>
+    <main>
+        <section id="home" class="hero">
+            <div class="background">
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+            </div>
+            <div class="header-content">
+                <h1>Welcome to User Friendly Sites</h1>
+                <p>We create stunning, responsive websites tailored to your needs</p>
+                <button onclick="scrollToSection('contact')">Get Started</button>
+            </div>
+        </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <h2>Our Services</h2>
-        <div class="service-box">
-            <h3>Web Development</h3>
-            <p>Creating responsive and optimized websites to elevate your online presence.</p>
-        </div>
-        <div class="service-box">
-            <h3>SEO Optimization</h3>
-            <p>Improving your website's visibility on search engines with tailored SEO strategies.</p>
-        </div>
-        <div class="service-box">
-            <h3>Website Management</h3>
-            <p>Ensuring smooth operation and updates of your website for optimal performance.</p>
-        </div>
-    </section>
+        <section id="services" class="services">
+            <h2>Our Services</h2>
+            <div class="service-grid">
+                <div class="service-box">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Web Design & Development</h3>
+                    <p>Creating responsive, dynamic websites tailored to your needs.</p>
+                </div>
+                <div class="service-box">
+                    <i class="fas fa-search"></i>
+                    <h3>SEO Optimization</h3>
+                    <p>Enhancing your website's visibility on search engines.</p>
+                </div>
+                <div class="service-box">
+                    <i class="fas fa-pencil-alt"></i>
+                    <h3>Content Strategy</h3>
+                    <p>Effective content strategies to engage your audience.</p>
+                </div>
+            </div>
+        </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio">
-        <h2>Our Work</h2>
-        <div class="portfolio-grid">
-            <img src="work1.jpg" alt="Work 1">
-            <img src="work2.jpg" alt="Work 2">
-            <img src="work3.jpg" alt="Work 3">
-            <img src="work4.jpg" alt="Work 4">
-        </div>
-    </section>
+        <section id="portfolio" class="portfolio">
+            <h2>Our Portfolio</h2>
+            <div class="portfolio-grid">
+                <img src="project1.jpg" alt="Project 1" class="portfolio-item">
+                <img src="project2.jpg" alt="Project 2" class="portfolio-item">
+                <img src="project3.jpg" alt="Project 3" class="portfolio-item">
+                <img src="project4.jpg" alt="Project 4" class="portfolio-item">
+            </div>
+        </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <h2>What Clients Say</h2>
-        <div class="testimonial-box">
-            <p>"User Friendly Sites transformed our online presence with their innovative designs!"</p>
-            <p>- Client A</p>
-        </div>
-        <div class="testimonial-box">
-            <p>"The team at User Friendly Sites is professional and highly skilled."</p>
-            <p>- Client B</p>
-        </div>
-    </section>
+        <section id="testimonials" class="testimonials">
+            <h2>Client Testimonials</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-box">
+                    <p>"User Friendly Sites transformed our online presence!"</p>
+                    <h4>- Client A</h4>
+                </div>
+                <div class="testimonial-box">
+                    <p>"Their SEO strategies brought us new customers."</p>
+                    <h4>- Client B</h4>
+                </div>
+            </div>
+        </section>
 
-    <!-- Call to Action Section -->
-    <section class="cta">
-        <h2>Ready to take your website to the next level?</h2>
-        <button onclick="scrollToSection('contact')">Contact Us</button>
-    </section>
+        <section id="contact" class="contact">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <h2>Contact Us</h2>
-        <form id="contactForm">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
-    </section>
-
-    <!-- Footer Section -->
-    <footer class="footer">
+    <footer>
         <p>&copy; 2024 User Friendly Sites. All rights reserved.</p>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
     </footer>
+
+    <button id="scrollToTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
 
     <script src="script.js"></script>
 </body>
-
 </html>
