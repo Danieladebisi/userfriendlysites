@@ -1,16 +1,13 @@
-// JavaScript for sliding text effect
-const slidingText = document.querySelector('.sliding-text');
-const textArray = [' Your Online Presence', ' Responsive Websites', ' SEO Optimized Content'];
-let textIndex = 0;
-
-function changeText() {
-    slidingText.textContent = textArray[textIndex];
-    textIndex = (textIndex + 1) % textArray.length;
+// Smooth scrolling for navigation links
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({
+        behavior: 'smooth'
+    });
 }
 
-setInterval(changeText, 3000);
-
-// Scroll to Contact section
-function scrollToContact() {
-    document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
-}
+// Form submission handling
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    alert('Thank you for contacting us!');
+    // Implement form submission logic here, e.g., sending the data to a server
+});
