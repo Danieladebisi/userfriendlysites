@@ -1,13 +1,15 @@
-// Smooth scrolling for navigation links
-function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({
-        behavior: 'smooth'
-    });
+// JavaScript for smooth scrolling
+function scrollToSection(sectionId) {
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
 }
 
-// Form submission handling
-document.getElementById('contactForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert('Thank you for contacting us!');
-    // Implement form submission logic here, e.g., sending the data to a server
-});
+// Animation for hero text change
+let heroTexts = ["Web Solutions Tailored to Your Needs", "Innovative Web Design", "Your Partner in Digital Success"];
+let currentIndex = 0;
+
+function changeHeroText() {
+    document.querySelector(".hero-text").textContent = heroTexts[currentIndex];
+    currentIndex = (currentIndex + 1) % heroTexts.length;
+}
+
+setInterval(changeHeroText, 4000);
