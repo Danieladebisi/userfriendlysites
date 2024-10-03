@@ -180,6 +180,22 @@ window.onclick = function(event) {
 }
 
 // Calculator Function
+// Website Calculator Modal
+function openCalculator() {
+    document.getElementById('calculatorModal').style.display = "block";
+}
+
+document.querySelector('.close').onclick = function() {
+    document.getElementById('calculatorModal').style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == document.getElementById('calculatorModal')) {
+        document.getElementById('calculatorModal').style.display = "none";
+    }
+}
+
+// Calculator Function
 function calculateCost() {
     const websiteType = document.getElementById('website-type').value;
     const pages = parseInt(document.getElementById('pages').value);
@@ -235,4 +251,5 @@ function calculateCost() {
 
     // Display the result
     document.getElementById('cost-result').innerText = `Estimated Cost: $${cost}`;
+    document.getElementById('contact-us').style.display = "block";
 }

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -53,55 +54,74 @@
 
         <!-- Calculator  -->
         <!-- Website Calculator Modal -->
-        <div id="calculatorModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Website Cost Calculator</h2>
-                <form id="calculator-form">
-                    <label for="website-type">Type of Website:</label>
-                    <select id="website-type" name="website-type">
-                        <option value="basic">Basic</option>
-                        <option value="ecommerce">E-commerce</option>
-                        <option value="blog">Blog</option>
-                        <option value="portfolio">Portfolio</option>
-                        <option value="custom">Custom</option>
-                    </select>
-
-                    <label for="pages">Number of Pages:</label>
-                    <input type="number" id="pages" name="pages" min="1" value="1">
-
-                    <label for="features">Features:</label>
-                    <div>
-                        <input type="checkbox" id="feature-seo" name="features" value="seo">
-                        <label for="feature-seo">SEO Optimization</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="feature-responsive" name="features" value="responsive">
-                        <label for="feature-responsive">Responsive Design</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="feature-cms" name="features" value="cms">
-                        <label for="feature-cms">Content Management System</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="feature-analytics" name="features" value="analytics">
-                        <label for="feature-analytics">Analytics Integration</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="feature-ecommerce" name="features" value="ecommerce">
-                        <label for="feature-ecommerce">E-commerce Functionality</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="feature-blog" name="features" value="blog">
-                        <label for="feature-blog">Blog Integration</label>
-                    </div>
-
-                    <button type="button" onclick="calculateCost()">Calculate Cost</button>
-                </form>
-                <div id="cost-result"></div>
-                <button id="contact-us" class="btn btn-primary" onclick="scrollToSection('contact')">Contact Us</button>
+<!-- Website Calculator Modal -->
+<!-- Website Calculator Modal -->
+<div id="calculatorModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Website Cost Calculator</h2>
+        <form id="calculator-form">
+            <div class="form-group">
+                <label for="website-type">Type of Website:</label>
+                <select id="website-type" name="website-type">
+                    <option value="basic">Basic</option>
+                    <option value="ecommerce">E-commerce</option>
+                    <option value="blog">Blog</option>
+                    <option value="portfolio">Portfolio</option>
+                    <option value="custom">Custom</option>
+                </select>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label for="pages">Number of Pages:</label>
+                <input type="range" id="pages" name="pages" min="1" max="100" value="1" oninput="this.nextElementSibling.value = this.value">
+                <output>1</output>
+            </div>
+
+            <div class="form-group">
+                <label for="features">Features:</label>
+                <div class="feature-checkbox">
+                    <input type="checkbox" id="feature-seo" name="features" value="seo">
+                    <label for="feature-seo">SEO Optimization</label>
+                </div>
+                <div class="feature-checkbox">
+                    <input type="checkbox" id="feature-responsive" name="features" value="responsive">
+                    <label for="feature-responsive">Responsive Design</label>
+                </div>
+                <div class="feature-checkbox">
+                    <input type="checkbox" id="feature-cms" name="features" value="cms">
+                    <label for="feature-cms">Content Management System</label>
+                </div>
+                <div class="feature-checkbox">
+                    <input type="checkbox" id="feature-analytics" name="features" value="analytics">
+                    <label for="feature-analytics">Analytics Integration</label>
+                </div>
+                <div class="feature-checkbox">
+                    <input type="checkbox" id="feature-ecommerce" name="features" value="ecommerce">
+                    <label for="feature-ecommerce">E-commerce Functionality</label>
+                </div>
+                <div class="feature-checkbox">
+                    <input type="checkbox" id="feature-blog" name="features" value="blog">
+                    <label for="feature-blog">Blog Integration</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="design-preference">Design Preference:</label>
+                <select id="design-preference" name="design-preference">
+                    <option value="minimalist">Minimalist</option>
+                    <option value="modern">Modern</option>
+                    <option value="classic">Classic</option>
+                    <option value="creative">Creative</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="calculateCost()">Calculate Cost</button>
+        </form>
+        <div id="cost-result"></div>
+        <button id="contact-us" class="btn btn-secondary" style="display: none;" onclick="scrollToSection('contact')">Contact Us</button>
+    </div>
+</div>
 
         <section id="services" class="services">
             <h2>Our Services</h2>
