@@ -333,6 +333,42 @@ nav ul li a:hover {
 
 /* calculator */
 
+/* Variables */
+:root {
+    --modal-bg: rgba(0, 0, 0, 0.5);
+    --modal-content-bg: #fff;
+    --modal-content-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    --close-color: #333;
+    --close-hover-color: #000;
+    --form-gap: 15px;
+    --label-margin-bottom: 5px;
+    --input-padding: 10px;
+    --input-border: 1px solid #ccc;
+    --input-border-radius: 4px;
+    --input-font-size: 14px;
+    --button-bg: #007bff;
+    --button-hover-bg: #0056b3;
+    --button-color: white;
+    --button-padding: 12px;
+    --button-border-radius: 4px;
+    --button-font-size: 16px;
+    --cost-result-margin-top: 20px;
+    --cost-result-font-size: 1.2em;
+    --contact-us-bg: #28a745;
+    --contact-us-hover-bg: #218838;
+    --checkbox-size: 20px;
+    --checkbox-border: 2px solid #007bff;
+    --checkbox-bg: #fff;
+    --checkbox-checked-bg: #007bff;
+    --checkbox-checked-color: #fff;
+    --dropdown-bg: #fff;
+    --dropdown-border: 1px solid #ccc;
+    --dropdown-border-radius: 4px;
+    --dropdown-padding: 10px;
+    --dropdown-font-size: 14px;
+    --dropdown-arrow: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
+}
+
 /* Modal Styles */
 .modal {
     display: none;
@@ -343,21 +379,21 @@ nav ul li a:hover {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--modal-bg);
 }
 
 .modal-content {
-    background-color: #fff;
+    background-color: var(--modal-content-bg);
     margin: 10% auto;
     padding: 20px;
     border-radius: 8px;
     width: 90%;
     max-width: 600px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--modal-content-shadow);
 }
 
 .close {
-    color: #333;
+    color: var(--close-color);
     float: right;
     font-size: 24px;
     font-weight: bold;
@@ -365,7 +401,7 @@ nav ul li a:hover {
 
 .close:hover,
 .close:focus {
-    color: #000;
+    color: var(--close-hover-color);
     cursor: pointer;
 }
 
@@ -373,7 +409,7 @@ nav ul li a:hover {
 #calculator-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: var(--form-gap);
 }
 
 .form-group {
@@ -382,7 +418,7 @@ nav ul li a:hover {
 }
 
 label {
-    margin-bottom: 5px;
+    margin-bottom: var(--label-margin-bottom);
     font-weight: bold;
 }
 
@@ -402,56 +438,99 @@ output {
 }
 
 .feature-checkbox input {
-    margin-right: 10px;
+    display: none;
 }
 
-select,
-input[type="range"],
-input[type="checkbox"] {
-    padding: 10px;
-    border: 1px solid #ccc;
+.feature-checkbox input + label {
+    position: relative;
+    padding-left: calc(var(--checkbox-size) + 10px);
+    cursor: pointer;
+}
+
+.feature-checkbox input + label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    border: var(--checkbox-border);
+    background-color: var(--checkbox-bg);
     border-radius: 4px;
+}
+
+.feature-checkbox input:checked + label::before {
+    background-color: var(--checkbox-checked-bg);
+    border-color: var(--checkbox-checked-bg);
+}
+
+.feature-checkbox input:checked + label::after {
+    content: '✔';
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--checkbox-checked-color);
     font-size: 14px;
 }
 
+select {
+    background-color: var(--dropdown-bg);
+    border: var(--dropdown-border);
+    border-radius: var(--dropdown-border-radius);
+    padding: var(--dropdown-padding);
+    font-size: var(--dropdown-font-size);
+    appearance: none;
+    background-image: var(--dropdown-arrow);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
 button {
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
+    padding: var(--button-padding);
+    background-color: var(--button-bg);
+    color: var(--button-color);
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: var(--button-border-radius);
+    font-size: var(--button-font-size);
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover-bg);
 }
 
 #cost-result {
-    margin-top: 20px;
-    font-size: 1.2em;
+    margin-top: var(--cost-result-margin-top);
+    font-size: var(--cost-result-font-size);
     font-weight: bold;
     text-align: center;
 }
 
 #contact-us {
-    margin-top: 20px;
-    padding: 12px;
-    background-color: #28a745;
-    color: white;
+    margin-top: var(--cost-result-margin-top);
+    padding: var(--button-padding);
+    background-color: var(--contact-us-bg);
+    color: var(--button-color);
     border: none;
-    border-radius: 4px;
+    border-radius: var(--button-border-radius);
     cursor: pointer;
     display: none;
     text-align: center;
 }
 
 #contact-us:hover {
-    background-color: #218838;
+    background-color: var(--contact-us-hover-bg);
 }
 
+footer {
+    background-color: var(--text-color);
+    color: #fff;
+    text-align: center;
+}
 
 footer {
     background-color: var(--text-color);
