@@ -162,3 +162,77 @@ const observer = new IntersectionObserver((entries) => {
 animatedElements.forEach(element => {
     observer.observe(element);
 });
+
+// calculator 
+// Website Calculator Modal
+function openCalculator() {
+    document.getElementById('calculatorModal').style.display = "block";
+}
+
+document.querySelector('.close').onclick = function() {
+    document.getElementById('calculatorModal').style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == document.getElementById('calculatorModal')) {
+        document.getElementById('calculatorModal').style.display = "none";
+    }
+}
+
+// Calculator Function
+function calculateCost() {
+    const websiteType = document.getElementById('website-type').value;
+    const pages = parseInt(document.getElementById('pages').value);
+    const features = document.querySelectorAll('input[name="features"]:checked');
+    
+    let cost = 0;
+
+    // Base cost based on website type
+    switch (websiteType) {
+        case 'basic':
+            cost += 500;
+            break;
+        case 'ecommerce':
+            cost += 2000;
+            break;
+        case 'blog':
+            cost += 800;
+            break;
+        case 'portfolio':
+            cost += 1000;
+            break;
+        case 'custom':
+            cost += 1500;
+            break;
+    }
+
+    // Additional cost based on number of pages
+    cost += pages * 50;
+
+    // Additional cost based on selected features
+    features.forEach(feature => {
+        switch (feature.value) {
+            case 'seo':
+                cost += 300;
+                break;
+            case 'responsive':
+                cost += 400;
+                break;
+            case 'cms':
+                cost += 600;
+                break;
+            case 'analytics':
+                cost += 200;
+                break;
+            case 'ecommerce':
+                cost += 1000;
+                break;
+            case 'blog':
+                cost += 500;
+                break;
+        }
+    });
+
+    // Display the result
+    document.getElementById('cost-result').innerText = `Estimated Cost: $${cost}`;
+}
