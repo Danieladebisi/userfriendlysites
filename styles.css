@@ -394,19 +394,12 @@ nav ul li a:hover {
     position: relative;
 }
 
-.testimonial-box.fade-out {
-    opacity: 0;
-}
-
-.testimonial-box.fade-in {
-    opacity: 1;
-}
-
 .client-image {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     margin-bottom: 1rem;
+    object-fit: cover; /* Ensures the image is cropped to fit the dimensions */
 }
 
 .testimonial-content {
