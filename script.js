@@ -300,5 +300,42 @@ document.addEventListener('DOMContentLoaded', () => {
         hiddenItems.forEach(item => {
             item.classList.remove('hidden');
         });
+
         this.style.display = 'none'; // Hide the "Show More" button after clicking
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const testimonials = document.querySelectorAll('.testimonial-box');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+        let isTransitioning = false;
+    
+        const updateTestimonials = () => {
+            if (isTransitioning) return;
+            isTransitioning = true;
+    
+            testimonials.forEach((testimonial, index) => {
+                testimonial.classList.remove('active');
+                if (index === currentIndex) {
+                    testimonial.classList.add('active');
+                }
+            });
+    
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 500);
+        };
+    
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : testimonials.length - 1;
+            updateTestimonials();
+        });
+    
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < testimonials.length - 1) ? currentIndex + 1 : 0;
+            updateTestimonials();
+        });
+    
+        updateTestimonials();
     });
