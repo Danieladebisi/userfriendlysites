@@ -253,3 +253,44 @@ function calculateCost() {
     document.getElementById('cost-result').innerText = `Estimated Cost: $${cost}`;
     document.getElementById('contact-us').style.display = "block";
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.carousel');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const items = document.querySelectorAll('.carousel a');
+    let currentIndex = 0;
+    let isTransitioning = false;
+
+    const updateCarousel = () => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        // Apply fade out effect
+        carousel.style.transition = 'opacity 0.8s ease-in-out';
+        carousel.style.opacity = 0;
+
+        setTimeout(() => {
+            const width = carousel.clientWidth;
+            carousel.style.transform = `translateX(-${currentIndex * width}px)`;
+
+            // Fade in after slide transition
+            setTimeout(() => {
+                carousel.style.opacity = 1;
+                isTransitioning = false;
+            }, 500);  // Adjust timing to match the fade effect
+        }, 500); // Time before the slide changes
+    };
+
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : items.length - 1;
+        updateCarousel();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
+        updateCarousel();
+    });
+
+    window.addEventListener('resize', updateCarousel);
+});
