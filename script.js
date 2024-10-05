@@ -294,3 +294,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', updateCarousel);
 });
+
+    document.getElementById('show-more').addEventListener('click', function() {
+        const hiddenItems = document.querySelectorAll('.hidden');
+        hiddenItems.forEach(item => {
+            item.classList.remove('hidden');
+        });
+        this.style.display = 'none'; // Hide the "Show More" button after clicking
+    });

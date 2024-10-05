@@ -175,31 +175,68 @@
 
         <section id="portfolio" class="portfolio">
             <h2>Our Portfolio</h2>
-            <div class="carousel-container">
-                <div class="carousel">
-                    <a href="https://anikeolaschools.com/" target="_blank">
-                        <img src="./images/anikeolaschools.png" alt="Project 1" class="portfolio-item">
-                    </a>
-                    <a href="https://jeslovesinterior.com/" target="_blank">
-                        <img src="./images/jeslovesinterior.png" alt="Project 3" class="portfolio-item">
-                    </a>
-                    <a href="https://lifehousegroton.com/" target="_blank">
-                        <img src="./images/lifehouseChurch.png" alt="Project 4" class="portfolio-item">
-                    </a>
-                    <a href="https://savingstarget.com/" target="_blank">
-                        <img src="./images/savingstarget.png" alt="Project 5" class="portfolio-item">
-                    </a>
-                    <a href="https://hallelujahschool.com/" target="_blank">
-                        <img src="./images/hallelujahschool.png" alt="Project 2" class="portfolio-item">
-                    </a>
-                    <a href="https://techmansion.tech/" target="_blank">
-                        <img src="./images/techmansion.png" alt="Project 6" class="portfolio-item">
+            <div class="portfolio-grid">
+                <!-- First 3 projects (visible by default) -->
+                <div class="portfolio-item">
+                    <a href="./images/anikeolaschools.png" data-lightbox="portfolio" data-title="Anikeola Schools">
+                        <img src="./images/anikeolaschools.png" alt="Anikeola Schools">
+                        <div class="overlay">
+                            <div class="overlay-text">Anikeola Schools</div>
+                        </div>
                     </a>
                 </div>
-                <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                <div class="portfolio-item">
+                    <a href="./images/jeslovesinterior.png" data-lightbox="portfolio" data-title="Jes Loves Interior">
+                        <img src="./images/jeslovesinterior.png" alt="Jes Loves Interior">
+                        <div class="overlay">
+                            <div class="overlay-text">Jes Loves Interior</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item">
+                    <a href="./images/lifehouseChurch.png" data-lightbox="portfolio" data-title="Lifehouse Church">
+                        <img src="./images/lifehouseChurch.png" alt="Lifehouse Church">
+                        <div class="overlay">
+                            <div class="overlay-text">Lifehouse Church</div>
+                        </div>
+                    </a>
+                </div>
+        
+                <!-- Hidden projects (will be shown on button click) -->
+                <div class="portfolio-item hidden">
+                    <a href="./images/savingstarget.png" data-lightbox="portfolio" data-title="Savings Target">
+                        <img src="./images/savingstarget.png" alt="Savings Target">
+                        <div class="overlay">
+                            <div class="overlay-text">Savings Target</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item hidden">
+                    <a href="./images/hallelujahschool.png" data-lightbox="portfolio" data-title="Hallelujah School">
+                        <img src="./images/hallelujahschool.png" alt="Hallelujah School">
+                        <div class="overlay">
+                            <div class="overlay-text">Hallelujah School</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-item hidden">
+                    <a href="./images/techmansion.png" data-lightbox="portfolio" data-title="Tech Mansion">
+                        <img src="./images/techmansion.png" alt="Tech Mansion">
+                        <div class="overlay">
+                            <div class="overlay-text">Tech Mansion</div>
+                        </div>
+                    </a>
+                </div>
             </div>
+        
+            <!-- More button -->
+            <button id="show-more" class="show-more-btn">Show More</button>
         </section>
+        
+        <!-- Lightbox Plugin Script -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+        
         
 
         <section id="testimonials" class="testimonials">
