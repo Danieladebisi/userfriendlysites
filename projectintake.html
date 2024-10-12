@@ -4,124 +4,118 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Project Intake Form | User Friendly Sites</title>
-    <!-- Link to External CSS -->
-    <link rel="stylesheet" href="styles.css">
-    <!-- Link to Font (optional) -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Project Intake Form</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <h1>Website Project Intake Form</h1>
-            <p>Tell us more about your project so we can help you create the perfect website.</p>
+
+<div class="container">
+    <h1>Project Intake Form</h1>
+    <form id="project-intake-form">
+        <!-- Contact Information Section -->
+        <div class="form-group">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" name="full-name" placeholder="Your name" required>
         </div>
-    </header>
 
-    <main>
-        <form id="intake-form">
-            <!-- Section 1: Contact Information -->
-            <section class="form-section">
-                <h2>Contact Information</h2>
-                <label for="fullName">Full Name:</label>
-                <input type="text" id="fullName" name="fullName" required>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Your email address" required>
+        </div>
 
-                <label for="email">Email Address:</label>
-                <input type="email" id="email" name="email" required>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+        </div>
 
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" required>
+        <!-- Project Type Section -->
+        <div class="form-group">
+            <label for="project-type">What type of project are you looking to build?</label>
+            <select id="project-type" name="project-type" required>
+                <option value="">Select project type...</option>
+                <option value="e-commerce">E-commerce</option>
+                <option value="blog">Blog</option>
+                <option value="portfolio">Portfolio</option>
+                <option value="custom">Custom</option>
+            </select>
+        </div>
 
-                <label for="company">Company/Organization Name:</label>
-                <input type="text" id="company" name="company">
+        <!-- Project Goals Section -->
+        <div class="form-group">
+            <label for="project-goals">What are your main goals for this project?</label>
+            <textarea id="project-goals" name="project-goals" placeholder="Describe the primary objectives for your website" required></textarea>
+        </div>
 
-                <label for="currentWebsite">Current Website URL (if applicable):</label>
-                <input type="url" id="currentWebsite" name="currentWebsite">
-            </section>
-
-            <!-- Section 2: Project Overview -->
-            <section class="form-section">
-                <h2>Project Overview</h2>
-                <label for="websiteType">What type of website do you need?</label>
-                <select id="websiteType" name="websiteType" required>
-                    <option value="business">Business/Corporate Website</option>
-                    <option value="ecommerce">E-commerce Website</option>
-                    <option value="portfolio">Portfolio</option>
-                    <option value="blog">Blog/News</option>
-                    <option value="landingPage">Landing Page</option>
-                    <option value="other">Other</option>
-                </select>
-
-                <label for="businessDescription">Briefly describe your business and its main goals:</label>
-                <textarea id="businessDescription" name="businessDescription" rows="4" required></textarea>
-
-                <label for="websiteGoal">What is the primary goal of this website?</label>
-                <select id="websiteGoal" name="websiteGoal" required>
-                    <option value="leads">Generate Leads</option>
-                    <option value="sales">Sell Products/Services</option>
-                    <option value="showcase">Showcase Portfolio</option>
-                    <option value="info">Provide Information</option>
-                    <option value="community">Build a Community</option>
-                    <option value="other">Other</option>
-                </select>
-            </section>
-
-            <!-- Section 3: Design Preferences -->
-            <section class="form-section">
-                <h2>Design Preferences</h2>
-                <label for="designInspiration">Do you have any design preferences or websites you like?</label>
-                <textarea id="designInspiration" name="designInspiration" rows="3"></textarea>
-
-                <label>Do you have a brand style guide or specific colors/fonts that need to be used?</label>
-                <input type="radio" id="styleGuideYes" name="styleGuide" value="yes">
-                <label for="styleGuideYes">Yes</label>
-                <input type="radio" id="styleGuideNo" name="styleGuide" value="no">
-                <label for="styleGuideNo">No</label>
-
-                <label for="designStyle">What design style do you prefer?</label>
-                <select id="designStyle" name="designStyle">
-                    <option value="modern">Modern</option>
-                    <option value="traditional">Traditional</option>
-                    <option value="minimalist">Minimalist</option>
-                    <option value="vibrant">Vibrant</option>
-                    <option value="other">Other</option>
-                </select>
-            </section>
-
-            <!-- Section 4: Content and Functionality -->
-            <section class="form-section">
-                <h2>Content and Functionality</h2>
-                <label>Will you provide the content for the website?</label>
-                <input type="radio" id="contentYes" name="content" value="yes" required>
-                <label for="contentYes">Yes</label>
-                <input type="radio" id="contentNo" name="content" value="no">
-                <label for="contentNo">No</label>
-                <input type="radio" id="contentHelp" name="content" value="help">
-                <label for="contentHelp">Need help creating content</label>
-
-                <label for="essentialFeatures">What essential features do you need? (Select all that apply)</label>
-                <input type="checkbox" id="contactForm" name="essentialFeatures" value="contactForm">
-                <label for="contactForm">Contact Form</label>
-                <input type="checkbox" id="ecommerce" name="essentialFeatures" value="ecommerce">
-                <label for="ecommerce">E-commerce Functionality</label>
-                <input type="checkbox" id="blog" name="essentialFeatures" value="blog">
-                <label for="blog">Blog/News Section</label>
-                <input type="checkbox" id="seo" name="essentialFeatures" value="seo">
-                <label for="seo">SEO Tools</label>
-            </section>
-
-            <!-- Section 5: Submit Button -->
-            <div class="form-submit-section">
-                <button type="submit" class="submit-btn">Submit Your Request</button>
+        <!-- Design Preferences Section -->
+        <div class="form-group">
+            <label>Do you have specific design preferences?</label>
+            <div class="options">
+                <label><input type="radio" name="design-preference" value="yes" required> Yes</label>
+                <label><input type="radio" name="design-preference" value="no" required> No</label>
             </div>
-        </form>
-    </main>
+            <div id="design-follow-up" class="conditional-question">
+                <label for="design-details">Please describe your design preferences in detail:</label>
+                <textarea id="design-details" name="design-details" placeholder="Mention colors, style, layout, etc."></textarea>
+            </div>
+        </div>
 
-    <footer>
-        <p>&copy; 2024 User Friendly Sites. All Rights Reserved.</p>
-    </footer>
+        <!-- Similar Projects Links Section -->
+        <div class="form-group">
+            <label for="similar-projects">Share links to websites you like (optional):</label>
+            <textarea id="similar-projects" name="similar-projects" placeholder="Paste URLs of similar projects you like, separated by commas."></textarea>
+        </div>
 
-    <!-- Link to JavaScript file -->
-    <script src="script.js"></script>
+        <!-- Content Functionality Section -->
+        <div class="form-group">
+            <label>Do you need any special content functionality?</label>
+            <div class="options">
+                <label><input type="radio" name="content-functionality" value="yes" required> Yes</label>
+                <label><input type="radio" name="content-functionality" value="no" required> No</label>
+            </div>
+            <div id="content-follow-up" class="conditional-question">
+                <label for="content-details">Please specify the special functionality required:</label>
+                <textarea id="content-details" name="content-details" placeholder="e.g., user login, advanced search, custom plugins"></textarea>
+            </div>
+        </div>
+
+        <!-- Budget Section -->
+        <div class="form-group">
+            <label for="budget">What is your budget range for this project?</label>
+            <input type="text" id="budget" name="budget" placeholder="Enter your budget">
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="form-group">
+            <label for="timeline">What is your desired timeline for completion?</label>
+            <select id="timeline" name="timeline" required>
+                <option value="">Select timeline...</option>
+                <option value="1-3 months">1-3 months</option>
+                <option value="3-6 months">3-6 months</option>
+                <option value="6-12 months">6-12 months</option>
+                <option value="Flexible">Flexible</option>
+            </select>
+        </div>
+
+        <!-- Additional Information Section -->
+        <div class="form-group">
+            <label for="additional-info">Any additional information you would like to provide?</label>
+            <textarea id="additional-info" name="additional-info" placeholder="Share any extra details or requirements"></textarea>
+        </div>
+
+        <!-- Submission Button -->
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+
+<!-- Success Modal -->
+<div id="success-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Thank You!</h2>
+        <p>Your response has been successfully submitted. We will contact you via email within 24 hours.</p>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
