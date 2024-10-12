@@ -349,3 +349,100 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+
+    // Project Intake JS 
+    // Project Intake JS 
+    // Project Intake JS 
+    // Project Intake JS 
+    // Project Intake JS 
+    // Project Intake JS 
+    // Project Intake JS 
+    // Project Intake JS 
+    // Project Intake JS 
+    // Project Intake JS 
+    // Project Intake JS 
+
+// File: script.js
+
+// Wait for the DOM to fully load before running the script
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Get references to form elements
+    const form = document.getElementById('project-intake-form');
+    const projectTypeSelect = document.getElementById('project-type');
+    const budgetField = document.getElementById('budget');
+    const submitButton = document.querySelector('.submit-btn');
+
+    // Hide and show sections based on project type selection
+    projectTypeSelect.addEventListener('change', function() {
+        const selectedValue = this.value;
+        const ecommerceSection = document.getElementById('ecommerce-section');
+        const blogSection = document.getElementById('blog-section');
+        const portfolioSection = document.getElementById('portfolio-section');
+
+        // Hide all sections initially
+        ecommerceSection.style.display = 'none';
+        blogSection.style.display = 'none';
+        portfolioSection.style.display = 'none';
+
+        // Show relevant section based on the selection
+        if (selectedValue === 'e-commerce') {
+            ecommerceSection.style.display = 'block';
+        } else if (selectedValue === 'blog') {
+            blogSection.style.display = 'block';
+        } else if (selectedValue === 'portfolio') {
+            portfolioSection.style.display = 'block';
+        }
+    });
+
+    // Form validation function to ensure required fields are filled
+    function validateForm() {
+        let isValid = true;
+        const requiredFields = form.querySelectorAll('input[required], textarea[required], select[required]');
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.style.border = '2px solid red'; // Highlight empty fields in red
+                isValid = false;
+            } else {
+                field.style.border = '1px solid #cccccc'; // Reset the border for filled fields
+            }
+        });
+
+        return isValid;
+    }
+
+    // Form submission event listener
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting by default
+
+        // Check if the form is valid
+        if (validateForm()) {
+            // Simulate form submission for now
+            alert('Thank you for your submission! We will review your information and get back to you shortly.');
+            form.reset(); // Reset the form after successful submission
+        } else {
+            alert('Please fill out all required fields highlighted in red.');
+        }
+    });
+
+    // Add real-time budget input formatting to display as currency
+    budgetField.addEventListener('input', function() {
+        const value = budgetField.value.replace(/[^0-9.]/g, ''); // Allow only numbers and dots
+        budgetField.value = value ? `$${parseFloat(value).toLocaleString()}` : ''; // Format as currency
+    });
+
+    // Add tooltips for better user guidance on focus
+    const fieldsWithTooltips = form.querySelectorAll('input, textarea, select');
+
+    fieldsWithTooltips.forEach(field => {
+        field.addEventListener('focus', function() {
+            this.style.backgroundColor = '#fffae6'; // Light yellow background on focus
+        });
+
+        field.addEventListener('blur', function() {
+            this.style.backgroundColor = '#f9f9f9'; // Reset background color on blur
+        });
+    });
+});
+

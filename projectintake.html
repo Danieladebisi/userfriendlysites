@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Project Intake Form | User Friendly Sites</title>
+    <!-- Link to External CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Link to Font (optional) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Website Project Intake Form</h1>
+            <p>Tell us more about your project so we can help you create the perfect website.</p>
+        </div>
+    </header>
+
+    <main>
+        <form id="intake-form">
+            <!-- Section 1: Contact Information -->
+            <section class="form-section">
+                <h2>Contact Information</h2>
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="company">Company/Organization Name:</label>
+                <input type="text" id="company" name="company">
+
+                <label for="currentWebsite">Current Website URL (if applicable):</label>
+                <input type="url" id="currentWebsite" name="currentWebsite">
+            </section>
+
+            <!-- Section 2: Project Overview -->
+            <section class="form-section">
+                <h2>Project Overview</h2>
+                <label for="websiteType">What type of website do you need?</label>
+                <select id="websiteType" name="websiteType" required>
+                    <option value="business">Business/Corporate Website</option>
+                    <option value="ecommerce">E-commerce Website</option>
+                    <option value="portfolio">Portfolio</option>
+                    <option value="blog">Blog/News</option>
+                    <option value="landingPage">Landing Page</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="businessDescription">Briefly describe your business and its main goals:</label>
+                <textarea id="businessDescription" name="businessDescription" rows="4" required></textarea>
+
+                <label for="websiteGoal">What is the primary goal of this website?</label>
+                <select id="websiteGoal" name="websiteGoal" required>
+                    <option value="leads">Generate Leads</option>
+                    <option value="sales">Sell Products/Services</option>
+                    <option value="showcase">Showcase Portfolio</option>
+                    <option value="info">Provide Information</option>
+                    <option value="community">Build a Community</option>
+                    <option value="other">Other</option>
+                </select>
+            </section>
+
+            <!-- Section 3: Design Preferences -->
+            <section class="form-section">
+                <h2>Design Preferences</h2>
+                <label for="designInspiration">Do you have any design preferences or websites you like?</label>
+                <textarea id="designInspiration" name="designInspiration" rows="3"></textarea>
+
+                <label>Do you have a brand style guide or specific colors/fonts that need to be used?</label>
+                <input type="radio" id="styleGuideYes" name="styleGuide" value="yes">
+                <label for="styleGuideYes">Yes</label>
+                <input type="radio" id="styleGuideNo" name="styleGuide" value="no">
+                <label for="styleGuideNo">No</label>
+
+                <label for="designStyle">What design style do you prefer?</label>
+                <select id="designStyle" name="designStyle">
+                    <option value="modern">Modern</option>
+                    <option value="traditional">Traditional</option>
+                    <option value="minimalist">Minimalist</option>
+                    <option value="vibrant">Vibrant</option>
+                    <option value="other">Other</option>
+                </select>
+            </section>
+
+            <!-- Section 4: Content and Functionality -->
+            <section class="form-section">
+                <h2>Content and Functionality</h2>
+                <label>Will you provide the content for the website?</label>
+                <input type="radio" id="contentYes" name="content" value="yes" required>
+                <label for="contentYes">Yes</label>
+                <input type="radio" id="contentNo" name="content" value="no">
+                <label for="contentNo">No</label>
+                <input type="radio" id="contentHelp" name="content" value="help">
+                <label for="contentHelp">Need help creating content</label>
+
+                <label for="essentialFeatures">What essential features do you need? (Select all that apply)</label>
+                <input type="checkbox" id="contactForm" name="essentialFeatures" value="contactForm">
+                <label for="contactForm">Contact Form</label>
+                <input type="checkbox" id="ecommerce" name="essentialFeatures" value="ecommerce">
+                <label for="ecommerce">E-commerce Functionality</label>
+                <input type="checkbox" id="blog" name="essentialFeatures" value="blog">
+                <label for="blog">Blog/News Section</label>
+                <input type="checkbox" id="seo" name="essentialFeatures" value="seo">
+                <label for="seo">SEO Tools</label>
+            </section>
+
+            <!-- Section 5: Submit Button -->
+            <div class="form-submit-section">
+                <button type="submit" class="submit-btn">Submit Your Request</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 User Friendly Sites. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Link to JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
