@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Intake Form</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -78,10 +78,20 @@
             </div>
         </div>
 
+        <!-- Project Description Section -->
+        <div class="form-group">
+            <label for="project-description">Please provide a brief description of your project:</label>
+            <textarea id="project-description" name="project-description" placeholder="Describe your project"></textarea>
+        </div>
+
         <!-- Budget Section -->
         <div class="form-group">
             <label for="budget">What is your budget range for this project?</label>
-            <input type="text" id="budget" name="budget" placeholder="Enter your budget">
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" id="budget" name="budget" placeholder="Enter your budget">
+            </div>
+            <p>If you're not sure about your budget, you can use our <a href="#calculatorModal" id="openCalculator">website cost calculator</a>.</p>
         </div>
 
         <!-- Timeline Section -->
@@ -94,6 +104,20 @@
                 <option value="6-12 months">6-12 months</option>
                 <option value="Flexible">Flexible</option>
             </select>
+        </div>
+
+        <!-- Preferred Communication Method Section -->
+        <div class="form-group">
+            <label>Preferred method of communication:</label>
+            <label><input type="radio" name="communication-method" value="email" required> Email</label>
+            <label><input type="radio" name="communication-method" value="phone" required> Phone</label>
+            <label><input type="radio" name="communication-method" value="video" required> Video Call</label>
+        </div>
+
+        <!-- Additional Notes Section -->
+        <div class="form-group">
+            <label for="additional-notes">Additional notes or comments:</label>
+            <textarea id="additional-notes" name="additional-notes" placeholder="Any other information you want to provide"></textarea>
         </div>
 
         <!-- Additional Information Section -->
@@ -113,6 +137,46 @@
         <span class="close-btn">&times;</span>
         <h2>Thank You!</h2>
         <p>Your response has been successfully submitted. We will contact you via email within 24 hours.</p>
+    </div>
+</div>
+
+<!-- Website Calculator Modal -->
+<div id="calculatorModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Website Cost Calculator</h2>
+        <form id="calculator-form">
+            <div class="form-group">
+                <label for="website-type">Type of Website:</label>
+                <select id="website-type" name="website-type">
+                    <option value="basic">Basic</option>
+                    <option value="ecommerce">E-commerce</option>
+                    <option value="blog">Blog</option>
+                    <option value="portfolio">Portfolio</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="pages">Number of Pages:</label>
+                <input type="range" id="pages" name="pages" min="1" max="100" value="1" oninput="this.nextElementSibling.value = this.value">
+                <output>1</output>
+            </div>
+
+            <div class="form-group">
+                <label for="features">Features:</label>
+                <div class="options">
+                    <label><input type="checkbox" name="features" value="seo"> SEO</label>
+                    <label><input type="checkbox" name="features" value="responsive"> Responsive Design</label>
+                    <label><input type="checkbox" name="features" value="cms"> CMS Integration</label>
+                    <label><input type="checkbox" name="features" value="ecommerce"> E-commerce Functionality</label>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="calculateCost()">Calculate Cost</button>
+        </form>
+        <div id="cost-result"></div>
+        <button id="contact-us" class="btn btn-secondary" style="display: none;" onclick="scrollToSection('contact')">Contact Us</button>
     </div>
 </div>
 

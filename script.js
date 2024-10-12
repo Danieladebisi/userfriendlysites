@@ -362,87 +362,91 @@ document.addEventListener('DOMContentLoaded', () => {
     // Project Intake JS 
     // Project Intake JS 
 
-// File: script.js
 
-// Wait for the DOM to fully load before running the script
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
+        // Select all the elements needed for conditional questions
+        const designPreferenceYes = document.querySelector('input[name="design-preference"][value="yes"]');
+        const designPreferenceNo = document.querySelector('input[name="design-preference"][value="no"]');
+        const designDetails = document.getElementById('design-details');
+        const contentFunctionalityYes = document.querySelector('input[name="content-functionality"][value="yes"]');
+        const contentFunctionalityNo = document.querySelector('input[name="content-functionality"][value="no"]');
+        const contentDetails = document.getElementById('content-details');
     
-    // Get references to form elements
-    const form = document.getElementById('project-intake-form');
-    const projectTypeSelect = document.getElementById('project-type');
-    const budgetField = document.getElementById('budget');
-    const submitButton = document.querySelector('.submit-btn');
-
-    // Hide and show sections based on project type selection
-    projectTypeSelect.addEventListener('change', function() {
-        const selectedValue = this.value;
-        const ecommerceSection = document.getElementById('ecommerce-section');
-        const blogSection = document.getElementById('blog-section');
-        const portfolioSection = document.getElementById('portfolio-section');
-
-        // Hide all sections initially
-        ecommerceSection.style.display = 'none';
-        blogSection.style.display = 'none';
-        portfolioSection.style.display = 'none';
-
-        // Show relevant section based on the selection
-        if (selectedValue === 'e-commerce') {
-            ecommerceSection.style.display = 'block';
-        } else if (selectedValue === 'blog') {
-            blogSection.style.display = 'block';
-        } else if (selectedValue === 'portfolio') {
-            portfolioSection.style.display = 'block';
-        }
-    });
-
-    // Form validation function to ensure required fields are filled
-    function validateForm() {
-        let isValid = true;
-        const requiredFields = form.querySelectorAll('input[required], textarea[required], select[required]');
-
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                field.style.border = '2px solid red'; // Highlight empty fields in red
-                isValid = false;
+        // Modal elements
+        const modal = document.getElementById('success-modal');
+        const closeModalButton = document.querySelector('.close-btn');
+        const modalMessage = document.getElementById('modal-message');
+    
+        // Event listeners for toggling conditional questions
+        designPreferenceYes.addEventListener('change', function () {
+            toggleConditionalQuestion(this, designDetails);
+        });
+    
+        designPreferenceNo.addEventListener('change', function () {
+            toggleConditionalQuestion(this, designDetails);
+        });
+    
+        contentFunctionalityYes.addEventListener('change', function () {
+            toggleConditionalQuestion(this, contentDetails);
+        });
+    
+        contentFunctionalityNo.addEventListener('change', function () {
+            toggleConditionalQuestion(this, contentDetails);
+        });
+    
+        // Toggle the display of additional questions based on user input
+        function toggleConditionalQuestion(element, questionContainer) {
+            if (element.checked && element.value === 'yes') {
+                questionContainer.style.display = 'block';
             } else {
-                field.style.border = '1px solid #cccccc'; // Reset the border for filled fields
+                questionContainer.style.display = 'none';
+            }
+        }
+    
+        // Form submission event listener
+        const form = document.getElementById('project-intake-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            if (validateForm()) {
+                showModal('Thank you! Your response has been submitted. We will get back to you within 24 hours.');
             }
         });
-
-        return isValid;
-    }
-
-    // Form submission event listener
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting by default
-
-        // Check if the form is valid
-        if (validateForm()) {
-            // Simulate form submission for now
-            alert('Thank you for your submission! We will review your information and get back to you shortly.');
-            form.reset(); // Reset the form after successful submission
-        } else {
-            alert('Please fill out all required fields highlighted in red.');
+    
+        // Form validation function to ensure all required fields are filled out correctly
+        function validateForm() {
+            const requiredFields = form.querySelectorAll('[required]');
+            let allFieldsValid = true;
+    
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('input-error');
+                    allFieldsValid = false;
+                } else {
+                    field.classList.remove('input-error');
+                }
+            });
+    
+            if (!allFieldsValid) {
+                showModal('Please fill in all required fields before submitting.');
+            }
+    
+            return allFieldsValid;
         }
-    });
-
-    // Add real-time budget input formatting to display as currency
-    budgetField.addEventListener('input', function() {
-        const value = budgetField.value.replace(/[^0-9.]/g, ''); // Allow only numbers and dots
-        budgetField.value = value ? `$${parseFloat(value).toLocaleString()}` : ''; // Format as currency
-    });
-
-    // Add tooltips for better user guidance on focus
-    const fieldsWithTooltips = form.querySelectorAll('input, textarea, select');
-
-    fieldsWithTooltips.forEach(field => {
-        field.addEventListener('focus', function() {
-            this.style.backgroundColor = '#fffae6'; // Light yellow background on focus
+    
+        // Function to display the success or error modal
+        function showModal(message) {
+            modalMessage.innerText = message;
+            modal.style.display = 'flex';
+        }
+    
+        // Close the modal when clicking on the close button or outside the modal content
+        closeModalButton.addEventListener('click', function () {
+            modal.style.display = 'none';
         });
-
-        field.addEventListener('blur', function() {
-            this.style.backgroundColor = '#f9f9f9'; // Reset background color on blur
+    
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
         });
     });
-});
-
