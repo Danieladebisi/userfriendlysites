@@ -9,6 +9,8 @@
 </head>
 <body>
 
+<div id="header-placeholder"></div>
+
 <div class="container">
     <h1>Project Intake Form</h1>
     <form id="project-intake-form">
@@ -179,6 +181,26 @@
         <button id="contact-us" class="btn btn-secondary" style="display: none;" onclick="scrollToSection('contact')">Contact Us</button>
     </div>
 </div>
+
+<div id="footer-placeholder"></div>
+
+<script>
+    // Function to load external HTML into an element
+    function loadHTML(elementId, url) {
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById(elementId).innerHTML = data;
+            })
+            .catch(error => console.error('Error loading HTML:', error));
+    }
+
+    // Load header and footer
+    document.addEventListener('DOMContentLoaded', () => {
+        loadHTML('header-placeholder', 'header.html');
+        loadHTML('footer-placeholder', 'footer.html');
+    });
+</script>
 
 <script src="script.js"></script>
 </body>

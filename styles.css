@@ -79,7 +79,7 @@ header.scrolled .logo img {
 }
 
 .nav-links a:hover {
-    color: #ffde59; /* Highlight color on hover */
+    color: #591BC5; /* Highlight color on hover */
 }
 
 .nav-links a::before {
@@ -1002,7 +1002,7 @@ body, html {
 
 .container {
     max-width: 900px;
-    margin: 50px auto;
+    margin: 100px auto 50px; /* Added top margin to push content down */
     background: #ffffff;
     padding: 40px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
@@ -1152,6 +1152,15 @@ h1 {
     max-width: 600px;
     width: 80%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ffde59; /* Accent color */
 }
 
 .modal-content h2 {

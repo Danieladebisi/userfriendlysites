@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent default form submission behavior
             if (validateForm()) {
-                showModal('Thank you! Your response has been submitted. We will get back to you within 24 hours.');
+                showModal('Your response has been successfully submitted. We will contact you via email within 24 hours.');
             }
         });
     
@@ -419,15 +419,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
             requiredFields.forEach(field => {
                 if (!field.value.trim()) {
-                    field.classList.add('input-error');
                     allFieldsValid = false;
+                    field.classList.add('error');
                 } else {
-                    field.classList.remove('input-error');
+                    field.classList.remove('error');
                 }
             });
     
             if (!allFieldsValid) {
-                showModal('Please fill in all required fields before submitting.');
+                alert('Please fill out all required fields.');
             }
     
             return allFieldsValid;
