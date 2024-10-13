@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Web Design & Development Services | User Friendly Sites</title>
+    <meta name="description" content="Discover User Friendly Sites' comprehensive web design, development, and SEO services. We create tailored, responsive websites that drive engagement and growth.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="services.css">
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<main>
+    <section id="hero" class="parallax">
+        <h1>Our Services</h1>
+        <p>At <strong>User Friendly Sites</strong>, we are dedicated to providing top-tier web solutions that cater to businesses of all sizes. From stunning website designs to seamless SEO strategies, our services are tailored to enhance your digital presence and help your brand grow.</p>
+    </section>
+
+    <section id="services-grid">
+        <div class="service-card" id="web-design">
+            <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+            <h2>Web Design & Development</h2>
+            <ul>
+                <li>Responsive Web Design</li>
+                <li>Custom Website Development</li>
+                <li>Content Management Systems (CMS)</li>
+                <li>E-commerce Solutions</li>
+            </ul>
+            <div class="process">
+                <h3>Our Web Design Process:</h3>
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-name">Consultation</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-name">Planning</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-name">Design</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-name">Development</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-name">Launch & Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="service-card" id="seo">
+            <div class="service-icon"><i class="fas fa-search"></i></div>
+            <h2>Search Engine Optimization (SEO)</h2>
+            <ul>
+                <li>On-Page SEO</li>
+                <li>Technical SEO</li>
+                <li>Off-Page SEO</li>
+                <li>Local SEO</li>
+            </ul>
+            <div class="seo-benefits">
+                <h3>Why SEO Matters:</h3>
+                <ul>
+                    <li><i class="fas fa-chart-line"></i> Increases organic traffic</li>
+                    <li><i class="fas fa-award"></i> Boosts brand credibility</li>
+                    <li><i class="fas fa-user-friends"></i> Enhances user experience</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="service-card" id="maintenance">
+            <div class="service-icon"><i class="fas fa-tools"></i></div>
+            <h2>Website Management & Maintenance</h2>
+            <ul>
+                <li>Regular Updates</li>
+                <li>Performance Monitoring</li>
+                <li>Backup & Security</li>
+                <li>Content Updates</li>
+            </ul>
+        </div>
+    
+        <div class="service-card" id="ui-ux">
+            <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+            <h2>UI/UX Design</h2>
+            <ul>
+                <li>User Interface (UI) Design</li>
+                <li>User Experience (UX) Design</li>
+                <li>Prototyping & Testing</li>
+            </ul>
+        </div>
+    
+        <div class="service-card" id="digital-marketing">
+            <div class="service-icon"><i class="fas fa-bullhorn"></i></div>
+            <h2>Digital Marketing & Strategy</h2>
+            <ul>
+                <li>Social Media Marketing</li>
+                <li>Content Marketing</li>
+                <li>PPC Advertising</li>
+                <li>Email Marketing</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="why-choose-us">
+        <h2>Why Choose User Friendly Sites?</h2>
+        <ul>
+            <li>Expert Team</li>
+            <li>Tailored Strategies</li>
+            <li>Results-Driven Approach</li>
+            <li>Transparent Communication</li>
+            <li>Ongoing Support</li>
+        </ul>
+    </section>
+
+    <section id="cta">
+        <h2>Let's Build Your Success Online!</h2>
+        <p>Ready to elevate your digital presence with a powerful and user-friendly website?</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn" id="contact-us">Contact Us</a>
+            <a href="#" class="btn" id="get-quote">Get a Free Quote</a>
+        </div>
+    </section>
+
+    <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>How long does it take to build a website?</h3>
+            <p>The timeline depends on the complexity of the project, but a standard website typically takes between 4-6 weeks from planning to launch.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Do you provide website hosting?</h3>
+            <p>Yes, we offer reliable hosting solutions to ensure your website is secure and performs optimally at all times.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can you redesign my existing website?</h3>
+            <p>Absolutely! We can revamp your current website to enhance its look, functionality, and user experience.</p>
+        </div>
+    </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+    // Function to load external HTML into an element
+    function loadHTML(elementId, url) {
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById(elementId).innerHTML = data;
+            })
+            .catch(error => console.error('Error loading HTML:', error));
+    }
+
+    // Load header and footer
+    document.addEventListener('DOMContentLoaded', () => {
+        loadHTML('header-placeholder', 'header.html');
+        loadHTML('footer-placeholder', 'footer.html');
+    });
+</script>
+
+<script src="services.js"></script>
+</body>
+</html>
