@@ -14,7 +14,7 @@
     <div id="header-placeholder"></div>
 
     <div class="container">
-        <h1>Project Details - Tell Us About Your Vision</h1>
+        <h1>Project Intake Form</h1>
         <form id="project-intake-form">
             <div class="form-group">
                 <label for="full-name">Full Name</label>
@@ -44,15 +44,15 @@
 
             <div class="form-group">
                 <label for="project-goals">What are your main goals for this project?</label>
-                <textarea id="project-goals" name="project_goals" placeholder="Describe the primary objectives for your website"
-                    required></textarea>
+                <textarea id="project-goals" name="project_goals"
+                    placeholder="Describe the primary objectives for your website" required></textarea>
             </div>
 
             <div class="form-group">
                 <label>Do you have specific design preferences?</label>
                 <div class="options">
-                    <label><input type="radio" name="design_preference" value="yes" required> Yes</label>
-                    <label><input type="radio" name="design_preference" value="no" required> No</label>
+                    <label><input type="radio" name="design-preference" value="yes" required> Yes</label>
+                    <label><input type="radio" name="design-preference" value="no" required> No</label>
                 </div>
                 <div id="design-follow-up" class="conditional-question">
                     <label for="design-details">Please describe your design preferences in detail:</label>
@@ -70,8 +70,8 @@
             <div class="form-group">
                 <label>Do you need any special content functionality?</label>
                 <div class="options">
-                    <label><input type="radio" name="content_functionality" value="yes" required> Yes</label>
-                    <label><input type="radio" name="content_functionality" value="no" required> No</label>
+                    <label><input type="radio" name="content-functionality" value="yes" required> Yes</label>
+                    <label><input type="radio" name="content-functionality" value="no" required> No</label>
                 </div>
                 <div id="content-follow-up" class="conditional-question">
                     <label for="content-details">Please specify the special functionality required:</label>
@@ -108,9 +108,9 @@
 
             <div class="form-group">
                 <label>Preferred method of communication:</label>
-                <label><input type="radio" name="communication_method" value="email" required> Email</label>
-                <label><input type="radio" name="communication_method" value="phone" required> Phone</label>
-                <label><input type="radio" name="communication_method" value="video" required> Video Call</label>
+                <label><input type="radio" name="communication-method" value="email" required> Email</label>
+                <label><input type="radio" name="communication-method" value="phone" required> Phone</label>
+                <label><input type="radio" name="communication-method" value="video" required> Video Call</label>
             </div>
 
             <div class="form-group">
@@ -133,8 +133,7 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h2>Thank You!</h2>
-            <p id="modal-message">Your response has been successfully submitted. We will contact you via email within 24
-                hours.</p>
+            <p>Your response has been successfully submitted. We will contact you via email within 24 hours.</p>
         </div>
     </div>
 
@@ -199,7 +198,15 @@
         });
     </script>
 
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init({
+                publicKey: "m5cA-okHHGdZuWJoh", // ***IMPORTANT: Replace with your actual Public Key***
+            });
+        })();
+    </script>
+
     <script src="script.js"></script>
 </body>
 
