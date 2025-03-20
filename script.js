@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // DOM Elements
     const darkModeToggle = document.getElementById('darkModeToggle');
     const scrollToTopButton = document.getElementById('scrollToTop');
-    const contactForm = document.getElementById('contactForm');
+    const projectIntakeForm = document.getElementById('project-intake-form'); // Changed to projectIntakeForm
     const navLinks = document.querySelectorAll('nav a');
     const testimonialCarousel = document.querySelector('.testimonial-carousel');
     const prevBtn = document.getElementById('prevBtn');
@@ -98,16 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
     scrollToTopButton.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
-    // Contact Form Submission
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Add your form submission logic here (e.g., sending data to a server)
-            alert('Thank you for your message. We will get back to you soon!');
-            contactForm.reset();
-        });
-    }
 
     // Testimonial Carousel
     let currentTestimonial = 0;
@@ -279,103 +269,133 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-    // Project Intake Form Logic
-    document.addEventListener('DOMContentLoaded', function () {
-        // Select all the elements needed for conditional questions
-        const designPreferenceYes = document.querySelector('input[name="design-preference"][value="yes"]');
-        const designPreferenceNo = document.querySelector('input[name="design-preference"][value="no"]');
-        const designDetails = document.getElementById('design-details');
-        const contentFunctionalityYes = document.querySelector('input[name="content-functionality"][value="yes"]');
-        const contentFunctionalityNo = document.querySelector('input[name="content-functionality"][value="no"]');
-        const contentDetails = document.getElementById('content-details');
-    
-        // Modal elements
-        const modal = document.getElementById('success-modal');
-        const closeModalButton = document.querySelector('.close-btn');
-        const modalMessage = document.getElementById('modal-message');
-    
-        // Event listeners for toggling conditional questions
-        if(designPreferenceYes){
-            designPreferenceYes.addEventListener('change', function () {
-                toggleConditionalQuestion(this, designDetails);
-            });
+// Project Intake Form Logic
+document.addEventListener('DOMContentLoaded', function () {
+    // Select all the elements needed for conditional questions
+    const designPreferenceYes = document.querySelector('input[name="design_preference"][value="yes"]');
+    const designPreferenceNo = document.querySelector('input[name="design_preference"][value="no"]');
+    const designDetails = document.getElementById('design-details');
+    const contentFunctionalityYes = document.querySelector('input[name="content_functionality"][value="yes"]');
+    const contentFunctionalityNo = document.querySelector('input[name="content_functionality"][value="no"]');
+    const contentDetails = document.getElementById('content-details');
+
+    // Modal elements
+    const modal = document.getElementById('success-modal');
+    const closeModalButton = document.querySelector('.close-btn');
+    const modalMessage = document.getElementById('modal-message');
+
+    // Event listeners for toggling conditional questions
+    if (designPreferenceYes) {
+        designPreferenceYes.addEventListener('change', function () {
+            toggleConditionalQuestion(this, designDetails);
+        });
+    }
+    if (designPreferenceNo) {
+        designPreferenceNo.addEventListener('change', function () {
+            toggleConditionalQuestion(this, designDetails);
+        });
+    }
+
+    if (contentFunctionalityYes) {
+        contentFunctionalityYes.addEventListener('change', function () {
+            toggleConditionalQuestion(this, contentDetails);
+        });
+    }
+    if (contentFunctionalityNo) {
+        contentFunctionalityNo.addEventListener('change', function () {
+            toggleConditionalQuestion(this, contentDetails);
+        });
+    }
+
+    // Toggle the display of additional questions based on user input
+    function toggleConditionalQuestion(element, questionContainer) {
+        if (element.checked && element.value === 'yes') {
+            questionContainer.style.display = 'block';
+        } else {
+            questionContainer.style.display = 'none';
         }
-        if(designPreferenceNo){
-            designPreferenceNo.addEventListener('change', function () {
-                toggleConditionalQuestion(this, designDetails);
-            });
-        }
-    
-        if(contentFunctionalityYes){
-            contentFunctionalityYes.addEventListener('change', function () {
-                toggleConditionalQuestion(this, contentDetails);
-            });
-        }
-        if(contentFunctionalityNo){
-            contentFunctionalityNo.addEventListener('change', function () {
-                toggleConditionalQuestion(this, contentDetails);
-            });
-        }
-    
-        // Toggle the display of additional questions based on user input
-        function toggleConditionalQuestion(element, questionContainer) {
-            if (element.checked && element.value === 'yes') {
-                questionContainer.style.display = 'block';
-            } else {
-                questionContainer.style.display = 'none';
-            }
-        }
-    
-        // Form submission event listener
-        const form = document.getElementById('project-intake-form');
-        if(form){
-            form.addEventListener('submit', function (event) {
-                event.preventDefault(); // Prevent default form submission behavior
-                if (validateForm()) {
-                    showModal('Your response has been successfully submitted. We will contact you via email within 24 hours.');
-                }
-            });
-        }
-    
-        // Form validation function to ensure all required fields are filled out correctly
-        function validateForm() {
-            const requiredFields = form.querySelectorAll('[required]');
-            let allFieldsValid = true;
-    
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    allFieldsValid = false;
-                    field.classList.add('error');
-                } else {
-                    field.classList.remove('error');
-                }
-            });
-    
-            if (!allFieldsValid) {
-                alert('Please fill out all required fields.');
-            }
-    
-            return allFieldsValid;
-        }
-    
-        // Function to display the success or error modal
-        function showModal(message) {
-            if(modal && modalMessage){
-                modalMessage.innerText = message;
-                modal.style.display = 'flex';
-            }
-        }
-    
-        // Close the modal when clicking on the close button or outside the modal content
-        if(closeModalButton){
-            closeModalButton.addEventListener('click', function () {
-                modal.style.display = 'none';
-            });
-        }
-    
-        window.addEventListener('click', function (event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
+    }
+
+    // Form submission event listener
+    const form = document.getElementById('project-intake-form');
+    if (form) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            if (validateForm()) {
+                // EmailJS Integration
+                (function () {
+                    emailjs.init('m5cA-okHHGdZuWJoh'); // Use your Public Key here
+                })();
+
+                emailjs.send('service_xl3wr8l', 'template_z587bo4', { // Use your Service ID and Template ID here
+                    full_name: document.getElementById('full-name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    project_type: document.getElementById('project-type').value,
+                    project_goals: document.getElementById('project-goals').value,
+                    design_preference: document.querySelector('input[name="design_preference"]:checked') ? document.querySelector('input[name="design_preference"]:checked').value : '',
+                    design_details: document.getElementById('design-details').value,
+                    similar_projects: document.getElementById('similar-projects').value,
+                    content_functionality: document.querySelector('input[name="content_functionality"]:checked') ? document.querySelector('input[name="content_functionality"]:checked').value : '',
+                    content_details: document.getElementById('content-details').value,
+                    project_description: document.getElementById('project-description').value,
+                    budget: document.getElementById('budget').value,
+                    timeline: document.getElementById('timeline').value,
+                    communication_method: document.querySelector('input[name="communication_method"]:checked') ? document.querySelector('input[name="communication_method"]:checked').value : '',
+                    additional_notes: document.getElementById('additional-notes').value,
+                    additional_info: document.getElementById('additional-info').value,
+                })
+                    .then(function (response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        showModal('Your response has been successfully submitted. We will contact you via email within 24 hours.');
+                        form.reset(); // Reset the form after successful submission
+                    }, function (error) {
+                        console.error('FAILED...', error);
+                        showModal('Oops! Something went wrong. Please try again.');
+                    });
             }
         });
+    }
+
+    // Form validation function to ensure all required fields are filled out correctly
+    function validateForm() {
+        const requiredFields = form.querySelectorAll('[required]');
+        let allFieldsValid = true;
+
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                allFieldsValid = false;
+                field.classList.add('error');
+            } else {
+                field.classList.remove('error');
+            }
+        });
+
+        if (!allFieldsValid) {
+            alert('Please fill out all required fields.');
+        }
+
+        return allFieldsValid;
+    }
+
+    // Function to display the success or error modal
+    function showModal(message) {
+        if (modal && modalMessage) {
+            modalMessage.innerText = message;
+            modal.style.display = 'flex';
+        }
+    }
+
+    // Close the modal when clicking on the close button or outside the modal content
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+    }
+
+    window.addEventListener('click', function (event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
     });
+});

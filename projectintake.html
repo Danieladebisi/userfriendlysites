@@ -14,173 +14,116 @@
     <div id="header-placeholder"></div>
 
     <div class="container">
-        <h1>Project Intake Form</h1>
+        <h1>Project Details - Tell Us About Your Vision</h1>
         <form id="project-intake-form">
-            <section>
-                <h2>Contact Information</h2>
-                <div class="form-group">
-                    <label for="full-name">Your Full Name</label>
-                    <input type="text" id="full-name" name="full-name" placeholder="Enter your name" required>
-                </div>
+            <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full_name" placeholder="Your name" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="email">Your Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
-                </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Your email address" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="phone">Your Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-                </div>
-            </section>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+            </div>
 
-            <section>
-                <h2>Project Details</h2>
-                <div class="form-group">
-                    <label for="project-type">What type of project are you looking to build?</label>
-                    <select id="project-type" name="project-type" required>
-                        <option value="">Select project type...</option>
-                        <option value="e-commerce">E-commerce</option>
-                        <option value="blog">Blog</option>
-                        <option value="portfolio">Portfolio</option>
-                        <option value="custom">Custom</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="project-type">What type of project are you looking to build?</label>
+                <select id="project-type" name="project_type" required>
+                    <option value="">Select project type...</option>
+                    <option value="e-commerce">E-commerce</option>
+                    <option value="blog">Blog</option>
+                    <option value="portfolio">Portfolio</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="project-goals">What are your main goals for this project?</label>
-                    <textarea id="project-goals" name="project-goals"
-                        placeholder="Describe the primary objectives for your website" required></textarea>
-                </div>
+            <div class="form-group">
+                <label for="project-goals">What are your main goals for this project?</label>
+                <textarea id="project-goals" name="project_goals" placeholder="Describe the primary objectives for your website"
+                    required></textarea>
+            </div>
 
-                <div class="form-group">
-                    <label>Do you have specific design preferences?</label>
-                    <div class="options">
-                        <label><input type="radio" name="design-preference" value="yes" required> Yes</label>
-                        <label><input type="radio" name="design-preference" value="no" required> No</label>
-                    </div>
-                    <div id="design-follow-up" class="conditional-question">
-                        <label for="design-details">Please describe your design preferences in detail:</label>
-                        <textarea id="design-details" name="design-details"
-                            placeholder="Mention colors, style, layout, etc."></textarea>
-                    </div>
+            <div class="form-group">
+                <label>Do you have specific design preferences?</label>
+                <div class="options">
+                    <label><input type="radio" name="design_preference" value="yes" required> Yes</label>
+                    <label><input type="radio" name="design_preference" value="no" required> No</label>
                 </div>
-
-                <div class="form-group">
-                    <label for="similar-projects">Share links to websites you like (optional):</label>
-                    <textarea id="similar-projects" name="similar-projects"
-                        placeholder="Paste URLs of similar projects you like, separated by commas."></textarea>
+                <div id="design-follow-up" class="conditional-question">
+                    <label for="design-details">Please describe your design preferences in detail:</label>
+                    <textarea id="design-details" name="design_details"
+                        placeholder="Mention colors, style, layout, etc."></textarea>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label>Do you need any special content functionality?</label>
-                    <div class="options">
-                        <label><input type="radio" name="content-functionality" value="yes" required> Yes</label>
-                        <label><input type="radio" name="content-functionality" value="no" required> No</label>
-                    </div>
-                    <div id="content-follow-up" class="conditional-question">
-                        <label for="content-details">Please specify the special functionality required:</label>
-                        <textarea id="content-details" name="content-details"
-                            placeholder="e.g., user login, advanced search, custom plugins"></textarea>
-                    </div>
+            <div class="form-group">
+                <label for="similar-projects">Share links to websites you like (optional):</label>
+                <textarea id="similar-projects" name="similar_projects"
+                    placeholder="Paste URLs of similar projects you like, separated by commas."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Do you need any special content functionality?</label>
+                <div class="options">
+                    <label><input type="radio" name="content_functionality" value="yes" required> Yes</label>
+                    <label><input type="radio" name="content_functionality" value="no" required> No</label>
                 </div>
-
-                <div class="form-group">
-                    <label for="project-description">Please provide a brief description of your project:</label>
-                    <textarea id="project-description" name="project-description"
-                        placeholder="Describe your project"></textarea>
+                <div id="content-follow-up" class="conditional-question">
+                    <label for="content-details">Please specify the special functionality required:</label>
+                    <textarea id="content-details" name="content_details"
+                        placeholder="e.g., user login, advanced search, custom plugins"></textarea>
                 </div>
-            </section>
+            </div>
 
-            <section>
-                <h2>Budget and Timeline</h2>
-                <div class="form-group">
-                    <label for="budget">What is your budget range for this project?</label>
-                    <div class="input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" id="budget" name="budget" placeholder="Enter your budget">
-                    </div>
-                    <p>
-                        If you're not sure about your budget, you can use our
-                        <a href="#calculatorModal" id="openCalculator">website cost calculator</a>.
-                    </p>
+            <div class="form-group">
+                <label for="project-description">Please provide a brief description of your project:</label>
+                <textarea id="project-description" name="project_description" placeholder="Describe your project"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="budget">What is your budget range for this project?</label>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="text" id="budget" name="budget" placeholder="Enter your budget">
                 </div>
+                <p>If you're not sure about your budget, you can use our <a href="#calculatorModal"
+                        id="openCalculator">website cost calculator</a>.</p>
+            </div>
 
-                <div class="form-group">
-                    <label for="timeline">What is your desired timeline for completion?</label>
-                    <select id="timeline" name="timeline" required>
-                        <option value="">Select timeline...</option>
-                        <option value="1-3 months">1-3 months</option>
-                        <option value="3-6 months">3-6 months</option>
-                        <option value="6-12 months">6-12 months</option>
-                        <option value="Flexible">Flexible</option>
-                    </select>
-                </div>
-            </section>
+            <div class="form-group">
+                <label for="timeline">What is your desired timeline for completion?</label>
+                <select id="timeline" name="timeline" required>
+                    <option value="">Select timeline...</option>
+                    <option value="1-3 months">1-3 months</option>
+                    <option value="3-6 months">3-6 months</option>
+                    <option value="6-12 months">6-12 months</option>
+                    <option value="Flexible">Flexible</option>
+                </select>
+            </div>
 
-            <section>
-                <h2>Preferences and Additional Information</h2>
+            <div class="form-group">
+                <label>Preferred method of communication:</label>
+                <label><input type="radio" name="communication_method" value="email" required> Email</label>
+                <label><input type="radio" name="communication_method" value="phone" required> Phone</label>
+                <label><input type="radio" name="communication_method" value="video" required> Video Call</label>
+            </div>
 
-                <div class="form-group">
-                    <label>Preferred method of communication:</label>
-                    <select id="communication-method" name="communication-method" required>
-                        <option value="">Select option...</option>
-                        <option value="email">Email</option>
-                        <option value="phone">Phone</option>
-                        <option value="video">Video Call</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="additional-notes">Additional notes or comments:</label>
+                <textarea id="additional-notes" name="additional_notes"
+                    placeholder="Any other information you want to provide"></textarea>
+            </div>
 
-                <div class="form-group">
-                    <label for="services-needed">Services Needed</label>
-                    <div class="services-options">
-                        <label><input type="checkbox" name="services-needed" value="web-design"> Web Design</label>
-                        <label><input type="checkbox" name="services-needed" value="web-development"> Web
-                            Development</label>
-                        <label><input type="checkbox" name="services-needed" value="seo"> SEO</label>
-                        <label><input type="checkbox" name="services-needed" value="content-creation"> Content
-                            Creation</label>
-                        </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Importance of Design 
-                        <small>(1 - Not Important, 5 - Very Important)</small>
-                    </label>
-                    <div class="importance-scale">
-                        <label><input type="radio" name="importance-design" value="1"> 1</label>
-                        <label><input type="radio" name="importance-design" value="2"> 2</label>
-                        <label><input type="radio" name="importance-design" value="3"> 3</label>
-                        <label><input type="radio" name="importance-design" value="4"> 4</label>
-                        <label><input type="radio" name="importance-design" value="5"> 5</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Importance of Functionality 
-                         <small>(1 - Not Important, 5 - Very Important)</small>
-                    </label>
-                    <div class="importance-scale">
-                        <label><input type="radio" name="importance-functionality" value="1"> 1</label>
-                        <label><input type="radio" name="importance-functionality" value="2"> 2</label>
-                        <label><input type="radio" name="importance-functionality" value="3"> 3</label>
-                        <label><input type="radio" name="importance-functionality" value="4"> 4</label>
-                        <label><input type="radio" name="importance-functionality" value="5"> 5</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="additional-notes">Additional notes or comments:</label>
-                    <textarea id="additional-notes" name="additional-notes"
-                        placeholder="Any other information you want to provide"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="additional-info">Any additional information you would like to provide?</label>
-                    <textarea id="additional-info" name="additional-info"
-                        placeholder="Share any extra details or requirements"></textarea>
-                </div>
-            </section>
+            <div class="form-group">
+                <label for="additional-info">Any additional information you would like to provide?</label>
+                <textarea id="additional-info" name="additional_info"
+                    placeholder="Share any extra details or requirements"></textarea>
+            </div>
 
             <button type="submit" class="submit-btn">Submit</button>
         </form>
@@ -190,7 +133,8 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h2>Thank You!</h2>
-            <p>Your response has been successfully submitted. We will contact you via email within 24 hours.</p>
+            <p id="modal-message">Your response has been successfully submitted. We will contact you via email within 24
+                hours.</p>
         </div>
     </div>
 
@@ -237,7 +181,6 @@
 
     <div id="footer-placeholder"></div>
 
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
         // Function to load external HTML into an element
         function loadHTML(elementId, url) {
@@ -256,6 +199,7 @@
         });
     </script>
 
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script src="script.js"></script>
 </body>
 
