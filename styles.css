@@ -1,4 +1,36 @@
-:root {
+/* ==========================================================================
+   Table of Contents
+   ==========================================================================
+
+   1.  Global Styles
+   2.  Typography
+   3.  Header
+   4.  Hero Section
+   5.  Services Section
+   6.  Portfolio Section
+   7.  Testimonials Section
+   8.  Contact Section
+   9.  Calculator Styles
+   10. Footer
+   11. Scroll to Top Button
+   12. Dark Mode
+   13. Modals
+   14. Why Website Section
+   15. Social Icons
+   16. Project Intake Form Styles
+   17. Animations
+   18. Media Queries
+       18.1  General Mobile Styles
+       18.2  Portfolio Grid Mobile Styles
+       18.3  Services and Contact Mobile Styles
+       18.4  Project Intake Form Mobile Styles
+   ========================================================================== */
+
+/* ==========================================================================
+   1. Global Styles
+   ========================================================================== */
+
+   :root {
     --primary-color: #591BC5;
     --secondary-color: #FC415A;
     --text-color: #212335;
@@ -6,20 +38,68 @@
     --accent-color: #ffde59;
 }
 
-body {
-    font-family: 'Josefin Sans', sans-serif;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+html {
     scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
     color: var(--text-color);
     background-color: var(--background-color);
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .container-fluid {
     width: 100%;
-    overflow-x: hidden;
 }
+
+/* ==========================================================================
+   2. Typography
+   ========================================================================== */
+
+h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    font-size: 2.5em;
+    margin-bottom: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+/* ==========================================================================
+   3. Header
+   ========================================================================== */
 
 header {
     position: fixed;
@@ -29,7 +109,7 @@ header {
     z-index: 1000;
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px); /* Adds a blur effect for a clean modern look */
+    backdrop-filter: blur(10px);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -38,27 +118,27 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 5%;
-    transition: padding 0.3s ease; /* Smooth padding adjustment for scroll effect */
+    transition: padding 0.3s ease;
 }
 
 .logo img {
     height: 50px;
     width: auto;
-    transition: transform 0.3s ease; /* Smooth transition for logo scale on scroll */
+    transition: transform 0.3s ease;
 }
 
 /* Shrink effect on scroll */
 header.scrolled {
-    background-color: rgba(255, 255, 255, 0.95); /* Darken the header slightly */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhance shadow for a more prominent effect */
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 header.scrolled nav {
-    padding: 0.5rem 5%; /* Reduce padding when scrolled */
+    padding: 0.5rem 5%;
 }
 
 header.scrolled .logo img {
-    transform: scale(0.9); /* Slightly shrink the logo */
+    transform: scale(0.9);
 }
 
 .nav-links {
@@ -71,15 +151,8 @@ header.scrolled .logo img {
 }
 
 .nav-links a {
-    text-decoration: none;
-    color: #333;
     font-weight: bold;
-    transition: color 0.3s ease, border-bottom 0.3s ease; /* Smooth color and underline effect */
     position: relative;
-}
-
-.nav-links a:hover {
-    color: #591BC5; /* Highlight color on hover */
 }
 
 .nav-links a::before {
@@ -89,12 +162,12 @@ header.scrolled .logo img {
     height: 2px;
     bottom: -2px;
     left: 0;
-    background-color: #ffde59; /* Add underline effect on hover */
+    background-color: var(--accent-color);
     transition: width 0.3s ease;
 }
 
 .nav-links a:hover::before {
-    width: 100%; /* Underline grows on hover */
+    width: 100%;
 }
 
 .menu-toggle {
@@ -103,48 +176,27 @@ header.scrolled .logo img {
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #591BC5;
+    color: var(--primary-color);
     transition: color 0.3s ease;
     margin-left: auto;
 }
 
 .menu-toggle:hover {
-    color: #ffde59;
-}
-
-/* Mobile Navigation */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease; /* Smooth transition for mobile menu */
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links li {
-        margin: 1rem 0;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
+    color: var(--accent-color);
 }
 
 /* Dark mode logo handling */
-.logo-dark { display: none; }
-.dark-mode .logo-light { display: none; }
-.dark-mode .logo-dark { display: block; }
+.logo-dark {
+    display: none;
+}
 
+.dark-mode .logo-light {
+    display: none;
+}
+
+.dark-mode .logo-dark {
+    display: block;
+}
 
 #darkModeToggle {
     background: none;
@@ -154,6 +206,10 @@ header.scrolled .logo img {
     color: var(--text-color);
 }
 
+/* ==========================================================================
+   4. Hero Section
+   ========================================================================== */
+
 .hero {
     position: relative;
     height: 100vh;
@@ -161,6 +217,9 @@ header.scrolled .logo img {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    text-align: center;
+    color: #fff;
+    padding: 2rem;
 }
 
 .hero-background {
@@ -175,19 +234,12 @@ header.scrolled .logo img {
 }
 
 .hero-content {
-    text-align: center;
-    color: #fff;
     z-index: 1;
     max-width: 800px;
-    padding: 2rem;
 }
 
 .hero h1 {
     color: #fff;
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .hero-subheadline {
@@ -203,6 +255,7 @@ header.scrolled .logo img {
 }
 
 .btn {
+    display: inline-block;
     padding: 1rem 2rem;
     font-size: 1.2rem;
     font-weight: 600;
@@ -226,46 +279,98 @@ header.scrolled .logo img {
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .cube {
     position: absolute;
     width: 60px;
     height: 60px;
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     transform-origin: center;
     animation: cube 20s linear infinite;
 }
 
-.cube:nth-child(1) { top: 10%; left: 10%; }
-.cube:nth-child(2) { top: 70%; left: 20%; animation-delay: -5s; }
-.cube:nth-child(3) { top: 30%; left: 80%; animation-delay: -10s; }
-.cube:nth-child(4) { top: 90%; left: 90%; animation-delay: -15s; }
-.cube:nth-child(5) { top: 50%; left: 50%; animation-delay: -7s; }
-.cube:nth-child(6) { top: 20%; left: 60%; animation-delay: -12s; }
-.cube:nth-child(7) { top: 80%; left: 40%; animation-delay: -3s; }
-.cube:nth-child(8) { top: 40%; left: 30%; animation-delay: -8s; }
+.cube:nth-child(1) {
+    top: 10%;
+    left: 10%;
+}
+
+.cube:nth-child(2) {
+    top: 70%;
+    left: 20%;
+    animation-delay: -5s;
+}
+
+.cube:nth-child(3) {
+    top: 30%;
+    left: 80%;
+    animation-delay: -10s;
+}
+
+.cube:nth-child(4) {
+    top: 90%;
+    left: 90%;
+    animation-delay: -15s;
+}
+
+.cube:nth-child(5) {
+    top: 50%;
+    left: 50%;
+    animation-delay: -7s;
+}
+
+.cube:nth-child(6) {
+    top: 20%;
+    left: 60%;
+    animation-delay: -12s;
+}
+
+.cube:nth-child(7) {
+    top: 80%;
+    left: 40%;
+    animation-delay: -3s;
+}
+
+.cube:nth-child(8) {
+    top: 40%;
+    left: 30%;
+    animation-delay: -8s;
+}
 
 @keyframes cube {
-    0% { transform: rotate(0deg) scale(1); opacity: 1; }
-    100% { transform: rotate(360deg) scale(0); opacity: 0; }
+    0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: rotate(360deg) scale(0);
+        opacity: 0;
+    }
 }
 
 @keyframes Gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
-.services, .portfolio, .testimonials, .contact {
+/* ==========================================================================
+   5. Services Section
+   ========================================================================== */
+
+.services {
     padding: 5rem 0;
     text-align: center;
-}
-
-.services h2, .portfolio h2, .testimonials h2, .contact h2 {
-    font-size: 2.5em;
-    margin-bottom: 2rem;
 }
 
 .service-grid {
@@ -279,14 +384,13 @@ header.scrolled .logo img {
     background: #fff;
     border-radius: 15px;
     padding: 2rem;
-    text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .service-box:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 .service-icon {
@@ -310,22 +414,19 @@ header.scrolled .logo img {
     background-color: var(--secondary-color);
 }
 
-/* Portfolio Section */
+/* ==========================================================================
+   6. Portfolio Section
+   ========================================================================== */
+
 .portfolio {
     padding: 4rem 0;
     text-align: center;
     background-color: #f8f9fc;
 }
 
-.portfolio h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2.5rem;
-    color: #212335;
-}
-
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -344,7 +445,7 @@ header.scrolled .logo img {
 .portfolio-item img {
     width: 100%;
     height: auto;
-    object-fit: contain; /* Ensures no cropping of the images */
+    object-fit: contain;
 }
 
 .portfolio-item:hover {
@@ -385,13 +486,13 @@ header.scrolled .logo img {
 
 /* Hidden projects */
 .hidden {
-    display: none; /* Hidden projects will be shown when "Show More" is clicked */
+    display: none;
 }
 
 .show-more-btn {
     margin-top: 2rem;
     padding: 0.8rem 2rem;
-    background-color: #212335; /* Button background color */
+    background-color: #212335;
     color: #ffffff;
     border: none;
     border-radius: 5px;
@@ -402,51 +503,23 @@ header.scrolled .logo img {
 
 .show-more-btn:hover {
     background-color: #114070;
-    transform: translateY(-3px); /* Button hover effect */
+    transform: translateY(-3px);
 }
 
 /* Ensure that after showing more projects, grid layout is maintained with 3 items per row */
 .portfolio-grid.show-all {
-    grid-template-columns: repeat(3, 1fr); /* Still 3 columns per row */
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
 
-/* Responsive Design (for mobile) */
-@media (max-width: 768px) {
-    .portfolio-grid {
-        grid-template-columns: 1fr; /* Stack items on mobile for better view */
-    }
-}
-
-
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    padding: 0 5%;
-}
-
-.portfolio-item {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-}
-
-.portfolio-item:hover {
-    transform: scale(1.05);
-}
+/* ==========================================================================
+   7. Testimonials Section
+   ========================================================================== */
 
 .testimonials {
     padding: 5rem 0;
     text-align: center;
     background-color: #f9f9f9;
-}
-
-.testimonials h2 {
-    font-size: 2.5em;
-    margin-bottom: 2rem;
 }
 
 .testimonial-carousel {
@@ -477,7 +550,7 @@ header.scrolled .logo img {
     height: 100px;
     border-radius: 50%;
     margin-bottom: 1rem;
-    object-fit: cover; /* Ensures the image is cropped to fit the dimensions */
+    object-fit: cover;
 }
 
 .testimonial-content {
@@ -505,12 +578,19 @@ header.scrolled .logo img {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
+/* ==========================================================================
+   8. Contact Section
+   ========================================================================== */
+
+.contact {
+    padding: 5rem 0;
+    text-align: center;
+}
 
 .contact form {
     max-width: 600px;
     margin: 0 auto;
 }
-
 .contact input,
 .contact textarea {
     width: 100%;
@@ -983,46 +1063,6 @@ footer {
     }
 }
 
-
-/* Project intake Styles  */
-/* Project intake Styles  */
-/* Project intake Styles  */
-/* Project intake Styles  */
-/* Project intake Styles  */
-/* Project intake Styles  */
-/* File: styles.css */
-
-/* Global Styles */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #EFEEF5; /* Soft background color */
-    color: #212335; /* Dark base color */
-}
-
-.container {
-    max-width: 900px;
-    margin: 100px auto 50px; /* Added top margin to push content down */
-    background: #ffffff;
-    padding: 40px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    border-top: 10px solid #591BC5; /* Bold top accent */
-}
-
-/* Form Heading */
-h1 {
-    text-align: center;
-    color: #591BC5; /* Primary heading color */
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-}
-
-/* Form Group Styling */
-.form-group {
-    margin-bottom: 25px;
-}
 
 /* Project intake Styles  */
 /* Project intake Styles  */
