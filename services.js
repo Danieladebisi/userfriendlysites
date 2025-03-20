@@ -33,7 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', () => {
         const parallax = document.querySelector('.parallax');
         let scrollPosition = window.pageYOffset;
-        parallax.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+        if(parallax){
+            parallax.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+        }
     });
 
     // Animate service cards on scroll
@@ -54,7 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let hue = 0;
     setInterval(() => {
         hue = (hue + 1) % 360;
-        ctaButton.style.backgroundColor = `hsl(${hue}, 70%, 50%)`;
+        if(ctaButton){
+            ctaButton.style.backgroundColor = `hsl(${hue}, 70%, 50%)`;
+        }
     }, 100);
 
     // Typing effect for hero section
@@ -63,9 +67,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let i = 0;
     function typeWriter() {
         if (i < heroText.length) {
-            heroP.innerHTML += heroText.charAt(i);
-            i++;
-            setTimeout(typeWriter, 50);
+            if(heroP){
+                heroP.innerHTML += heroText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
         }
     }
     typeWriter();
@@ -101,7 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, { threshold: 0.5 });
 
-    whyChooseUsObserver.observe(whyChooseUs);
+    if(whyChooseUs){
+        whyChooseUsObserver.observe(whyChooseUs);
+    }
 
     // Add hover effect to service cards
     const serviceCards = document.querySelectorAll('.service-card');
