@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // DOM Elements
     const darkModeToggle = document.getElementById('darkModeToggle');
     const scrollToTopButton = document.getElementById('scrollToTop');
-    const projectIntakeForm = document.getElementById('project-intake-form'); // Changed to projectIntakeForm
+    const projectIntakeForm = document.getElementById('project-intake-form');
     const navLinks = document.querySelectorAll('nav a');
     const testimonialCarousel = document.querySelector('.testimonial-carousel');
     const prevBtn = document.getElementById('prevBtn');
@@ -27,9 +27,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function typeText() {
         if (charIndex < texts[textIndex].length) {
-            textAnimation.textContent += texts[textIndex].charAt(charIndex);
-            charIndex++;
-            setTimeout(typeText, 100);
+            if (textAnimation) {
+                textAnimation.textContent += texts[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeText, 100);
+            }
         } else {
             setTimeout(eraseText, 2000);
         }
@@ -37,9 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function eraseText() {
         if (charIndex > 0) {
-            textAnimation.textContent = texts[textIndex].substring(0, charIndex - 1);
-            charIndex--;
-            setTimeout(eraseText, 50);
+            if (textAnimation) {
+                textAnimation.textContent = texts[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(eraseText, 50);
+            }
         } else {
             textIndex = (textIndex + 1) % texts.length;
             setTimeout(typeText, 500);
@@ -102,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Testimonial Carousel
     let currentTestimonial = 0;
     const testimonials = document.querySelectorAll('.testimonial-box');
-    const carouselInterval = 5000; // Time between testimonial transitions (ms)
+    const carouselInterval = 5000;
     let carouselTimeout;
     let isCarouselTransitioning = false;
 
@@ -118,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         setTimeout(() => {
             isCarouselTransitioning = false;
-        }, 500); // Adjust to match CSS transition
+        }, 500);
     }
 
     function nextTestimonial() {
@@ -151,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function () {
             nextTestimonial();
         });
 
-        // Initialize the first testimonial and start the carousel
         showTestimonial(currentTestimonial);
         startCarousel();
     }
@@ -183,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let cost = 0;
 
-        // Base cost based on website type
         switch (websiteType) {
             case 'basic':
                 cost += 500;
@@ -202,10 +204,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 break;
         }
 
-        // Additional cost based on number of pages
         cost += pages * 50;
 
-        // Additional cost based on selected features
         features.forEach(feature => {
             switch (feature.value) {
                 case 'seo':
@@ -229,7 +229,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Display the result
         document.getElementById('cost-result').innerText = `Estimated Cost: $${cost}`;
         document.getElementById('contact-us').style.display = "block";
     }
@@ -241,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
             hiddenItems.forEach(item => {
                 item.classList.remove('hidden');
             });
-            this.style.display = 'none'; // Hide the "Show More" button after clicking
+            this.style.display = 'none';
         });
     }
 
@@ -271,20 +270,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Project Intake Form Logic
 document.addEventListener('DOMContentLoaded', function () {
-    // Select all the elements needed for conditional questions
-    const designPreferenceYes = document.querySelector('input[name="design_preference"][value="yes"]');
-    const designPreferenceNo = document.querySelector('input[name="design_preference"][value="no"]');
+    // Select conditional question elements
+    const designPreferenceYes = document.querySelector('input[name="design-preference"][value="yes"]');
+    const designPreferenceNo = document.querySelector('input[name="design-preference"][value="no"]');
     const designDetails = document.getElementById('design-details');
-    const contentFunctionalityYes = document.querySelector('input[name="content_functionality"][value="yes"]');
-    const contentFunctionalityNo = document.querySelector('input[name="content_functionality"][value="no"]');
+    const contentFunctionalityYes = document.querySelector('input[name="content-functionality"][value="yes"]');
+    const contentFunctionalityNo = document.querySelector('input[name="content-functionality"][value="no"]');
     const contentDetails = document.getElementById('content-details');
 
-    // Modal elements
+    // Select modal elements
     const modal = document.getElementById('success-modal');
     const closeModalButton = document.querySelector('.close-btn');
     const modalMessage = document.getElementById('modal-message');
 
-    // Event listeners for toggling conditional questions
+    // Event listeners for conditional questions
     if (designPreferenceYes) {
         designPreferenceYes.addEventListener('change', function () {
             toggleConditionalQuestion(this, designDetails);
@@ -307,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Toggle the display of additional questions based on user input
+    // Toggle conditional questions
     function toggleConditionalQuestion(element, questionContainer) {
         if (element.checked && element.value === 'yes') {
             questionContainer.style.display = 'block';
@@ -320,12 +319,33 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('project-intake-form');
     if (form) {
         form.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent default form submission behavior
+            event.preventDefault();
+
             if (validateForm()) {
                 // EmailJS Integration
                 (function () {
                     emailjs.init('m5cA-okHHGdZuWJoh'); // Use your Public Key here
                 })();
+
+                // Log form data
+                console.log("Form Data:", {
+                    full_name: document.getElementById('full-name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    project_type: document.getElementById('project-type').value,
+                    project_goals: document.getElementById('project-goals').value,
+                    design_preference: document.querySelector('input[name="design-preference"]:checked') ? document.querySelector('input[name="design-preference"]:checked').value : '',
+                    design_details: document.getElementById('design-details').value,
+                    similar_projects: document.getElementById('similar-projects').value,
+                    content_functionality: document.querySelector('input[name="content-functionality"]:checked') ? document.querySelector('input[name="content-functionality"]:checked').value : '',
+                    content_details: document.getElementById('content-details').value,
+                    project_description: document.getElementById('project-description').value,
+                    budget: document.getElementById('budget').value,
+                    timeline: document.getElementById('timeline').value,
+                    communication_method: document.querySelector('input[name="communication-method"]:checked') ? document.querySelector('input[name="communication-method"]:checked').value : '',
+                    additional_notes: document.getElementById('additional-notes').value,
+                    additional_info: document.getElementById('additional-info').value,
+                });
 
                 emailjs.send('service_xl3wr8l', 'template_z587bo4', { // Use your Service ID and Template ID here
                     full_name: document.getElementById('full-name').value,
@@ -333,22 +353,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     phone: document.getElementById('phone').value,
                     project_type: document.getElementById('project-type').value,
                     project_goals: document.getElementById('project-goals').value,
-                    design_preference: document.querySelector('input[name="design_preference"]:checked') ? document.querySelector('input[name="design_preference"]:checked').value : '',
+                    design_preference: document.querySelector('input[name="design-preference"]:checked') ? document.querySelector('input[name="design-preference"]:checked').value : '',
                     design_details: document.getElementById('design-details').value,
                     similar_projects: document.getElementById('similar-projects').value,
-                    content_functionality: document.querySelector('input[name="content_functionality"]:checked') ? document.querySelector('input[name="content_functionality"]:checked').value : '',
+                    content_functionality: document.querySelector('input[name="content-functionality"]:checked') ? document.querySelector('input[name="content-functionality"]:checked').value : '',
                     content_details: document.getElementById('content-details').value,
                     project_description: document.getElementById('project-description').value,
                     budget: document.getElementById('budget').value,
                     timeline: document.getElementById('timeline').value,
-                    communication_method: document.querySelector('input[name="communication_method"]:checked') ? document.querySelector('input[name="communication_method"]:checked').value : '',
+                    communication_method: document.querySelector('input[name="communication-method"]:checked') ? document.querySelector('input[name="communication-method"]:checked').value : '',
                     additional_notes: document.getElementById('additional-notes').value,
                     additional_info: document.getElementById('additional-info').value,
                 })
                     .then(function (response) {
                         console.log('SUCCESS!', response.status, response.text);
                         showModal('Your response has been successfully submitted. We will contact you via email within 24 hours.');
-                        form.reset(); // Reset the form after successful submission
+                        form.reset();
                     }, function (error) {
                         console.error('FAILED...', error);
                         showModal('Oops! Something went wrong. Please try again.');
@@ -357,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Form validation function to ensure all required fields are filled out correctly
+    // Validate the form
     function validateForm() {
         const requiredFields = form.querySelectorAll('[required]');
         let allFieldsValid = true;
@@ -378,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return allFieldsValid;
     }
 
-    // Function to display the success or error modal
+    // Show the modal
     function showModal(message) {
         if (modal && modalMessage) {
             modalMessage.innerText = message;
@@ -386,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Close the modal when clicking on the close button or outside the modal content
+    // Close the modal
     if (closeModalButton) {
         closeModalButton.addEventListener('click', function () {
             modal.style.display = 'none';
