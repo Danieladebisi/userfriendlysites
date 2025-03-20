@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HTY0GLMD2"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,16 +14,12 @@
     <meta name="description" content="User Friendly Sites offers professional web design and development services to help businesses establish a strong online presence.">
     <meta name="keywords" content="best web design, most reliable web development, top SEO services, best responsive design, leading e-commerce solutions, expert content strategy, top UI/UX design, most effective digital marketing, best website maintenance, professional website management, best WordPress development, custom web solutions, local SEO experts, best technical SEO services, top web agency in Connecticut, best web agency in Groton, web agency in Hartford, most trusted web agency in New Haven, best web design company in Stamford, top web development in Bridgeport, reliable website services in Waterbury, best web design near Norwalk, most effective digital marketing in Danbury, expert search engine optimization in New London, best website redesign in Greenwich, professional web services in Fairfield, top SEO experts in Meriden, best mobile-friendly design, most efficient PPC advertising, social media marketing experts, reliable web hosting, best CMS development, leading search engine optimization, top website redesign services, best professional web services, best business website development, most effective content marketing, best ecommerce web design, top small business web solutions, Connecticut's best web developers, best Groton web design services, Hartford's most reliable website optimization, New Haven's top SEO services, best Stamford digital marketing, leading Bridgeport website development, most responsive design in Waterbury, Norwalk's top web solutions, best UI/UX design in Danbury, best local web agency in Connecticut, most reliable website design for small businesses, best digital marketing agency in Connecticut, top web developers in Connecticut, user friendly website, user friendly website design, best user friendly websites, most user friendly website, a user friendly website, creating a user friendly website, customer friendly website, friendly user website, site user friendly, the most user friendly websites, top user friendly websites, ux friendly websites, mobile friendly page, mobile friendly site, website that is mobile friendly, seo friendly page, seo friendly site, seo friendly website, mobile friendly wordpress, making your website mobile friendly">
 
-
-
     <meta name="author" content="User Friendly Sites">
     <meta property="og:title" content="User Friendly Sites - Web Design & Development">
     <meta property="og:description" content="Professional web design and development services to help businesses establish a strong online presence.">
     <meta property="og:title" content="User Friendly Sites - Professional Web Design & Development Services">
     <meta property="og:description" content="Discover comprehensive web design, development, and SEO solutions with User Friendly Sites. We create tailored, responsive websites that drive engagement and growth.">
-    <meta property="og:image" content="https://drive.google.com/file/d/1FDF0XuwWSmupEsDlNIYB97rgQ2yJ_Et7/view?usp=sharing"> <!-- Replace with actual image URL -->
-    <meta property="og:url" content="https://userfriendlysites.com"> <!-- Replace with your actual site URL -->
-    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://drive.google.com/file/d/1FDF0XuwWSmupEsDlNIYB97rgQ2yJ_Et7/view?usp=sharing"> <meta property="og:url" content="https://userfriendlysites.com"> <meta property="og:type" content="website">
     <meta property="og:site_name" content="User Friendly Sites">
     <meta property="og:locale" content="en_US">
     <title>User Friendly Sites - Web Design & Development</title>
@@ -79,8 +74,6 @@
             </div>
         </section>
 
-        <!-- Calculator  -->
-        <!-- Website Calculator Modal -->
         <div id="calculatorModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -90,7 +83,7 @@
                         <label for="website-type">Type of Website:</label>
                         <select id="website-type" name="website-type">
                             <option value="basic">Basic</option>
-                            <option value="ecommerce">E-commerce</option>
+                            <option value="e-commerce">E-commerce</option>
                             <option value="blog">Blog</option>
                             <option value="portfolio">Portfolio</option>
                             <option value="custom">Custom</option>
@@ -122,7 +115,7 @@
                             <label for="feature-analytics">Analytics Integration</label>
                         </div>
                         <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-ecommerce" name="features" value="ecommerce">
+                            <input type="checkbox" id="feature-e-commerce" name="features" value="e-commerce">
                             <label for="feature-ecommerce">E-commerce Functionality</label>
                         </div>
                         <div class="feature-checkbox">
@@ -201,7 +194,6 @@
         <section id="portfolio" class="portfolio">
             <h2>Our Portfolio</h2>
             <div class="portfolio-grid">
-                <!-- First 3 projects (visible by default) -->
                 <div class="portfolio-item">
                     <a href="./images/anikeolaschools.png" data-lightbox="portfolio" data-title="Anikeola Schools">
                         <img src="./images/anikeolaschools.png" alt="Anikeola Schools">
@@ -227,7 +219,6 @@
                     </a>
                 </div>
         
-                <!-- Hidden projects (will be shown on button click) -->
                 <div class="portfolio-item hidden">
                     <a href="./images/savingstarget.png" data-lightbox="portfolio" data-title="Savings Target">
                         <img src="./images/savingstarget.png" alt="Savings Target">
@@ -254,11 +245,9 @@
                 </div>
             </div>
         
-            <!-- More button -->
             <button id="show-more" class="show-more-btn">Show More</button>
         </section>
         
-        <!-- Lightbox Plugin Script -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
         
@@ -286,7 +275,6 @@
                         <h4>- Jonathan Santos, Media Director, Lifehouse Church</h4>
                     </div>
                 </div>
-                <!-- Add more testimonials here -->
                 <div class="testimonial-box">
                     <img src="client4.jpg" alt="Client 4" class="client-image">
                     <div class="testimonial-content">
@@ -301,44 +289,42 @@
                         <h4>- Alexis, Marketing Director, Tech Mansion</h4>
                     </div>
                 </div>
+                <div class="carousel-controls">
+                    <button id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+    
+            <section id="contact" class="contact">
+                <h2>Contact Us</h2>
+                <form id="contactForm">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </section>
+        </main>
+    
+        <footer class="footer">
+            <p>&copy; 2024 User Friendly Sites. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
             </div>
-            <div class="carousel-controls">
-                <button id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-                <button id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </section>
-
-        <section id="contact" class="contact">
-            <h2>Contact Us</h2>
-            <form id="contactForm">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2024 User Friendly Sites. All rights reserved.</p>
-        <div class="social-icons">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </footer>
+    
+        <button id="scrollToTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    
+        <div id="calculatorModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Website Calculator</h2>
+                </div>
         </div>
-    </footer>
-
-    <button id="scrollToTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
-
-    <div id="calculatorModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Website Calculator</h2>
-            <!-- Add your calculator form here -->
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    
+        <script src="script.js"></script>
+    </body>
+    </html>
