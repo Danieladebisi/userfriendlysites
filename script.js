@@ -1,466 +1,436 @@
-// script.js
+/**
+ * ==========================================================================
+ * Table of Contents
+ * ==========================================================================
+ *
+ * 1.  Core DOM Ready Event Listener & Initializers
+ * 2.  UI Enhancements
+ * - Dark Mode
+ * - Mobile Navigation
+ * - Scroll to Top Button
+ * - Animate on Scroll (Intersection Observer)
+ * 3.  Interactive Components
+ * - Testimonial Carousel
+ * - FAQ Accordion
+ * - "Show More" for Portfolio
+ * - Hero Text Animation
+ * 4.  Three.js Hero Animation
+ * 5.  Website Calculator Wizard Logic
+ * - Element Caching
+ * - Step Navigation
+ * - Input Handling (Selection Cards)
+ * - Cost Calculation Engine
+ * - Quote Submission (EmailJS)
+ * 6.  Contact Form Submission
+ * 7.  Utility Functions
+ *
+ * ==========================================================================
+ */
 
-document.addEventListener('DOMContentLoaded', function () {
-    // DOM Elements
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- 1. Run All Initializers on Page Load ---
+    setupDarkMode();
+    setupMobileNav();
+    setupScrollToTop();
+    setupScrollAnimations();
+    setupTestimonialCarousel();
+    setupFaqAccordion();
+    setupShowMore();
+    setupHeroAnimation();
+    initHeroAnimation();
+    initCalculatorWizard();
+    setupContactForm();
+});
+
+
+/* ==========================================================================
+   2. UI Enhancements
+   ========================================================================== */
+
+function setupDarkMode() {
     const darkModeToggle = document.getElementById('darkModeToggle');
-    const scrollToTopButton = document.getElementById('scrollToTop');
-    const projectIntakeForm = document.getElementById('project-intake-form');
-    const navLinks = document.querySelectorAll('nav a');
-    const testimonialCarousel = document.querySelector('.testimonial-carousel');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const textAnimation = document.getElementById('text-animation');
-    const modal = document.getElementById('calculatorModal');
-    const closeModalButton = document.querySelector('.close');
-    const showMoreBtn = document.getElementById('show-more');
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinksContainer = document.querySelector('.nav-links');
-
-    // Hero Text Animation
-    const texts = [
-        "We Create Stunning Websites",
-        "We Boost Your Online Presence",
-        "We Drive Results for Your Business"
-    ];
-    let textIndex = 0;
-    let charIndex = 0;
-
-    function typeText() {
-        if (charIndex < texts[textIndex].length) {
-            if (textAnimation) {
-                textAnimation.textContent += texts[textIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(typeText, 100);
-            }
-        } else {
-            setTimeout(eraseText, 2000);
-        }
+    if (!darkModeToggle) return;
+    
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (localStorage.getItem('darkMode') === 'true' || (localStorage.getItem('darkMode') === null && prefersDark)) {
+        document.body.classList.add('dark-mode');
+        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
     }
 
-    function eraseText() {
-        if (charIndex > 0) {
-            if (textAnimation) {
-                textAnimation.textContent = texts[textIndex].substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(eraseText, 50);
-            }
-        } else {
-            textIndex = (textIndex + 1) % texts.length;
-            setTimeout(typeText, 500);
-        }
-    }
-
-    // Start the hero text animation
-    if(textAnimation) {
-        typeText();
-    }
-
-
-    // Smooth scrolling for navigation
-    window.scrollToSection = function (id) {
-        const targetElement = document.getElementById(id);
-        if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-    }
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            scrollToSection(targetId);
-            // Close mobile menu after clicking a link
-            if (navLinksContainer.classList.contains('active')) {
-                navLinksContainer.classList.remove('active');
-            }
-        });
-    });
-
-    // Dark Mode Toggle
-    function toggleDarkMode() {
+    darkModeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
         const isDarkMode = document.body.classList.contains('dark-mode');
         localStorage.setItem('darkMode', isDarkMode);
         darkModeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-    }
-
-    darkModeToggle.addEventListener('click', toggleDarkMode);
-
-    // Check for saved dark mode preference
-    if (localStorage.getItem('darkMode') === 'true') {
-        toggleDarkMode();
-    }
-
-    // Scroll to Top Button
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            scrollToTopButton.style.display = 'block';
-        } else {
-            scrollToTopButton.style.display = 'none';
-        }
     });
+}
 
+function setupMobileNav() {
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (!menuToggle || !navLinks) return;
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+}
+
+function setupScrollToTop() {
+    const scrollToTopButton = document.getElementById('scrollToTop');
+    if (!scrollToTopButton) return;
+
+    window.addEventListener('scroll', () => {
+        scrollToTopButton.style.display = (window.pageYOffset > 300) ? 'block' : 'none';
+    });
     scrollToTopButton.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+}
 
-    // Testimonial Carousel
-    let currentTestimonial = 0;
-    const testimonials = document.querySelectorAll('.testimonial-box');
-    const carouselInterval = 5000;
-    let carouselTimeout;
-    let isCarouselTransitioning = false;
-
-    function showTestimonial(index) {
-        if (isCarouselTransitioning) return;
-        isCarouselTransitioning = true;
-
-        testimonials.forEach((testimonial) => {
-            testimonial.classList.remove('active');
-        });
-
-        testimonials[index].classList.add('active');
-
-        setTimeout(() => {
-            isCarouselTransitioning = false;
-        }, 500);
-    }
-
-    function nextTestimonial() {
-        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-        showTestimonial(currentTestimonial);
-        resetCarouselTimer();
-    }
-
-    function prevTestimonial() {
-        currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
-        showTestimonial(currentTestimonial);
-        resetCarouselTimer();
-    }
-
-    function startCarousel() {
-        carouselTimeout = setTimeout(nextTestimonial, carouselInterval);
-    }
-
-    function resetCarouselTimer() {
-        clearTimeout(carouselTimeout);
-        startCarousel();
-    }
-
-    if (prevBtn && nextBtn && testimonialCarousel) {
-        prevBtn.addEventListener('click', () => {
-            prevTestimonial();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            nextTestimonial();
-        });
-
-        showTestimonial(currentTestimonial);
-        startCarousel();
-    }
-
-    // Website Calculator Modal
-    window.openCalculator = function() {
-        if (modal) {
-            modal.style.display = "block";
-        }
-    }
-
-    window.closeCalculator = function() {
-        if (modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    if (closeModalButton && modal) {
-        closeModalButton.addEventListener('click', () => {
-            modal.style.display = "none";
-        });
-    }
-
-    window.addEventListener('click', (event) => {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // Calculator Function
-    window.calculateCost = function() {
-        const websiteType = document.getElementById('website-type').value;
-        const complexity = document.getElementById('complexity').value;
-        const pages = parseInt(document.getElementById('pages').value);
-        const features = document.querySelectorAll('input[name="features"]:checked');
-        const timeline = parseInt(document.getElementById('timeline').value);
-
-        let cost = 0;
-
-        // Base cost by website type
-        switch (websiteType) {
-            case 'basic':
-                cost += 1000;
-                break;
-            case 'e-commerce':
-                cost += 4000;
-                break;
-
-            case 'blog':
-                cost += 1500;
-                break;
-            case 'portfolio':
-                cost += 2000;
-                break;
-            case 'custom':
-                cost += 5000;
-                break;
-        }
-
-        // Adjust cost by complexity
-        switch (complexity) {
-            case 'intermediate':
-                cost *= 1.5;
-                break;
-            case 'advanced':
-                cost *= 2.5;
-                break;
-        }
-
-
-        // Add cost for pages
-        cost += pages * 40; // $40 per page
-
-        // Add cost for features
-        features.forEach(feature => {
-            switch (feature.value) {
-                case 'seo':
-                    cost += 250;
-                    break;
-                case 'responsive':
-                    cost += 350;
-                    break;
-                case 'cms':
-                    cost += 500;
-                    break;
-                case 'analytics':
-                    cost += 150;
-                    break;
-                case 'e-commerce':
-                    cost += 800;
-                    break;
-                case 'blog':
-                    cost += 400;
-                    break;
+function setupScrollAnimations() {
+    const animatedElements = document.querySelectorAll('.service-box, .process-step, .portfolio-item, .blog-post-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
             }
         });
+    }, { threshold: 0.1 });
 
-        // Adjust for timeline
-        if (timeline < 4) {
-            cost *= 1.2; // 20% rush fee for tight deadlines
-        }
+    animatedElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        observer.observe(element);
+    });
+}
 
 
-        document.getElementById('cost-result').innerHTML = `
-            <h3>Estimated Cost: $${cost.toFixed(2)}</h3>
-            <p><strong>Freelancer vs. Agency Cost Comparison:</strong></p>
-            <ul>
-                <li><strong>Freelancer:</strong> $${(cost * 0.7).toFixed(2)} - $${(cost * 0.9).toFixed(2)}</li>
-                <li><strong>Agency:</strong> $${(cost * 1.2).toFixed(2)} - $${(cost * 1.8).toFixed(2)}</li>
-            </ul>
-            <p><strong>Cost Breakdown:</strong></p>
-            <ul>
-                <li><strong>Design:</strong> $${(cost * 0.3).toFixed(2)}</li>
-                <li><strong>Development:</strong> $${(cost * 0.5).toFixed(2)}</li>
-                <li><strong>Hosting/Maintenance (per month):</strong> $40 - $250</li>
-            </ul>
-        `;
+/* ==========================================================================
+   3. Interactive Components
+   ========================================================================== */
+
+function setupTestimonialCarousel() {
+    const carousel = document.querySelector('.testimonial-carousel');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    if (!carousel || !prevBtn || !nextBtn) return;
+
+    let currentIndex = 0;
+    const testimonials = document.querySelectorAll('.testimonial-box');
+    const totalTestimonials = testimonials.length;
+
+    function updateCarousel() {
+        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
 
-    // PDF Generation
-    document.getElementById('download-pdf')?.addEventListener('click', () => {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        const costResult = document.getElementById('cost-result').innerText;
-        doc.text(costResult, 10, 10);
-        doc.save('website-cost-estimate.pdf');
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % totalTestimonials;
+        updateCarousel();
     });
 
-    // Shareable Link
-    document.getElementById('share-link')?.addEventListener('click', () => {
-        const params = new URLSearchParams(new FormData(document.getElementById('calculator-form'))).toString();
-        const url = `${window.location.href.split('?')[0]}?${params}`;
-        navigator.clipboard.writeText(url).then(() => {
-            alert('Shareable link copied to clipboard!');
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + totalTestimonials) % totalTestimonials;
+        updateCarousel();
+    });
+}
+
+function setupFaqAccordion() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const questionButton = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        questionButton.addEventListener('click', () => {
+            const isExpanded = questionButton.getAttribute('aria-expanded') === 'true';
+            questionButton.setAttribute('aria-expanded', !isExpanded);
+            answer.style.maxHeight = !isExpanded ? answer.scrollHeight + 'px' : '0';
         });
     });
+}
 
-    // EmailJS Integration
-    document.getElementById('calculator-form')?.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        // **IMPORTANT**: Replace with your own EmailJS serviceID, templateID, and publicKey
-        const serviceID = 'YOUR_SERVICE_ID';
-        const templateID = 'YOUR_TEMPLATE_ID';
-        const publicKey = 'YOUR_PUBLIC_KEY';
-
-        emailjs.sendForm(serviceID, templateID, this, publicKey)
-            .then(() => {
-                alert('Your request has been sent successfully!');
-            }, (err) => {
-                alert(JSON.stringify(err));
-            });
-    });
-
-
-
-    // Show More Functionality
+function setupShowMore() {
+    const showMoreBtn = document.getElementById('show-more');
     if (showMoreBtn) {
-        showMoreBtn.addEventListener('click', function () {
-            const hiddenItems = document.querySelectorAll('.hidden');
-            hiddenItems.forEach(item => {
+        showMoreBtn.addEventListener('click', function() {
+            document.querySelectorAll('.portfolio-item.hidden').forEach(item => {
                 item.classList.remove('hidden');
             });
             this.style.display = 'none';
         });
     }
+}
 
-    // Mobile Menu Toggle
-    if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-            navLinksContainer.classList.toggle('active');
-        });
-    }
+function setupHeroAnimation() {
+    const textEl = document.getElementById('text-animation');
+    if (!textEl) return;
+    const phrases = ["Stunning Websites", "Business Growth", "Lasting Results"];
+    let phraseIndex = 0, charIndex = 0;
 
-    // Intersection Observer for Animations
-    const animatedElements = document.querySelectorAll('.service-box, .portfolio-item, .testimonial-box');
-    if (animatedElements) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        animatedElements.forEach(element => {
-            observer.observe(element);
-        });
-    }
-});
-
-// Project Intake Form Logic
-document.addEventListener('DOMContentLoaded', function () {
-    // Select conditional question elements
-    const designPreferenceYes = document.querySelector('input[name="design-preference"][value="yes"]');
-    const designPreferenceNo = document.querySelector('input[name="design-preference"][value="no"]');
-    const designDetails = document.getElementById('design-details');
-    const contentFunctionalityYes = document.querySelector('input[name="content-functionality"][value="yes"]');
-    const contentFunctionalityNo = document.querySelector('input[name="content-functionality"][value="no"]');
-    const contentDetails = document.getElementById('content-details');
-
-    // Select modal elements
-    const modal = document.getElementById('success-modal');
-    const closeModalButton = document.querySelector('.close-btn');
-    const modalMessage = document.getElementById('modal-message');
-
-    // Event listeners for conditional questions
-    if (designPreferenceYes) {
-        designPreferenceYes.addEventListener('change', function () {
-            toggleConditionalQuestion(this, designDetails);
-        });
-    }
-    if (designPreferenceNo) {
-        designPreferenceNo.addEventListener('change', function () {
-            toggleConditionalQuestion(this, designDetails);
-        });
-    }
-
-    if (contentFunctionalityYes) {
-        contentFunctionalityYes.addEventListener('change', function () {
-            toggleConditionalQuestion(this, contentDetails);
-        });
-    }
-    if (contentFunctionalityNo) {
-        contentFunctionalityNo.addEventListener('change', function () {
-            toggleConditionalQuestion(this, contentDetails);
-        });
-    }
-
-    // Toggle conditional questions
-    function toggleConditionalQuestion(element, questionContainer) {
-        if (element.checked && element.value === 'yes') {
-            questionContainer.style.display = 'block';
+    function type() {
+        if (charIndex < phrases[phraseIndex].length) {
+            textEl.textContent += phrases[phraseIndex].charAt(charIndex++);
+            setTimeout(type, 100);
         } else {
-            questionContainer.style.display = 'none';
+            setTimeout(erase, 2000);
         }
     }
 
-    // Form submission event listener
-    const form = document.getElementById('project-intake-form');
-    if (form) {
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            if (validateForm()) {
-                // EmailJS Integration
-                (function () {
-                    // **IMPORTANT**: Replace with your own EmailJS public key
-                    emailjs.init('m5cA-okHHGdZuWJoh'); 
-                })();
-
-                emailjs.sendForm('service_xl3wr8l', 'template_z587bo4', this)
-                    .then(function (response) {
-                        console.log('SUCCESS!', response.status, response.text);
-                        showModal('Your response has been successfully submitted. We will contact you via email within 24 hours.');
-                        form.reset();
-                    }, function (error) {
-                        console.error('FAILED...', error);
-                        showModal('Oops! Something went wrong. Please try again.');
-                    });
-            }
-        });
-    }
-
-    // Validate the form
-    function validateForm() {
-        const requiredFields = form.querySelectorAll('[required]');
-        let allFieldsValid = true;
-
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                allFieldsValid = false;
-                field.classList.add('error');
-            } else {
-                field.classList.remove('error');
-            }
-        });
-
-        if (!allFieldsValid) {
-            alert('Please fill out all required fields.');
-        }
-
-        return allFieldsValid;
-    }
-
-    // Show the modal
-    function showModal(message) {
-        if (modal && modalMessage) {
-            modalMessage.innerText = message;
-            modal.style.display = 'flex';
+    function erase() {
+        if (charIndex > 0) {
+            textEl.textContent = phrases[phraseIndex].substring(0, --charIndex);
+            setTimeout(erase, 50);
+        } else {
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            setTimeout(type, 500);
         }
     }
+    type();
+}
 
-    // Close the modal
-    if (closeModalButton) {
-        closeModalButton.addEventListener('click', function () {
-            modal.style.display = 'none';
+
+/* ==========================================================================
+   4. Three.js Hero Animation
+   ========================================================================== */
+
+function initHeroAnimation() {
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.position.z = 5;
+
+    const particlesGeometry = new THREE.BufferGeometry();
+    const count = 5000;
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 10;
+    }
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.015,
+        color: 0xffffff,
+        transparent: true,
+        blending: THREE.AdditiveBlending
+    });
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    const clock = new THREE.Clock();
+    const animate = () => {
+        const elapsedTime = clock.getElapsedTime();
+        particles.rotation.y = .1 * elapsedTime;
+        particles.rotation.x = .05 * elapsedTime;
+        if (mouseX > 0) {
+            particles.rotation.y += (mouseX - window.innerWidth / 2) * 0.00002;
+            particles.rotation.x += (mouseY - window.innerHeight / 2) * 0.00002;
+        }
+        renderer.render(scene, camera);
+        window.requestAnimationFrame(animate);
+    };
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+}
+
+
+/* ==========================================================================
+   5. Website Calculator Wizard Logic
+   ========================================================================== */
+
+function initCalculatorWizard() {
+    const modal = document.getElementById('calculatorModal');
+    if (!modal) return;
+
+    const steps = modal.querySelectorAll('.calculator-step');
+    const prevBtn = modal.querySelector('#prev-step-btn');
+    const nextBtn = modal.querySelector('#next-step-btn');
+    const progressSteps = modal.querySelectorAll('.progress-bar-step');
+    const selectionCards = modal.querySelectorAll('.selection-card');
+    let currentStep = 1;
+
+    function updateWizard() {
+        steps.forEach(step => step.classList.remove('active'));
+        steps[currentStep - 1].classList.add('active');
+
+        progressSteps.forEach((step, index) => {
+            step.classList.toggle('active', index + 1 === currentStep);
         });
+
+        prevBtn.style.display = currentStep === 1 ? 'none' : 'inline-block';
+        nextBtn.textContent = currentStep === steps.length ? 'Calculate Quote' : 'Next Step';
     }
 
-    window.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+    nextBtn.addEventListener('click', () => {
+        if (currentStep < steps.length) {
+            currentStep++;
+            updateWizard();
+        } else {
+            calculateCost();
         }
     });
-});
+
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 1) {
+            currentStep--;
+            updateWizard();
+        }
+    });
+
+    selectionCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const input = card.querySelector('input');
+            if (input.type === 'radio') {
+                // Deselect other radio buttons in the same group
+                document.querySelectorAll(`input[name="${input.name}"]`).forEach(radio => {
+                    radio.closest('.selection-card').classList.remove('selected');
+                });
+            }
+            // Toggle selection for both radio and checkbox
+            card.classList.toggle('selected', !input.checked);
+            input.checked = !input.checked;
+        });
+    });
+
+    // Handle quote email submission
+    const sendQuoteBtn = document.getElementById('send-quote-btn');
+    sendQuoteBtn.addEventListener('click', () => {
+        const email = document.getElementById('quote-email').value;
+        if (!email) {
+            alert('Please enter your email address.');
+            return;
+        }
+        
+        // --- IMPORTANT ---
+        // Replace with your actual EmailJS Service ID, QUOTE Template ID, and Public Key
+        const serviceID = 'YOUR_SERVICE_ID';
+        const templateID = 'YOUR_QUOTE_TEMPLATE_ID'; // A separate template for quotes
+        const publicKey = 'YOUR_PUBLIC_KEY';
+        
+        const quoteHTML = document.getElementById('cost-result').innerHTML;
+
+        const emailParams = {
+            to_email: email,
+            quote_details: quoteHTML,
+        };
+
+        emailjs.send(serviceID, templateID, emailParams, publicKey)
+            .then(() => {
+                alert('Your quote has been sent to ' + email);
+            }, (error) => {
+                alert('Failed to send quote. Error: ' + JSON.stringify(error));
+            });
+    });
+
+    updateWizard();
+}
+
+function calculateCost() {
+    const form = document.getElementById('calculator-form');
+    const formData = new FormData(form);
+    
+    let totalCost = 0;
+    const costBreakdown = [];
+
+    // Base Costs
+    const typeCosts = { portfolio: 2000, corporate: 3500, 'e-commerce': 6000, custom: 10000 };
+    const websiteType = formData.get('website-type');
+    totalCost += typeCosts[websiteType] || 0;
+    costBreakdown.push({ item: 'Base Website Type', cost: typeCosts[websiteType] });
+    
+    // Feature Costs
+    const featureCosts = { blog: 500, 'seo-tools': 400, 'payment-gateways': 700, 'user-logins': 1200 };
+    formData.getAll('features').forEach(feature => {
+        totalCost += featureCosts[feature] || 0;
+        costBreakdown.push({ item: `Feature: ${feature}`, cost: featureCosts[feature] });
+    });
+
+    // Design Style Multiplier
+    const designMultipliers = { minimalist: 1, modern: 1.15, creative: 1.3 };
+    const designStyle = formData.get('design-style');
+    const designMultiplier = designMultipliers[designStyle] || 1;
+    totalCost *= designMultiplier;
+    costBreakdown.push({ item: `Design Style (${designStyle})`, multiplier: `${(designMultiplier*100-100).toFixed(0)}%` });
+
+    displayCost(totalCost, costBreakdown);
+}
+
+function displayCost(totalCost, breakdown) {
+    const resultContainer = document.getElementById('cost-result');
+    let breakdownHtml = breakdown.map(item => `<li>${item.item}: ${item.cost ? `$${item.cost}` : item.multiplier}</li>`).join('');
+    
+    resultContainer.innerHTML = `
+        <p>Your preliminary estimate is:</p>
+        <div class="total-cost">$${totalCost.toFixed(0)}</div>
+        <p>This is a ballpark figure. A detailed proposal will be provided after a consultation.</p>
+        <!-- <details><summary>View Breakdown</summary><ul>${breakdownHtml}</ul></details> -->
+    `;
+}
+
+
+/* ==========================================================================
+   6. Contact Form Submission
+   ========================================================================== */
+
+function setupContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // --- IMPORTANT ---
+        const serviceID = 'YOUR_SERVICE_ID';
+        const templateID = 'YOUR_CONTACT_TEMPLATE_ID'; // A separate template for contact
+        const publicKey = 'YOUR_PUBLIC_KEY';
+
+        emailjs.sendForm(serviceID, templateID, this, publicKey)
+            .then(() => {
+                alert('Message sent successfully!');
+                contactForm.reset();
+            }, (err) => {
+                alert('Failed to send message. Error: ' + JSON.stringify(err));
+            });
+    });
+}
+
+
+/* ==========================================================================
+   7. Utility Functions
+   ========================================================================== */
+   
+// Added as a global function for button onclick attributes
+function scrollToSection(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+// Added as global functions for the calculator modal
+window.openCalculator = function() {
+    const modal = document.getElementById('calculatorModal');
+    if (modal) modal.style.display = 'block';
+};
+
+window.closeCalculator = function() {
+    const modal = document.getElementById('calculatorModal');
+    if (modal) modal.style.display = 'none';
+};

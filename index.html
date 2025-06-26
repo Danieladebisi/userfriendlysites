@@ -1,350 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HTY0GLMD2"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-0HTY0GLMD2');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-0HTY0GLMD2');
     </script>
+    
+    <!-- Meta Tags for SEO and Browser Configuration -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="User Friendly Sites offers professional web design and development services to help businesses establish a strong online presence.">
-    <meta name="keywords" content="best web design, most reliable web development, top SEO services, best responsive design, leading e-commerce solutions, expert content strategy, top UI/UX design, most effective digital marketing, best website maintenance, professional website management, best WordPress development, custom web solutions, local SEO experts, best technical SEO services, top web agency in Connecticut, best web agency in Groton, web agency in Hartford, most trusted web agency in New Haven, best web design company in Stamford, top web development in Bridgeport, reliable website services in Waterbury, best web design near Norwalk, most effective digital marketing in Danbury, expert search engine optimization in New London, best website redesign in Greenwich, professional web services in Fairfield, top SEO experts in Meriden, best mobile-friendly design, most efficient PPC advertising, social media marketing experts, reliable web hosting, best CMS development, leading search engine optimization, top website redesign services, best professional web services, best business website development, most effective content marketing, best ecommerce web design, top small business web solutions, Connecticut's best web developers, best Groton web design services, Hartford's most reliable website optimization, New Haven's top SEO services, best Stamford digital marketing, leading Bridgeport website development, most responsive design in Waterbury, Norwalk's top web solutions, best UI/UX design in Danbury, best local web agency in Connecticut, most reliable website design for small businesses, best digital marketing agency in Connecticut, top web developers in Connecticut, user friendly website, user friendly website design, best user friendly websites, most user friendly website, a user friendly website, creating a user friendly website, customer friendly website, friendly user website, site user friendly, the most user friendly websites, top user friendly websites, ux friendly websites, mobile friendly page, mobile friendly site, website that is mobile friendly, seo friendly page, seo friendly site, seo friendly website, mobile friendly wordpress, making your website mobile friendly">
-
+    <title>User Friendly Sites - Professional Web Design, Development & SEO</title>
+    <meta name="description" content="User Friendly Sites, a top web agency in Groton, CT, offers expert, affordable web design, development, and SEO services to help your business build a powerful online presence.">
+    <meta name="keywords" content="web design connecticut, seo services groton, affordable web development, e-commerce solutions, professional website management, user friendly websites, responsive design, local seo experts">
     <meta name="author" content="User Friendly Sites">
-    <meta property="og:title" content="User Friendly Sites - Web Design & Development">
-    <meta property="og:description" content="Professional web design and development services to help businesses establish a strong online presence.">
-    <meta property="og:title" content="User Friendly Sites - Professional Web Design & Development Services">
-    <meta property="og:description" content="Discover comprehensive web design, development, and SEO solutions with User Friendly Sites. We create tailored, responsive websites that drive engagement and growth.">
-    <meta property="og:image" content="https://drive.google.com/file/d/1FDF0XuwWSmupEsDlNIYB97rgQ2yJ_Et7/view?usp=sharing"> <meta property="og:url" content="https://userfriendlysites.com"> <meta property="og:type" content="website">
+    
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="User Friendly Sites - Professional Web Design & Development">
+    <meta property="og:description" content="We create tailored, responsive websites that drive engagement and growth for businesses in Connecticut and beyond.">
+    <meta property="og:image" content="./images/user-friendly-sites-og-image.png">
+    <meta property="og:url" content="https://userfriendlysites.com">
+    <meta property="og:type" content="website">
     <meta property="og:site_name" content="User Friendly Sites">
     <meta property="og:locale" content="en_US">
-    <title>User Friendly Sites - Web Design & Development</title>
+
+    <!-- Fonts and Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Lightbox for Portfolio -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+
 </head>
 <body>
+
     <header>
         <nav>
-            <a href="index.html">
+            <a href="index.html" class="logo-link">
                 <div class="logo">
                     <img src="./images/user friendly sites logo black.png" alt="User Friendly Sites Logo" class="logo-light">
                     <img src="./images/user friendly sites logo.png" alt="User Friendly Sites Logo" class="logo-dark">
                 </div>
             </a>
-            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-            <ul class="nav-links">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#why-website">Why a Website</a></li>
+                <li><a href="#process">Our Process</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
-            <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
+            <button id="darkModeToggle" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
         </nav>
     </header>
 
     <main>
+
         <section id="home" class="hero">
+            <canvas id="hero-canvas"></canvas>
             <div class="hero-content">
                 <h1 class="hero-title">Build Your Digital Future</h1>
                 <p class="hero-subtitle">We craft stunning, user-friendly websites that drive results.</p>
+                <div id="text-animation" class="hero-text"></div>
                 <div class="hero-buttons">
                     <button onclick="scrollToSection('contact')" class="btn btn-primary">Get Started</button>
                     <button onclick="openCalculator()" class="btn btn-secondary">Website Calculator</button>
                 </div>
             </div>
-            <div class="hero-graphics">
-                <div class="graphic-shape shape-1"></div>
-                <div class="graphic-shape shape-2"></div>
-                <div class="graphic-shape shape-3"></div>
-            </div>
         </section>
 
-        <div id="calculatorModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeCalculator()">&times;</span>
-                <h2>Website Cost Calculator</h2>
-                <form id="calculator-form">
-                    <div class="form-group">
-                        <label for="website-type">Type of Website:</label>
-                        <select id="website-type" name="website-type">
-                            <option value="basic">Basic</option>
-                            <option value="e-commerce">E-commerce</option>
-                            <option value="blog">Blog</option>
-                            <option value="portfolio">Portfolio</option>
-                            <option value="custom">Custom</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="complexity">Complexity:</label>
-                        <select id="complexity" name="complexity">
-                            <option value="basic">Basic</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pages">Number of Pages:</label>
-                        <input type="range" id="pages" name="pages" min="1" max="100" value="1" oninput="this.nextElementSibling.value = this.value">
-                        <output>1</output>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="features">Features:</label>
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-seo" name="features" value="seo">
-                            <label for="feature-seo">SEO Optimization</label>
-                        </div>
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-responsive" name="features" value="responsive">
-                            <label for="feature-responsive">Responsive Design</label>
-                        </div>
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-cms" name="features" value="cms">
-                            <label for="feature-cms">Content Management System</label>
-                        </div>
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-analytics" name="features" value="analytics">
-                            <label for="feature-analytics">Analytics Integration</label>
-                        </div>
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-e-commerce" name="features" value="e-commerce">
-                            <label for="feature-ecommerce">E-commerce Functionality</label>
-                        </div>
-                        <div class="feature-checkbox">
-                            <input type="checkbox" id="feature-blog" name="features" value="blog">
-                            <label for="feature-blog">Blog Integration</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="design-preference">Design Preference:</label>
-                        <select id="design-preference" name="design-preference">
-                            <option value="minimalist">Minimalist</option>
-                            <option value="modern">Modern</option>
-                            <option value="classic">Classic</option>
-                            <option value="creative">Creative</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="timeline">Project Timeline (in weeks):</label>
-                        <input type="range" id="timeline" name="timeline" min="1" max="12" value="4" oninput="this.nextElementSibling.value = this.value">
-                        <output>4</output>
-                    </div>
-
-                    <button type="button" class="btn btn-primary" onclick="calculateCost()">Calculate Cost</button>
-                </form>
-                <div id="cost-result"></div>
-                <div class="device-preview">
-                    <div class="desktop-preview"></div>
-                    <div class="tablet-preview"></div>
-                    <div class="mobile-preview"></div>
-                </div>
-                <div class="calculator-actions">
-                    <button id="download-pdf" class="btn btn-secondary">Download PDF</button>
-                    <button id="share-link" class="btn btn-secondary">Share Link</button>
-                </div>
-            </div>
-        </div>
-
         <section id="services" class="services">
-            <h2>Our Services</h2>
+            <h2>Our Core Services</h2>
+            <p class="section-subtitle">From concept to launch, we provide the complete solution for your online needs.</p>
             <div class="service-grid">
                 <div class="service-box">
                     <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3>Web Design & Development</h3>
-                    <p>Creating responsive, dynamic websites tailored to your needs.</p>
+                    <p>Creating responsive, dynamic, and custom-tailored websites that reflect your brand and engage your audience.</p>
                     <a href="./services.html" class="service-link">Learn More</a>
                 </div>
                 <div class="service-box">
-                    <div class="service-icon"><i class="fas fa-search"></i></div>
-                    <h3>SEO Optimization</h3>
-                    <p>Enhancing your website's visibility on search engines.</p>
+                    <div class="service-icon"><i class="fas fa-search-dollar"></i></div>
+                    <h3>SEO & Digital Marketing</h3>
+                    <p>Enhancing your website's visibility on search engines to attract qualified leads and grow your business.</p>
                     <a href="./services.html" class="service-link">Learn More</a>
                 </div>
                 <div class="service-box">
-                    <div class="service-icon"><i class="fas fa-pencil-alt"></i></div>
-                    <h3>Content Strategy</h3>
-                    <p>Effective content strategies to engage your audience.</p>
+                    <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Website Maintenance</h3>
+                    <p>Providing ongoing support, security, and updates to ensure your website runs smoothly and securely.</p>
                     <a href="./services.html" class="service-link">Learn More</a>
                 </div>
             </div>
         </section>
 
-        <section id="why-website" class="why-website">
-            <h2>Why Your Business Needs a Website</h2>
-            <div class="reasons-grid">
-                <div class="reason-box">
-                    <i class="fas fa-globe"></i>
-                    <h3>24/7 Availability</h3>
-                    <p>Your website works around the clock, providing information and services to customers anytime, anywhere.</p>
+        <section id="process" class="process">
+            <h2>Our Proven Process</h2>
+            <p class="section-subtitle">We follow a clear, collaborative path to ensure your project's success.</p>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>1. Discovery & Strategy</h3>
+                    <p>We start by understanding your goals, audience, and vision to build a comprehensive project roadmap.</p>
                 </div>
-                <div class="reason-box">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Increased Credibility</h3>
-                    <p>A professional website builds trust and credibility with potential customers, setting you apart from competitors.</p>
+                <div class="process-step">
+                    <div class="step-icon"><i class="fas fa-palette"></i></div>
+                    <h3>2. UI/UX Design</h3>
+                    <p>Our team creates intuitive wireframes and stunning visual designs focused on user experience.</p>
                 </div>
-                <div class="reason-box">
-                    <i class="fas fa-bullseye"></i>
-                    <h3>Targeted Marketing</h3>
-                    <p>Reach your ideal audience through SEO and online marketing strategies, expanding your customer base.</p>
+                <div class="process-step">
+                    <div class="step-icon"><i class="fas fa-code"></i></div>
+                    <h3>3. Development</h3>
+                    <p>We bring the designs to life with clean, efficient, and scalable code on your chosen platform.</p>
                 </div>
-                <div class="reason-box">
-                    <i class="fas fa-comments"></i>
-                    <h3>Improved Customer Service</h3>
-                    <p>Provide instant information, FAQs, and support channels to enhance customer satisfaction and loyalty.</p>
+                <div class="process-step">
+                    <div class="step-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>4. Launch & Support</h3>
+                    <p>After rigorous testing, we deploy your website and provide ongoing support to help you grow.</p>
                 </div>
             </div>
         </section>
 
         <section id="portfolio" class="portfolio">
-            <h2>Our Portfolio</h2>
+            <h2>Our Work</h2>
+            <p class="section-subtitle">We're proud of the results we've delivered for our clients.</p>
             <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <a href="./images/anikeolaschools.png" data-lightbox="portfolio" data-title="Anikeola Schools">
-                        <img src="./images/anikeolaschools.png" alt="Anikeola Schools">
-                        <div class="overlay">
-                            <div class="overlay-text">Anikeola Schools</div>
-                        </div>
+                 <div class="portfolio-item">
+                    <a href="./images/anikeolaschools.png" data-lightbox="portfolio" data-title="Anikeola Schools - Educational Website">
+                        <img src="./images/anikeolaschools.png" alt="Anikeola Schools educational website project" loading="lazy">
+                        <div class="overlay"><div class="overlay-text">Anikeola Schools</div></div>
                     </a>
                 </div>
                 <div class="portfolio-item">
-                    <a href="./images/jeslovesinterior.png" data-lightbox="portfolio" data-title="Jes Loves Interior">
-                        <img src="./images/jeslovesinterior.png" alt="Jes Loves Interior">
-                        <div class="overlay">
-                            <div class="overlay-text">Jes Loves Interior</div>
-                        </div>
+                    <a href="./images/jeslovesinterior.png" data-lightbox="portfolio" data-title="Jes Loves Interior - E-commerce Store">
+                        <img src="./images/jeslovesinterior.png" alt="Jes Loves Interior e-commerce website project" loading="lazy">
+                        <div class="overlay"><div class="overlay-text">Jes Loves Interior</div></div>
                     </a>
                 </div>
                 <div class="portfolio-item">
-                    <a href="./images/lifehouseChurch.png" data-lightbox="portfolio" data-title="Lifehouse Church">
-                        <img src="./images/lifehouseChurch.png" alt="Lifehouse Church">
-                        <div class="overlay">
-                            <div class="overlay-text">Lifehouse Church</div>
-                        </div>
-                    </a>
-                </div>
-        
-                <div class="portfolio-item hidden">
-                    <a href="./images/savingstarget.png" data-lightbox="portfolio" data-title="Savings Target">
-                        <img src="./images/savingstarget.png" alt="Savings Target">
-                        <div class="overlay">
-                            <div class="overlay-text">Savings Target</div>
-                        </div>
+                    <a href="./images/lifehouseChurch.png" data-lightbox="portfolio" data-title="Lifehouse Church - Community Website">
+                        <img src="./images/lifehouseChurch.png" alt="Lifehouse Church community website project" loading="lazy">
+                        <div class="overlay"><div class="overlay-text">Lifehouse Church</div></div>
                     </a>
                 </div>
                 <div class="portfolio-item hidden">
-                    <a href="./images/hallelujahschool.png" data-lightbox="portfolio" data-title="Hallelujah School">
-                        <img src="./images/hallelujahschool.png" alt="Hallelujah School">
-                        <div class="overlay">
-                            <div class="overlay-text">Hallelujah School</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="portfolio-item hidden">
-                    <a href="./images/techmansion.png" data-lightbox="portfolio" data-title="Tech Mansion">
-                        <img src="./images/techmansion.png" alt="Tech Mansion">
-                        <div class="overlay">
-                            <div class="overlay-text">Tech Mansion</div>
-                        </div>
+                    <a href="./images/savingstarget.png" data-lightbox="portfolio" data-title="Savings Target - Financial App Landing Page">
+                        <img src="./images/savingstarget.png" alt="Savings Target financial app landing page project" loading="lazy">
+                        <div class="overlay"><div class="overlay-text">Savings Target</div></div>
                     </a>
                 </div>
             </div>
-        
-            <button id="show-more" class="show-more-btn">Show More</button>
+            <button id="show-more" class="show-more-btn">Show More Projects</button>
+        </section>
+
+        <section id="testimonials" class="testimonials">
+            <h2>What Our Clients Say</h2>
+            <div class="testimonial-carousel-wrapper">
+                <div class="testimonial-carousel">
+                    <div class="testimonial-box">
+                        <img src="./images/client1-placeholder.jpg" alt="Photo of John Doe" class="client-image" loading="lazy">
+                        <div class="testimonial-content">
+                            <p>"User Friendly Sites transformed our online presence! The team was professional and attentive to our needs."</p>
+                            <h4>- John Doe, CEO of Anikeola Schools</h4>
+                        </div>
+                    </div>
+                    <div class="testimonial-box">
+                        <img src="./images/jes.jpg" alt="Photo of Jes" class="client-image" loading="lazy">
+                        <div class="testimonial-content">
+                            <p>"Their SEO strategies brought us new customers and significantly increased our website traffic."</p>
+                            <h4>- Jes, Owner of Jes Loves Interior</h4>
+                        </div>
+                    </div>
+                    <div class="testimonial-box">
+                        <img src="./images/client3-placeholder.jpg" alt="Photo of Jonathan Santos" class="client-image" loading="lazy">
+                        <div class="testimonial-content">
+                            <p>"The redesign of our website was seamless and the results were outstanding. Highly recommend!"</p>
+                            <h4>- Jonathan Santos, Media Director, Lifehouse Church</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button id="prevBtn" aria-label="Previous Testimonial"><i class="fas fa-chevron-left"></i></button>
+                <button id="nextBtn" aria-label="Next Testimonial"><i class="fas fa-chevron-right"></i></button>
+            </div>
         </section>
         
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-        
-        <section id="testimonials" class="testimonials">
-            <h2>Client Testimonials</h2>
-            <div class="testimonial-carousel">
-                <div class="testimonial-box">
-                    <img src="client1.jpg" alt="Client 1" class="client-image">
-                    <div class="testimonial-content">
-                        <p>"User Friendly Sites transformed our online presence! The team was professional and attentive to our needs."</p>
-                        <h4>- John Doe, CEO of Anikeola Schools</h4>
-                    </div>
+        <section id="final-cta" class="final-cta">
+            <h2>Ready to Elevate Your Online Presence?</h2>
+            <p>Let's build a website that not only looks great but also drives growth for your business.</p>
+            <a href="#contact" class="btn btn-primary">Get Your Free Proposal</a>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>Get in Touch</h2>
+            <p class="section-subtitle">Have a question or ready to start your project? We're here to help.</p>
+            <div class="contact-container">
+                <div class="contact-form-wrapper">
+                    <form id="contactForm">
+                         <div class="form-group">
+                            <label for="contact-name">Name</label>
+                            <input type="text" id="contact-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email</label>
+                            <input type="email" id="contact-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-service">Service of Interest</label>
+                            <select id="contact-service" name="service" required>
+                                <option value="" disabled selected>Select a service</option>
+                                <option value="web-design">Web Design & Development</option>
+                                <option value="seo">SEO Optimization</option>
+                                <option value="maintenance">Website Maintenance</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
                 </div>
-                <div class="testimonial-box">
-                    <img src="./images/jes.jpg" alt="Client 2" class="client-image">
-                    <div class="testimonial-content">
-                        <p>"Their SEO strategies brought us new customers and significantly increased our website traffic."</p>
-                        <h4>- Jes, Owner of Jes Loves Interior</h4>
-                    </div>
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>We're based in Groton, CT and serve clients worldwide. Reach out to us anytime!</p>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Groton, CT, USA</li>
+                        <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> contact@userfriendlysites.com</li>
+                        <li><i class="fas fa-clock"></i> Mon - Fri: 9:00 AM - 5:00 PM</li>
+                    </ul>
                 </div>
-                <div class="testimonial-box">
-                    <img src="client3.jpg" alt="Client 3" class="client-image">
-                    <div class="testimonial-content">
-                        <p>"The redesign of our website was seamless and the results were outstanding. Highly recommend!"</p>
-                        <h4>- Jonathan Santos, Media Director, Lifehouse Church</h4>
-                    </div>
-                </div>
-                <div class="testimonial-box">
-                    <img src="client4.jpg" alt="Client 4" class="client-image">
-                    <div class="testimonial-content">
-                        <p>"Fantastic service and support. Our website looks amazing and functions perfectly."</p>
-                        <h4>- Obinna Michel, Co-Owner of Savings Target</h4>
-                    </div>
-                </div>
-                <div class="testimonial-box">
-                    <img src="./images/Alexis.jpg" alt="Client 5" class="client-image">
-                    <div class="testimonial-content">
-                        <p>"Highly professional team with great attention to detail. Our project was delivered on time and exceeded expectations."</p>
-                        <h4>- Alexis, Marketing Director, Tech Mansion</h4>
-                    </div>
-                </div>
-                <div class="carousel-controls">
-                    <button id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-                    <button id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </section>
-    
-            <section id="contact" class="contact">
-                <h2>Contact Us</h2>
-                <form id="contactForm">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <input type="tel" name="phone" placeholder="Your Phone Number">
-                    <input type="text" name="company" placeholder="Your Company Name">
-                    <select name="service" required>
-                        <option value="">Select a service</option>
-                        <option value="web-design">Web Design & Development</option>
-                        <option value="seo">SEO Optimization</option>
-                        <option value="content-strategy">Content Strategy</option>
-                    </select>
-                    <textarea name="message" placeholder="Your Message" required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
-            </section>
-        </main>
-    
-        <footer class="footer">
-            <p>&copy; 2024 User Friendly Sites. All rights reserved.</p>
-            <div class="social-icons">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
             </div>
-        </footer>
+        </section>
+
+    </main>
     
-        <button id="scrollToTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h4>About User Friendly Sites</h4>
+                <p>We are a passionate team of web professionals based in Groton, CT, dedicated to creating beautiful, effective, and user-friendly websites for businesses of all sizes.</p>
+                 <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="./projectintake.html">Project Intake</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                 <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Groton, CT, USA</li>
+                    <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> contact@userfriendlysites.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 User Friendly Sites. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button id="scrollToTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+    <!-- =================================================================
+         REDESIGNED WEBSITE CALCULATOR MODAL
+    ================================================================== -->
+    <div id="calculatorModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCalculator()">&times;</span>
+            <div class="calculator-header">
+                <h2>Website Cost Estimator</h2>
+                <p>Follow the steps to get a customized estimate for your project.</p>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-bar-step active" data-step="1"><span>Project Type</span></div>
+                <div class="progress-bar-step" data-step="2"><span>Features</span></div>
+                <div class="progress-bar-step" data-step="3"><span>Design</span></div>
+                <div class="progress-bar-step" data-step="4"><span>Quote</span></div>
+            </div>
+
+            <form id="calculator-form">
+                <!-- Step 1: Project Type -->
+                <div class="calculator-step active" data-step="1">
+                    <h3>What type of website do you need?</h3>
+                    <div class="selection-grid">
+                        <label class="selection-card">
+                            <input type="radio" name="website-type" value="portfolio" checked>
+                            <div class="card-content">
+                                <i class="fas fa-portrait"></i>
+                                <h4>Portfolio / Brochure</h4>
+                                <p>A beautiful site to showcase your work (1-10 pages).</p>
+                            </div>
+                        </label>
+                        <label class="selection-card">
+                            <input type="radio" name="website-type" value="corporate">
+                            <div class="card-content">
+                                <i class="fas fa-building"></i>
+                                <h4>Corporate / Business</h4>
+                                <p>A professional site for your company (10-50 pages).</p>
+                            </div>
+                        </label>
+                        <label class="selection-card">
+                            <input type="radio" name="website-type" value="e-commerce">
+                            <div class="card-content">
+                                <i class="fas fa-shopping-cart"></i>
+                                <h4>E-commerce / Store</h4>
+                                <p>A full-featured online store to sell your products.</p>
+                            </div>
+                        </label>
+                         <label class="selection-card">
+                            <input type="radio" name="website-type" value="custom">
+                            <div class="card-content">
+                                <i class="fas fa-cogs"></i>
+                                <h4>Custom Web App</h4>
+                                <p>A complex application with unique functionality.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 2: Features -->
+                <div class="calculator-step" data-step="2">
+                    <h3>Select the features you need:</h3>
+                     <div class="selection-grid feature-grid">
+                        <label class="selection-card">
+                            <input type="checkbox" name="features" value="blog">
+                            <div class="card-content">
+                                <i class="fas fa-newspaper"></i>
+                                <h4>Blog Integration</h4>
+                            </div>
+                        </label>
+                        <label class="selection-card">
+                            <input type="checkbox" name="features" value="seo-tools">
+                            <div class="card-content">
+                                <i class="fas fa-chart-line"></i>
+                                <h4>SEO Foundation Pack</h4>
+                            </div>
+                        </label>
+                         <label class="selection-card">
+                            <input type="checkbox" name="features" value="payment-gateways">
+                            <div class="card-content">
+                                <i class="fab fa-cc-stripe"></i>
+                                <h4>Payment Gateway</h4>
+                            </div>
+                        </label>
+                         <label class="selection-card">
+                            <input type="checkbox" name="features" value="user-logins">
+                            <div class="card-content">
+                                <i class="fas fa-users"></i>
+                                <h4>User Accounts</h4>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 3: Design -->
+                <div class="calculator-step" data-step="3">
+                    <h3>What's your desired design style?</h3>
+                    <div class="selection-grid">
+                        <label class="selection-card">
+                            <input type="radio" name="design-style" value="minimalist" checked>
+                             <img src="https://placehold.co/200x120/EFEFEF/333?text=Minimalist" alt="Minimalist design style" class="style-image">
+                            <div class="card-content"><h4>Minimalist & Clean</h4></div>
+                        </label>
+                         <label class="selection-card">
+                            <input type="radio" name="design-style" value="modern">
+                            <img src="https://placehold.co/200x120/333/FFFFFF?text=Modern" alt="Modern design style" class="style-image">
+                            <div class="card-content"><h4>Modern & Bold</h4></div>
+                        </label>
+                         <label class="selection-card">
+                            <input type="radio" name="design-style" value="creative">
+                            <img src="https://placehold.co/200x120/FC415A/FFFFFF?text=Creative" alt="Creative design style" class="style-image">
+                            <div class="card-content"><h4>Creative & Unique</h4></div>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Quote -->
+                <div class="calculator-step" data-step="4">
+                    <h3>Your Estimated Quote</h3>
+                    <div id="cost-result" class="cost-result-container">
+                        <!-- Results will be dynamically inserted here -->
+                    </div>
+                     <div class="quote-actions">
+                        <p>Enter your email to receive a copy of this quote.</p>
+                        <input type="email" id="quote-email" placeholder="your.email@example.com">
+                        <button type="button" id="send-quote-btn" class="btn btn-primary">Send to My Email</button>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="calculator-navigation">
+                    <button type="button" id="prev-step-btn" class="btn btn-secondary" style="display: none;">Previous</button>
+                    <button type="button" id="next-step-btn" class="btn btn-primary">Next Step</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-        <script src="script.js"></script>
-    </body>
-    </html>
+    <!-- Main Script File -->
+    <script src="script.js"></script>
+</body>
+</html>
