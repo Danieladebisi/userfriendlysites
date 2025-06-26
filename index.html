@@ -40,36 +40,23 @@
 
 </head>
 <body>
-
-    <header>
-        <nav>
-            <a href="index.html" class="logo-link">
-                <div class="logo">
-                    <img src="./images/user friendly sites logo black.png" alt="User Friendly Sites Logo" class="logo-light">
-                    <img src="./images/user friendly sites logo.png" alt="User Friendly Sites Logo" class="logo-dark">
-                </div>
-            </a>
-            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#process">Our Process</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact Us</a></li>
-            </ul>
-            <button id="darkModeToggle" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
-        </nav>
-    </header>
+    <!-- Placeholder for header.html -->
+    <div id="header-placeholder"></div>
 
     <main>
 
         <section id="home" class="hero">
-            <canvas id="hero-canvas"></canvas>
+            <div class="hero-background"></div>
+            <svg class="hero-svg" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <clipPath id="hero-clip">
+                        <path id="hero-path" d="M 0,800 C 0,800 0,0 0,0 H 1440 V 800 C 1440,800 0,800 0,800 Z"/>
+                    </clipPath>
+                </defs>
+            </svg>
             <div class="hero-content">
                 <h1 class="hero-title">Build Your Digital Future</h1>
                 <p class="hero-subtitle">We craft stunning, user-friendly websites that drive results.</p>
-                <div id="text-animation" class="hero-text"></div>
                 <div class="hero-buttons">
                     <button onclick="scrollToSection('contact')" class="btn btn-primary">Get Started</button>
                     <button onclick="openCalculator()" class="btn btn-secondary">Website Calculator</button>
@@ -77,6 +64,7 @@
             </div>
         </section>
 
+        <!-- The rest of the sections remain the same, but the CSS will affect them -->
         <section id="services" class="services">
             <h2>Our Core Services</h2>
             <p class="section-subtitle">From concept to launch, we provide the complete solution for your online needs.</p>
@@ -85,19 +73,16 @@
                     <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
                     <h3>Web Design & Development</h3>
                     <p>Creating responsive, dynamic, and custom-tailored websites that reflect your brand and engage your audience.</p>
-                    <a href="./services.html" class="service-link">Learn More</a>
                 </div>
                 <div class="service-box">
                     <div class="service-icon"><i class="fas fa-search-dollar"></i></div>
                     <h3>SEO & Digital Marketing</h3>
                     <p>Enhancing your website's visibility on search engines to attract qualified leads and grow your business.</p>
-                    <a href="./services.html" class="service-link">Learn More</a>
                 </div>
                 <div class="service-box">
                     <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
                     <h3>Website Maintenance</h3>
                     <p>Providing ongoing support, security, and updates to ensure your website runs smoothly and securely.</p>
-                    <a href="./services.html" class="service-link">Learn More</a>
                 </div>
             </div>
         </section>
@@ -105,26 +90,34 @@
         <section id="process" class="process">
             <h2>Our Proven Process</h2>
             <p class="section-subtitle">We follow a clear, collaborative path to ensure your project's success.</p>
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-icon"><i class="fas fa-lightbulb"></i></div>
-                    <h3>1. Discovery & Strategy</h3>
-                    <p>We start by understanding your goals, audience, and vision to build a comprehensive project roadmap.</p>
+            <div class="process-timeline">
+                <div class="process-step-container">
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fas fa-lightbulb"></i></div>
+                        <h3>1. Discovery & Strategy</h3>
+                        <p>We start by understanding your goals, audience, and vision to build a comprehensive project roadmap.</p>
+                    </div>
                 </div>
-                <div class="process-step">
-                    <div class="step-icon"><i class="fas fa-palette"></i></div>
-                    <h3>2. UI/UX Design</h3>
-                    <p>Our team creates intuitive wireframes and stunning visual designs focused on user experience.</p>
+                <div class="process-step-container">
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fas fa-palette"></i></div>
+                        <h3>2. UI/UX Design</h3>
+                        <p>Our team creates intuitive wireframes and stunning visual designs focused on user experience.</p>
+                    </div>
                 </div>
-                <div class="process-step">
-                    <div class="step-icon"><i class="fas fa-code"></i></div>
-                    <h3>3. Development</h3>
-                    <p>We bring the designs to life with clean, efficient, and scalable code on your chosen platform.</p>
+                <div class="process-step-container">
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fas fa-code"></i></div>
+                        <h3>3. Development</h3>
+                        <p>We bring the designs to life with clean, efficient, and scalable code on your chosen platform.</p>
+                    </div>
                 </div>
-                <div class="process-step">
-                    <div class="step-icon"><i class="fas fa-rocket"></i></div>
-                    <h3>4. Launch & Support</h3>
-                    <p>After rigorous testing, we deploy your website and provide ongoing support to help you grow.</p>
+                <div class="process-step-container">
+                    <div class="process-step">
+                        <div class="step-icon"><i class="fas fa-rocket"></i></div>
+                        <h3>4. Launch & Support</h3>
+                        <p>After rigorous testing, we deploy your website and provide ongoing support to help you grow.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -195,9 +188,11 @@
         </section>
         
         <section id="final-cta" class="final-cta">
-            <h2>Ready to Elevate Your Online Presence?</h2>
-            <p>Let's build a website that not only looks great but also drives growth for your business.</p>
-            <a href="#contact" class="btn btn-primary">Get Your Free Proposal</a>
+            <div class="cta-content">
+                <h2>Ready to Elevate Your Online Presence?</h2>
+                <p>Let's build a website that not only looks great but also drives growth for your business.</p>
+                <a href="#contact" class="btn btn-primary cta-btn">Get Your Free Proposal</a>
+            </div>
         </section>
 
         <section id="contact" class="contact">
@@ -243,45 +238,10 @@
                 </div>
             </div>
         </section>
-
     </main>
     
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-about">
-                <h4>About User Friendly Sites</h4>
-                <p>We are a passionate team of web professionals based in Groton, CT, dedicated to creating beautiful, effective, and user-friendly websites for businesses of all sizes.</p>
-                 <div class="social-icons">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="./projectintake.html">Project Intake</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                 <ul>
-                    <li><i class="fas fa-map-marker-alt"></i> <a href="https://www.google.com/maps/search/?api=1&query=Groton,CT" target="_blank" rel="noopener noreferrer">Groton, CT, USA</a></li>
-                    <li><i class="fas fa-phone"></i> <a href="tel:1-860-867-9664">(860) 867-9664</a></li>
-                    <li><i class="fas fa-envelope"></i> <a href="mailto:contact@userfriendlysites.com">contact@userfriendlysites.com</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 User Friendly Sites. All rights reserved.</p>
-        </div>
-    </footer>
+    <!-- Placeholder for footer.html -->
+    <div id="footer-placeholder"></div>
 
     <button id="scrollToTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
 
@@ -306,7 +266,7 @@
                     <h3>What type of website do you need?</h3>
                     <div class="selection-grid">
                         <label class="selection-card">
-                            <input type="radio" name="website-type" value="portfolio" checked>
+                            <input type="radio" name="website-type" value="portfolio">
                             <div class="card-content">
                                 <i class="fas fa-portrait"></i>
                                 <h4>Portfolio / Brochure</h4>
@@ -378,18 +338,24 @@
                     <h3>What's your desired design style?</h3>
                     <div class="selection-grid">
                         <label class="selection-card">
-                            <input type="radio" name="design-style" value="minimalist" checked>
-                             <img src="https://placehold.co/200x120/EFEFEF/333?text=Minimalist" alt="Minimalist design style" class="style-image">
+                            <input type="radio" name="design-style" value="minimalist">
+                            <div class="style-preview">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><rect width="100" height="60" fill="#f0f0f0"/><rect x="10" y="10" width="80" height="8" fill="#ccc"/><rect x="10" y="22" width="60" height="6" fill="#ddd"/><rect x="10" y="32" width="70" height="6" fill="#ddd"/></svg>
+                            </div>
                             <div class="card-content"><h4>Minimalist & Clean</h4></div>
                         </label>
-                         <label class="selection-card">
+                        <label class="selection-card">
                             <input type="radio" name="design-style" value="modern">
-                            <img src="https://placehold.co/200x120/333/FFFFFF?text=Modern" alt="Modern design style" class="style-image">
+                            <div class="style-preview">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><rect width="100" height="60" fill="#212335"/><rect x="10" y="10" width="30" height="40" fill="#591BC5"/><rect x="45" y="10" width="45" height="8" fill="#fff"/><rect x="45" y="22" width="35" height="6" fill="#aaa"/></svg>
+                            </div>
                             <div class="card-content"><h4>Modern & Bold</h4></div>
                         </label>
-                         <label class="selection-card">
+                        <label class="selection-card">
                             <input type="radio" name="design-style" value="creative">
-                            <img src="https://placehold.co/200x120/FC415A/FFFFFF?text=Creative" alt="Creative design style" class="style-image">
+                            <div class="style-preview">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><rect width="100" height="60" fill="#f0f0f0"/><circle cx="75" cy="30" r="20" fill="#FC415A"/><path d="M0,60 Q 25,10 50,30 T 100,20" stroke="#591BC5" fill="none" stroke-width="2"/></svg>
+                            </div>
                             <div class="card-content"><h4>Creative & Unique</h4></div>
                         </label>
                     </div>
@@ -418,6 +384,7 @@
 
     <!-- JavaScript Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
