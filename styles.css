@@ -215,154 +215,73 @@ header.scrolled .logo img {
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    background-color: var(--background-color);
     overflow: hidden;
-    text-align: center;
-    color: #fff;
-    padding: 2rem;
-}
-
-.hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(132deg, var(--secondary-color), var(--primary-color), var(--text-color));
-    background-size: 400% 400%;
-    animation: Gradient 15s ease infinite;
 }
 
 .hero-content {
     z-index: 1;
-    max-width: 800px;
+    max-width: 600px;
 }
 
-.hero h1 {
-    color: #fff;
-}
-
-.hero-subheadline {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
-
-.hero-text {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    min-height: 3rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin: 0 1rem;
-}
-
-.btn-primary {
-    background-color: var(--accent-color);
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
     color: var(--text-color);
 }
 
-.btn-secondary {
-    background-color: transparent;
-    color: #fff;
-    border: 2px solid #fff;
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
 }
 
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+.hero-buttons .btn {
+    margin-right: 1rem;
 }
 
-.cube {
+.hero-graphics {
     position: absolute;
-    width: 60px;
-    height: 60px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    transform-origin: center;
-    animation: cube 20s linear infinite;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
 }
 
-.cube:nth-child(1) {
-    top: 10%;
-    left: 10%;
+.graphic-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    opacity: 0.1;
 }
 
-.cube:nth-child(2) {
-    top: 70%;
-    left: 20%;
-    animation-delay: -5s;
+.shape-1 {
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    right: -100px;
 }
 
-.cube:nth-child(3) {
-    top: 30%;
-    left: 80%;
-    animation-delay: -10s;
-}
-
-.cube:nth-child(4) {
-    top: 90%;
-    left: 90%;
-    animation-delay: -15s;
-}
-
-.cube:nth-child(5) {
+.shape-2 {
+    width: 250px;
+    height: 250px;
     top: 50%;
-    left: 50%;
-    animation-delay: -7s;
+    right: 50%;
+    transform: translate(50%, -50%);
 }
 
-.cube:nth-child(6) {
-    top: 20%;
-    left: 60%;
-    animation-delay: -12s;
+.shape-3 {
+    width: 150px;
+    height: 150px;
+    bottom: -50px;
+    right: 10%;
 }
 
-.cube:nth-child(7) {
-    top: 80%;
-    left: 40%;
-    animation-delay: -3s;
-}
-
-.cube:nth-child(8) {
-    top: 40%;
-    left: 30%;
-    animation-delay: -8s;
-}
-
-@keyframes cube {
-    0% {
-        transform: rotate(0deg) scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: rotate(360deg) scale(0);
-        opacity: 0;
-    }
-}
-
-@keyframes Gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
 
 /* ==========================================================================
    5. Services Section
@@ -592,7 +511,8 @@ header.scrolled .logo img {
     margin: 0 auto;
 }
 .contact input,
-.contact textarea {
+.contact textarea,
+.contact select {
     width: 100%;
     padding: 1rem;
     margin-bottom: 1rem;
@@ -614,104 +534,55 @@ header.scrolled .logo img {
     background-color: var(--secondary-color);
 }
 
-/* calculator */
+/* ==========================================================================
+   9. Calculator Styles
+   ========================================================================== */
 
-/* Variables */
-:root {
-    --modal-bg: rgba(0, 0, 0, 0.5);
-    --modal-content-bg: #fff;
-    --modal-content-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    --close-color: #333;
-    --close-hover-color: #000;
-    --form-gap: 15px;
-    --label-margin-bottom: 5px;
-    --input-padding: 10px;
-    --input-border: 1px solid #ccc;
-    --input-border-radius: 4px;
-    --input-font-size: 14px;
-    --button-bg: #007bff;
-    --button-hover-bg: #0056b3;
-    --button-color: white;
-    --button-padding: 12px;
-    --button-border-radius: 4px;
-    --button-font-size: 16px;
-    --cost-result-margin-top: 20px;
-    --cost-result-font-size: 1.2em;
-    --contact-us-bg: #28a745;
-    --contact-us-hover-bg: #218838;
-    --checkbox-size: 20px;
-    --checkbox-border: 2px solid #007bff;
-    --checkbox-bg: #fff;
-    --checkbox-checked-bg: #007bff;
-    --checkbox-checked-color: #fff;
-    --dropdown-bg: #fff;
-    --dropdown-border: 1px solid #ccc;
-    --dropdown-border-radius: 4px;
-    --dropdown-padding: 10px;
-    --dropdown-font-size: 14px;
-    --dropdown-arrow: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
-}
-
-/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 1001;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: var(--modal-bg);
+    background-color: rgba(0,0,0,0.4);
 }
 
 .modal-content {
-    background-color: var(--modal-content-bg);
+    background-color: #fefefe;
     margin: 10% auto;
     padding: 20px;
     border-radius: 8px;
     width: 90%;
-    max-width: 600px;
-    box-shadow: var(--modal-content-shadow);
+    max-width: 800px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .close {
-    color: var(--close-color);
+    color: #aaa;
     float: right;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-    color: var(--close-hover-color);
+    color: black;
+    text-decoration: none;
     cursor: pointer;
 }
 
-/* Form Styles */
 #calculator-form {
     display: flex;
     flex-direction: column;
-    gap: var(--form-gap);
+    gap: 15px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-}
-
-label {
-    margin-bottom: var(--label-margin-bottom);
-    font-weight: bold;
-}
-
-input[type="range"] {
-    margin: 5px 0;
-}
-
-output {
-    font-weight: bold;
-    margin-left: 10px;
 }
 
 .feature-checkbox {
@@ -720,100 +591,53 @@ output {
     margin-bottom: 10px;
 }
 
-.feature-checkbox input {
-    display: none;
+.device-preview {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-.feature-checkbox input + label {
-    position: relative;
-    padding-left: calc(var(--checkbox-size) + 10px);
-    cursor: pointer;
+.desktop-preview,
+.tablet-preview,
+.mobile-preview {
+    border: 2px solid #333;
+    border-radius: 5px;
+    background-color: #f0f0f0;
 }
 
-.feature-checkbox input + label::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: var(--checkbox-size);
-    height: var(--checkbox-size);
-    border: var(--checkbox-border);
-    background-color: var(--checkbox-bg);
-    border-radius: 4px;
+.desktop-preview {
+    width: 200px;
+    height: 120px;
 }
 
-.feature-checkbox input:checked + label::before {
-    background-color: var(--checkbox-checked-bg);
-    border-color: var(--checkbox-checked-bg);
+.tablet-preview {
+    width: 120px;
+    height: 160px;
 }
 
-.feature-checkbox input:checked + label::after {
-    content: '✔';
-    position: absolute;
-    left: 4px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--checkbox-checked-color);
-    font-size: 14px;
+.mobile-preview {
+    width: 80px;
+    height: 140px;
 }
 
-select {
-    background-color: var(--dropdown-bg);
-    border: var(--dropdown-border);
-    border-radius: var(--dropdown-border-radius);
-    padding: var(--dropdown-padding);
-    font-size: var(--dropdown-font-size);
-    appearance: none;
-    background-image: var(--dropdown-arrow);
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 12px;
+.calculator-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
 }
 
-button {
-    padding: var(--button-padding);
-    background-color: var(--button-bg);
-    color: var(--button-color);
-    border: none;
-    border-radius: var(--button-border-radius);
-    font-size: var(--button-font-size);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.calculator-actions .btn {
+    margin-left: 10px;
 }
 
-button:hover {
-    background-color: var(--button-hover-bg);
-}
 
-#cost-result {
-    margin-top: var(--cost-result-margin-top);
-    font-size: var(--cost-result-font-size);
-    font-weight: bold;
-    text-align: center;
-}
-
-#contact-us {
-    margin-top: var(--cost-result-margin-top);
-    padding: var(--button-padding);
-    background-color: var(--contact-us-bg);
-    color: var(--button-color);
-    border: none;
-    border-radius: var(--button-border-radius);
-    cursor: pointer;
-    display: none;
-    text-align: center;
-}
-
-#contact-us:hover {
-    background-color: var(--contact-us-hover-bg);
-}
-
-footer {
-    background-color: var(--text-color);
-    color: #fff;
-    text-align: center;
-}
+/* ==========================================================================
+   10. Footer
+   ========================================================================== */
 
 footer {
     background-color: var(--text-color);
@@ -832,6 +656,10 @@ footer {
 .social-icons a:hover {
     color: var(--accent-color);
 }
+
+/* ==========================================================================
+   11. Scroll to Top Button
+   ========================================================================== */
 
 #scrollToTop {
     position: fixed;
@@ -852,6 +680,10 @@ footer {
 #scrollToTop:hover {
     background-color: var(--secondary-color);
 }
+
+/* ==========================================================================
+   12. Dark Mode
+   ========================================================================== */
 
 .dark-mode {
     --text-color: #EFEEF5;
@@ -876,60 +708,14 @@ footer {
     color: #EFEEF5;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
+/* ==========================================================================
+   13. Modals
+   ========================================================================== */
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 10px;
-}
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    .service-box {
-        width: 100%;
-    }
-
-    .portfolio-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .testimonial-box {
-        flex-direction: column;
-    }
-
-    .client-image {
-        margin-right: 0;
-        margin-bottom: 1rem;
-    }
-}
+/* ==========================================================================
+   14. Why Website Section
+   ========================================================================== */
 
 .why-website {
     background-color: #f8f8f8;
@@ -980,17 +766,10 @@ footer {
     color: #666;
 }
 
-@media (max-width: 768px) {
-    .reason-box {
-        width: calc(50% - 30px);
-    }
-}
+/* ==========================================================================
+   15. Social Icons
+   ========================================================================== */
 
-@media (max-width: 480px) {
-    .reason-box {
-        width: 100%;
-    }
-}
 
 .social-icons {
     margin-top: 20px;
@@ -1007,289 +786,51 @@ footer {
     color: #ffde59;
 }
 
-/* media query to fit entire screen  */
+/* ==========================================================================
+   16. Project Intake Form Styles
+   ========================================================================== */
+
+/* Your existing project intake form styles here */
+
+/* ==========================================================================
+   17. Animations
+   ========================================================================== */
+
+/* Your existing animation styles here */
+
+
+/* ==========================================================================
+   18. Media Queries
+   ========================================================================== */
 
 @media (max-width: 768px) {
-
-    /* Centering the sections */
-    .services, 
-    .contact {
-        display: flex;
+    .hero {
         flex-direction: column;
-        align-items: center; /* Center the content horizontally */
-        justify-content: center; /* Center the content vertically if needed */
-        padding: 2rem 1rem;
+        justify-content: center;
         text-align: center;
-        width: 100%;
-        margin: 0 auto;
-        box-sizing: border-box; /* Ensure padding doesn't affect width */
     }
 
-    /* Centering service boxes */
-    .service-box {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 90%; /* Keeps some margin from the edges */
-        max-width: 500px; /* Limits the width on larger mobile screens */
-        margin: 1rem auto; /* Adds space between each service */
-        box-sizing: border-box;
+    .hero-graphics {
+        display: none;
     }
 
-    /* Ensure contact form is centered */
-    .contact-form {
-        width: 90%; /* Ensure the form stays within the viewport */
-        max-width: 500px; /* Limits the width */
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
+    .hero-title {
+        font-size: 3rem;
     }
 
-    /* Center and adjust button */
-    .btn {
-        display: block;
-        margin: 1rem auto;
-        padding: 0.8rem 1.5rem;
+    .hero-subtitle {
         font-size: 1rem;
     }
-    
-    /* Avoid overflow on smaller screens */
-    body, html {
-        overflow-x: hidden;
-    }
-}
 
-
-/* Project intake Styles  */
-/* Project intake Styles  */
-/* Project intake Styles  */
-/* Project intake Styles  */
-/* Project intake Styles  */
-/* Project intake Styles  */
-/* File: styles.css */
-
-/* Global Styles */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #EFEEF5; /* Soft background color */
-    color: #212335; /* Dark base color */
-}
-
-.container {
-    max-width: 900px;
-    margin: 100px auto 50px; /* Added top margin to push content down */
-    background: #ffffff;
-    padding: 40px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    border-top: 10px solid #591BC5; /* Bold top accent */
-}
-
-/* Form Heading */
-h1 {
-    text-align: center;
-    color: #591BC5; /* Primary heading color */
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-}
-
-/* Form Group Styling */
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #212335; /* Dark label color */
-}
-
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="tel"],
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 14px;
-    margin-top: 6px;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    background-color: #F7F7FA; /* Light input background */
-    transition: all 0.3s ease-in-out;
-    box-sizing: border-box; /* Ensure consistent sizing */
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    border-color: #591BC5; /* Focus effect */
-    background-color: #ffffff; /* Subtle focus background */
-    outline: none;
-}
-
-/* Input Group for Budget */
-.input-group {
-    display: flex;
-    align-items: center;
-}
-
-.input-group-addon {
-    padding: 14px;
-    background-color: #F7F7FA; /* Light input background */
-    border: 2px solid #ddd;
-    border-right: none;
-    border-radius: 10px 0 0 10px;
-    font-weight: bold;
-    color: #212335; /* Dark text color */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.input-group input[type="text"] {
-    border-radius: 0 10px 10px 0;
-    border-left: none;
-    flex: 1; /* Ensure input takes remaining space */
-}
-
-/* Design and Functionality Sections */
-.options {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 15px;
-}
-
-.options label {
-    cursor: pointer;
-    background-color: #ffde59; /* Bright color for option buttons */
-    color: #212335;
-    padding: 12px 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-}
-
-.options label:hover {
-    background-color: #591BC5; /* Color change on hover */
-    color: #ffffff;
-}
-
-.conditional-question {
-    display: none;
-    margin-top: 20px;
-}
-
-/* Optional Links Field */
-#similar-projects {
-    height: 100px;
-}
-
-/* Submit Button Styling */
-.submit-btn {
-    display: inline-block;
-    width: 100%;
-    padding: 18px;
-    background-color: #591BC5; /* Primary button color */
-    color: #ffffff;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.submit-btn:hover {
-    background-color: #212335; /* Darker shade on hover */
-    transform: translateY(-3px); /* Subtle lift on hover */
-}
-
-/* Modal Styles */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: #ffffff;
-    padding: 50px;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 600px;
-    width: 80%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #ffde59; /* Accent color */
-}
-
-.modal-content h2 {
-    color: #591BC5; /* Primary modal heading color */
-    margin-bottom: 15px;
-    font-size: 2rem;
-}
-
-.modal-content p {
-    color: #212335; /* Base text color */
-    margin-bottom: 25px;
-}
-
-.close-btn, .close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #ffde59; /* Accent color */
-}
-
-/* Success Message Styling */
-.success-message {
-    font-size: 1.3rem;
-    color: #212335; /* Dark base color */
-    background-color: #ffde59; /* Highlighted success message */
-    padding: 18px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 25px;
+    .portfolio-grid {
+        grid-template-columns: 1fr;
     }
 
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .modal-content {
-        padding: 30px;
-    }
-
-    .options {
+    .reasons-grid {
         flex-direction: column;
-        gap: 12px;
+    }
+
+    .reason-box {
+        width: 100%;
     }
 }

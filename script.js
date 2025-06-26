@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const nextBtn = document.getElementById('nextBtn');
     const textAnimation = document.getElementById('text-animation');
     const modal = document.getElementById('calculatorModal');
-    const closeModal = document.querySelector('.close');
+    const closeModalButton = document.querySelector('.close');
     const showMoreBtn = document.getElementById('show-more');
     const menuToggle = document.getElementById('menuToggle');
     const navLinksContainer = document.querySelector('.nav-links');
@@ -51,10 +51,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Start the hero text animation
-    typeText();
+    if(textAnimation) {
+        typeText();
+    }
+
 
     // Smooth scrolling for navigation
-    function scrollToSection(id) {
+    window.scrollToSection = function (id) {
         const targetElement = document.getElementById(id);
         if (targetElement) {
             targetElement.scrollIntoView({
@@ -160,14 +163,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Website Calculator Modal
-    function openCalculator() {
+    window.openCalculator = function() {
         if (modal) {
             modal.style.display = "block";
         }
     }
 
-    if (closeModal && modal) {
-        closeModal.addEventListener('click', () => {
+    window.closeCalculator = function() {
+        if (modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    if (closeModalButton && modal) {
+        closeModalButton.addEventListener('click', () => {
             modal.style.display = "none";
         });
     }
@@ -179,59 +188,131 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Calculator Function
-    function calculateCost() {
+    window.calculateCost = function() {
         const websiteType = document.getElementById('website-type').value;
+        const complexity = document.getElementById('complexity').value;
         const pages = parseInt(document.getElementById('pages').value);
         const features = document.querySelectorAll('input[name="features"]:checked');
+        const timeline = parseInt(document.getElementById('timeline').value);
 
         let cost = 0;
 
+        // Base cost by website type
         switch (websiteType) {
             case 'basic':
-                cost += 500;
-                break;
-            case 'ecommerce':
-                cost += 2000;
-                break;
-            case 'blog':
-                cost += 800;
-                break;
-            case 'portfolio':
                 cost += 1000;
                 break;
-            case 'custom':
+            case 'e-commerce':
+                cost += 4000;
+                break;
+
+            case 'blog':
                 cost += 1500;
+                break;
+            case 'portfolio':
+                cost += 2000;
+                break;
+            case 'custom':
+                cost += 5000;
                 break;
         }
 
-        cost += pages * 50;
+        // Adjust cost by complexity
+        switch (complexity) {
+            case 'intermediate':
+                cost *= 1.5;
+                break;
+            case 'advanced':
+                cost *= 2.5;
+                break;
+        }
 
+
+        // Add cost for pages
+        cost += pages * 40; // $40 per page
+
+        // Add cost for features
         features.forEach(feature => {
             switch (feature.value) {
                 case 'seo':
-                    cost += 300;
+                    cost += 250;
                     break;
                 case 'responsive':
-                    cost += 400;
+                    cost += 350;
                     break;
                 case 'cms':
-                    cost += 600;
+                    cost += 500;
                     break;
                 case 'analytics':
-                    cost += 200;
+                    cost += 150;
                     break;
-                case 'ecommerce':
-                    cost += 1000;
+                case 'e-commerce':
+                    cost += 800;
                     break;
                 case 'blog':
-                    cost += 500;
+                    cost += 400;
                     break;
             }
         });
 
-        document.getElementById('cost-result').innerText = `Estimated Cost: $${cost}`;
-        document.getElementById('contact-us').style.display = "block";
+        // Adjust for timeline
+        if (timeline < 4) {
+            cost *= 1.2; // 20% rush fee for tight deadlines
+        }
+
+
+        document.getElementById('cost-result').innerHTML = `
+            <h3>Estimated Cost: $${cost.toFixed(2)}</h3>
+            <p><strong>Freelancer vs. Agency Cost Comparison:</strong></p>
+            <ul>
+                <li><strong>Freelancer:</strong> $${(cost * 0.7).toFixed(2)} - $${(cost * 0.9).toFixed(2)}</li>
+                <li><strong>Agency:</strong> $${(cost * 1.2).toFixed(2)} - $${(cost * 1.8).toFixed(2)}</li>
+            </ul>
+            <p><strong>Cost Breakdown:</strong></p>
+            <ul>
+                <li><strong>Design:</strong> $${(cost * 0.3).toFixed(2)}</li>
+                <li><strong>Development:</strong> $${(cost * 0.5).toFixed(2)}</li>
+                <li><strong>Hosting/Maintenance (per month):</strong> $40 - $250</li>
+            </ul>
+        `;
     }
+
+    // PDF Generation
+    document.getElementById('download-pdf')?.addEventListener('click', () => {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const costResult = document.getElementById('cost-result').innerText;
+        doc.text(costResult, 10, 10);
+        doc.save('website-cost-estimate.pdf');
+    });
+
+    // Shareable Link
+    document.getElementById('share-link')?.addEventListener('click', () => {
+        const params = new URLSearchParams(new FormData(document.getElementById('calculator-form'))).toString();
+        const url = `${window.location.href.split('?')[0]}?${params}`;
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Shareable link copied to clipboard!');
+        });
+    });
+
+    // EmailJS Integration
+    document.getElementById('calculator-form')?.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // **IMPORTANT**: Replace with your own EmailJS serviceID, templateID, and publicKey
+        const serviceID = 'YOUR_SERVICE_ID';
+        const templateID = 'YOUR_TEMPLATE_ID';
+        const publicKey = 'YOUR_PUBLIC_KEY';
+
+        emailjs.sendForm(serviceID, templateID, this, publicKey)
+            .then(() => {
+                alert('Your request has been sent successfully!');
+            }, (err) => {
+                alert(JSON.stringify(err));
+            });
+    });
+
+
 
     // Show More Functionality
     if (showMoreBtn) {
@@ -324,47 +405,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (validateForm()) {
                 // EmailJS Integration
                 (function () {
-                    emailjs.init('m5cA-okHHGdZuWJoh'); // Use your Public Key here
+                    // **IMPORTANT**: Replace with your own EmailJS public key
+                    emailjs.init('m5cA-okHHGdZuWJoh'); 
                 })();
 
-                // Log form data
-                console.log("Form Data:", {
-                    full_name: document.getElementById('full-name').value,
-                    email: document.getElementById('email').value,
-                    phone: document.getElementById('phone').value,
-                    project_type: document.getElementById('project-type').value,
-                    project_goals: document.getElementById('project-goals').value,
-                    design_preference: document.querySelector('input[name="design-preference"]:checked') ? document.querySelector('input[name="design-preference"]:checked').value : '',
-                    design_details: document.getElementById('design-details').value,
-                    similar_projects: document.getElementById('similar-projects').value,
-                    content_functionality: document.querySelector('input[name="content-functionality"]:checked') ? document.querySelector('input[name="content-functionality"]:checked').value : '',
-                    content_details: document.getElementById('content-details').value,
-                    project_description: document.getElementById('project-description').value,
-                    budget: document.getElementById('budget').value,
-                    timeline: document.getElementById('timeline').value,
-                    communication_method: document.querySelector('input[name="communication-method"]:checked') ? document.querySelector('input[name="communication-method"]:checked').value : '',
-                    additional_notes: document.getElementById('additional-notes').value,
-                    additional_info: document.getElementById('additional-info').value,
-                });
-
-                emailjs.send('service_xl3wr8l', 'template_z587bo4', { // Use your Service ID and Template ID here
-                    full_name: document.getElementById('full-name').value,
-                    email: document.getElementById('email').value,
-                    phone: document.getElementById('phone').value,
-                    project_type: document.getElementById('project-type').value,
-                    project_goals: document.getElementById('project-goals').value,
-                    design_preference: document.querySelector('input[name="design-preference"]:checked') ? document.querySelector('input[name="design-preference"]:checked').value : '',
-                    design_details: document.getElementById('design-details').value,
-                    similar_projects: document.getElementById('similar-projects').value,
-                    content_functionality: document.querySelector('input[name="content-functionality"]:checked') ? document.querySelector('input[name="content-functionality"]:checked').value : '',
-                    content_details: document.getElementById('content-details').value,
-                    project_description: document.getElementById('project-description').value,
-                    budget: document.getElementById('budget').value,
-                    timeline: document.getElementById('timeline').value,
-                    communication_method: document.querySelector('input[name="communication-method"]:checked') ? document.querySelector('input[name="communication-method"]:checked').value : '',
-                    additional_notes: document.getElementById('additional-notes').value,
-                    additional_info: document.getElementById('additional-info').value,
-                })
+                emailjs.sendForm('service_xl3wr8l', 'template_z587bo4', this)
                     .then(function (response) {
                         console.log('SUCCESS!', response.status, response.text);
                         showModal('Your response has been successfully submitted. We will contact you via email within 24 hours.');

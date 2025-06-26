@@ -45,7 +45,7 @@
                 <li><a href="#why-website">Why a Website</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact">Contact Us</a></li>
             </ul>
             <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
         </nav>
@@ -53,30 +53,24 @@
 
     <main>
         <section id="home" class="hero">
-            <div class="hero-background">
-                <div class="cube"></div>
-                <div class="cube"></div>
-                <div class="cube"></div>
-                <div class="cube"></div>
-                <div class="cube"></div>
-                <div class="cube"></div>
-                <div class="cube"></div>
-                <div class="cube"></div>
-            </div>
             <div class="hero-content">
-                <h1>User Friendly Sites</h1>
-                <p class="hero-subheadline">Your one-stop solution for all web development needs.</p>
-                <div id="text-animation" class="hero-text"></div>
+                <h1 class="hero-title">Build Your Digital Future</h1>
+                <p class="hero-subtitle">We craft stunning, user-friendly websites that drive results.</p>
                 <div class="hero-buttons">
                     <button onclick="scrollToSection('contact')" class="btn btn-primary">Get Started</button>
                     <button onclick="openCalculator()" class="btn btn-secondary">Website Calculator</button>
                 </div>
             </div>
+            <div class="hero-graphics">
+                <div class="graphic-shape shape-1"></div>
+                <div class="graphic-shape shape-2"></div>
+                <div class="graphic-shape shape-3"></div>
+            </div>
         </section>
 
         <div id="calculatorModal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="close" onclick="closeCalculator()">&times;</span>
                 <h2>Website Cost Calculator</h2>
                 <form id="calculator-form">
                     <div class="form-group">
@@ -87,6 +81,15 @@
                             <option value="blog">Blog</option>
                             <option value="portfolio">Portfolio</option>
                             <option value="custom">Custom</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="complexity">Complexity:</label>
+                        <select id="complexity" name="complexity">
+                            <option value="basic">Basic</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
                         </select>
                     </div>
 
@@ -134,10 +137,24 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <label for="timeline">Project Timeline (in weeks):</label>
+                        <input type="range" id="timeline" name="timeline" min="1" max="12" value="4" oninput="this.nextElementSibling.value = this.value">
+                        <output>4</output>
+                    </div>
+
                     <button type="button" class="btn btn-primary" onclick="calculateCost()">Calculate Cost</button>
                 </form>
                 <div id="cost-result"></div>
-                <button id="contact-us" class="btn btn-secondary" style="display: none;" onclick="scrollToSection('contact')">Contact Us</button>
+                <div class="device-preview">
+                    <div class="desktop-preview"></div>
+                    <div class="tablet-preview"></div>
+                    <div class="mobile-preview"></div>
+                </div>
+                <div class="calculator-actions">
+                    <button id="download-pdf" class="btn btn-secondary">Download PDF</button>
+                    <button id="share-link" class="btn btn-secondary">Share Link</button>
+                </div>
             </div>
         </div>
 
@@ -300,6 +317,14 @@
                 <form id="contactForm">
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="tel" name="phone" placeholder="Your Phone Number">
+                    <input type="text" name="company" placeholder="Your Company Name">
+                    <select name="service" required>
+                        <option value="">Select a service</option>
+                        <option value="web-design">Web Design & Development</option>
+                        <option value="seo">SEO Optimization</option>
+                        <option value="content-strategy">Content Strategy</option>
+                    </select>
                     <textarea name="message" placeholder="Your Message" required></textarea>
                     <button type="submit">Send Message</button>
                 </form>
@@ -318,13 +343,8 @@
     
         <button id="scrollToTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
     
-        <div id="calculatorModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Website Calculator</h2>
-                </div>
-        </div>
-    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
         <script src="script.js"></script>
     </body>
     </html>
