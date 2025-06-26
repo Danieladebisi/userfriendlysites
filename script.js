@@ -13,8 +13,8 @@
  * 4.  Interactive Components
  * - Testimonial Carousel
  * - "Show More" for Portfolio
- * 5.  Hero Animation (SVG Reveal)
- * 6.  Website Calculator Wizard Logic (Major Overhaul)
+ * 5.  Hero Animation (UPDATED: Digital Blueprint)
+ * 6.  Website Calculator Wizard Logic (FIXED & POLISHED)
  * - Element Caching & State Management
  * - Step Navigation & UI Updates
  * - Input Handling (FIXED)
@@ -30,7 +30,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Run All Initializers on Page Load ---
     loadHTML('header-placeholder', 'header.html').then(() => {
-        // These scripts depend on the header being loaded
         setupDarkMode();
         setupMobileNav();
     });
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initUI();
     initInteractiveComponents();
-    initHeroRevealAnimation();
+    initBlueprintHeroAnimation();
     initCalculatorWizard();
     setupContactForm();
 });
@@ -74,7 +73,7 @@ function initInteractiveComponents() {
    3. UI Enhancements
    ========================================================================== */
 function setupDarkMode() {
-    // We use event delegation on the body because the header is loaded dynamically
+    // Use event delegation on the body for dynamically loaded elements
     document.body.addEventListener('click', e => {
         const toggleButton = e.target.closest('#darkModeToggle');
         if (toggleButton) {
@@ -89,19 +88,20 @@ function setupDarkMode() {
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (localStorage.getItem('darkMode') === 'true' || (localStorage.getItem('darkMode') === null && prefersDark)) {
         document.body.classList.add('dark-mode');
-        setTimeout(() => { // Delay to ensure header is loaded
+        setTimeout(() => { // Delay to ensure header is loaded before changing icon
             const toggleButton = document.getElementById('darkModeToggle');
             if (toggleButton) toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
         }, 300);
     }
 }
 
+
 function setupMobileNav() {
-    document.body.addEventListener('click', e => {
+     document.body.addEventListener('click', e => {
         const menuToggle = e.target.closest('#menuToggle');
         if (menuToggle) {
             const navLinks = document.getElementById('navLinks');
-            if (navLinks) navLinks.classList.toggle('active');
+            if(navLinks) navLinks.classList.toggle('active');
         }
     });
 }
@@ -139,7 +139,6 @@ function setupScrollAnimations() {
    4. Interactive Components
    ========================================================================== */
 function setupTestimonialCarousel() {
-    // Use event delegation for dynamically loaded content
     document.body.addEventListener('click', e => {
         const prevBtn = e.target.closest('#prevBtn');
         const nextBtn = e.target.closest('#nextBtn');
@@ -175,26 +174,79 @@ function setupShowMore() {
 
 
 /* ==========================================================================
-   5. Hero Animation (SVG Reveal)
+   5. Hero Animation (UPDATED: Digital Blueprint)
    ========================================================================== */
-function initHeroRevealAnimation() {
-    const heroPath = document.getElementById('hero-path');
-    if (!heroPath || typeof gsap === 'undefined') {
-        console.warn("GSAP or hero path not found for animation.");
-        return;
+function initBlueprintHeroAnimation() {
+    const container = document.getElementById('hero-animation-container');
+    if (!container || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+    camera.position.z = 50;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.offsetWidth, container.offsetHeight);
+    container.appendChild(renderer.domElement);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const geometries = [
+        new THREE.BoxGeometry(10, 10, 10, 2, 2, 2),
+        new THREE.SphereGeometry(6, 16, 16),
+        new THREE.PlaneGeometry(15, 15, 4, 4)
+    ];
+
+    for (let i = 0; i < 30; i++) {
+        const geometry = geometries[Math.floor(Math.random() * geometries.length)].clone();
+        const material = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const shape = new THREE.Mesh(geometry, material);
+
+        shape.position.set(
+            (Math.random() - 0.5) * 100,
+            (Math.random() - 0.5) * 100,
+            (Math.random() - 0.5) * 100
+        );
+        shape.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        shape.scale.setScalar(Math.random() * 0.5 + 0.5);
+        group.add(shape);
     }
-    // Animate from the initial closed state to the final open state
-    gsap.to(heroPath, {
-        duration: 2,
-        ease: "power3.inOut",
-        attr: { d: "M 0,800 C 800,800 800,0 1440,0 V 800 Z" },
-        delay: 0.2
+
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', e => {
+        mouseX = (e.clientX - window.innerWidth / 2) * 0.05;
+        mouseY = (e.clientY - window.innerHeight / 2) * 0.05;
+    });
+
+    const clock = new THREE.Clock();
+    function animate() {
+        requestAnimationFrame(animate);
+        const delta = clock.getDelta();
+        group.rotation.y += delta * 0.1;
+        
+        camera.position.x += (mouseX - camera.position.x) * 0.05;
+        camera.position.y += (-mouseY - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = container.offsetWidth / container.offsetHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.offsetWidth, container.offsetHeight);
     });
 }
 
 
 /* ==========================================================================
-   6. Website Calculator Wizard Logic (Major Overhaul)
+   6. Website Calculator Wizard Logic (FIXED & POLISHED)
    ========================================================================== */
 function initCalculatorWizard() {
     const modal = document.getElementById('calculatorModal');
@@ -203,14 +255,13 @@ function initCalculatorWizard() {
     const steps = modal.querySelectorAll('.calculator-step');
     const prevBtn = modal.querySelector('#prev-step-btn');
     const nextBtn = modal.querySelector('#next-step-btn');
-    const progressSteps = modal.querySelectorAll('.progress-bar-step');
     const costResultContainer = modal.querySelector('#cost-result');
     let currentStep = 1;
 
     function updateWizardUI() {
         steps.forEach((step, index) => step.classList.toggle('active', index + 1 === currentStep));
         
-        progressSteps.forEach((step, index) => {
+        modal.querySelectorAll('.progress-bar-step').forEach((step, index) => {
             step.classList.remove('active', 'completed');
             if (index < currentStep - 1) step.classList.add('completed');
             else if (index === currentStep - 1) step.classList.add('active');
@@ -224,7 +275,7 @@ function initCalculatorWizard() {
     }
 
     nextBtn.addEventListener('click', () => {
-        if (currentStep === steps.length - 1) { // If on the step before the quote
+        if (currentStep === steps.length - 1) {
             calculateAndDisplayCost();
         }
         if (currentStep < steps.length) {
@@ -233,17 +284,14 @@ function initCalculatorWizard() {
         }
     });
 
-    prevBtn.addEventListener('click', () => {
-        if (currentStep > 1) {
-            currentStep--;
-            updateWizardUI();
-        }
-    });
+    prevBtn.addEventListener('click', () => { if (currentStep > 1) { currentStep--; updateWizardUI(); } });
     
     modal.querySelectorAll('.selection-card').forEach(card => {
         card.addEventListener('click', (e) => {
             if (e.target.nodeName === 'INPUT') return;
+            
             const input = card.querySelector('input');
+            
             if (input.type === 'radio') {
                 input.checked = true;
                 document.querySelectorAll(`input[name="${input.name}"]`).forEach(radio => {
@@ -257,7 +305,7 @@ function initCalculatorWizard() {
         });
     });
 
-    // Set defaults
+    // Set defaults on load
     modal.querySelectorAll('input[type="radio"][checked]').forEach(radio => {
         radio.closest('.selection-card').classList.add('selected');
     });
@@ -278,36 +326,45 @@ function calculateAndDisplayCost() {
 
     const typeCosts = { portfolio: 2500, corporate: 4000, 'e-commerce': 7500, custom: 12000 };
     const websiteType = formData.get('website-type');
-    const websiteTypeText = document.querySelector(`input[name="website-type"][value="${websiteType}"]`).closest('.selection-card').querySelector('h4').textContent;
-    totalCost += typeCosts[websiteType] || 0;
-    summary.push({ item: 'Project Type', value: websiteTypeText, cost: typeCosts[websiteType] });
+    if (websiteType) {
+        const websiteTypeText = document.querySelector(`input[name="website-type"][value="${websiteType}"]`).closest('.selection-card').querySelector('h4').textContent;
+        totalCost += typeCosts[websiteType];
+        summary.push({ item: 'Project Type', value: websiteTypeText, cost: typeCosts[websiteType] });
+    }
     
     const featureCosts = { blog: 500, 'seo-tools': 400, 'payment-gateways': 700, 'user-logins': 1200 };
     const selectedFeatures = formData.getAll('features');
     if (selectedFeatures.length > 0) {
         let featuresCost = 0;
-        let featureNames = [];
-        selectedFeatures.forEach(feature => {
-            featuresCost += featureCosts[feature] || 0;
-            featureNames.push(document.querySelector(`input[value="${feature}"]`).closest('.selection-card').querySelector('h4').textContent);
-        });
+        let featureNames = selectedFeatures.map(feature => document.querySelector(`input[value="${feature}"]`).closest('.selection-card').querySelector('h4').textContent);
+        selectedFeatures.forEach(feature => { featuresCost += featureCosts[feature] || 0; });
         totalCost += featuresCost;
         summary.push({ item: 'Additional Features', value: featureNames.join(', '), cost: featuresCost });
     }
 
     const designMultipliers = { minimalist: 1, modern: 1.15, creative: 1.3 };
     const designStyle = formData.get('design-style');
-    const designMultiplier = designMultipliers[designStyle] || 1;
-    if (designMultiplier > 1) {
-        let designCost = totalCost * (designMultiplier - 1);
-        totalCost += designCost;
+    if (designStyle) {
+        const designMultiplier = designMultipliers[designStyle];
         const designStyleText = document.querySelector(`input[value="${designStyle}"]`).closest('.selection-card').querySelector('h4').textContent;
-        summary.push({ item: `Design Style (${designStyleText})`, value: `+${((designMultiplier - 1) * 100).toFixed(0)}%`, cost: designCost });
+        if (designMultiplier > 1) {
+            let designCost = totalCost * (designMultiplier - 1);
+            totalCost += designCost;
+            summary.push({ item: 'Design Style', value: `${designStyleText} (+${((designMultiplier - 1) * 100).toFixed(0)}%)`, cost: designCost });
+        } else {
+            summary.push({ item: 'Design Style', value: designStyleText, cost: 0 });
+        }
     }
 
     const resultContainer = document.getElementById('cost-result');
-    let summaryHtml = summary.map(line => `<li><span class="summary-item">${line.item}:</span><span class="summary-value">${line.value}</span><span class="summary-cost">$${line.cost.toLocaleString()}</span></li>`).join('');
-    
+    let summaryHtml = summary.map(line => `
+        <li>
+            <span class="summary-item">${line.item}</span>
+            <span class="summary-value">${line.value}</span>
+            <span class="summary-cost">$${line.cost.toLocaleString()}</span>
+        </li>`
+    ).join('');
+
     resultContainer.innerHTML = `
         <h4>Quote Summary</h4>
         <ul id="cost-summary">${summaryHtml}</ul>
@@ -315,7 +372,9 @@ function calculateAndDisplayCost() {
             <p>Estimated Total</p>
             <div class="total-cost">$${totalCost.toLocaleString()}</div>
         </div>
+        <p style="font-size: 0.8rem; text-align: center; margin-top: 1rem; color: #6c757d;">This is an estimate. A final quote will be provided after a detailed consultation.</p>
     `;
+    resultContainer.classList.add('active');
 }
 
 /* ==========================================================================
