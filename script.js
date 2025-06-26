@@ -7,10 +7,10 @@
  * 2.  Dynamic Content Loading (Header/Footer)
  * 3.  UI Enhancements
  * 4.  Interactive Components
- * 5.  Hero Animation
- * 6.  Website Calculator Wizard Logic
+ * 5.  Hero Animation (Digital Blueprint)
+ * 6.  Website Calculator Wizard Logic (FIXED & POLISHED)
  * 7.  Contact Form Submission
- * 8.  Utility Functions & URL Parameter Handling (UPDATED)
+ * 8.  Utility Functions
  *
  * ==========================================================================
  */
@@ -19,19 +19,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Run All Initializers on Page Load ---
     loadHTML('header-placeholder', 'header.html').then(() => {
+        // These scripts depend on the header being loaded first
         setupDarkMode();
         setupMobileNav();
     });
-    loadHTML('footer-placeholder', 'footer.html').then(() => {
-        setCopyrightYear();
-    });
+    loadHTML('footer-placeholder', 'footer.html');
 
     initUI();
     initInteractiveComponents();
     initBlueprintHeroAnimation();
     initCalculatorWizard();
     setupContactForm();
-    handleUrlParams(); // <-- NEW: Handle incoming plan selections
 });
 
 
@@ -50,7 +48,7 @@ async function loadHTML(elementId, url) {
     }
 }
 
-// --- Grouped Initializers ---
+// --- Grouped Initializers for cleaner code ---
 function initUI() {
     setupScrollToTop();
     setupScrollAnimations();
@@ -65,6 +63,7 @@ function initInteractiveComponents() {
    3. UI Enhancements
    ========================================================================== */
 function setupDarkMode() {
+    // Use event delegation on the body for dynamically loaded elements
     document.body.addEventListener('click', e => {
         const toggleButton = e.target.closest('#darkModeToggle');
         if (toggleButton) {
@@ -75,15 +74,17 @@ function setupDarkMode() {
         }
     });
 
+    // Apply saved or preferred theme on initial load
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (localStorage.getItem('darkMode') === 'true' || (localStorage.getItem('darkMode') === null && prefersDark)) {
         document.body.classList.add('dark-mode');
-        setTimeout(() => {
+        setTimeout(() => { // Delay to ensure header is loaded
             const toggleButton = document.getElementById('darkModeToggle');
             if (toggleButton) toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
         }, 300);
     }
 }
+
 
 function setupMobileNav() {
      document.body.addEventListener('click', e => {
@@ -122,13 +123,6 @@ function setupScrollAnimations() {
         element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
         observer.observe(element);
     });
-}
-
-function setCopyrightYear() {
-    const yearElement = document.getElementById('current-year');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-    }
 }
 
 /* ==========================================================================
@@ -170,7 +164,7 @@ function setupShowMore() {
 
 
 /* ==========================================================================
-   5. Hero Animation
+   5. Hero Animation (Digital Blueprint)
    ========================================================================== */
 function initBlueprintHeroAnimation() {
     const container = document.getElementById('hero-animation-container');
@@ -203,7 +197,11 @@ function initBlueprintHeroAnimation() {
         });
         const shape = new THREE.Mesh(geometry, material);
 
-        shape.position.set((Math.random() - 0.5) * 100, (Math.random() - 0.5) * 100, (Math.random() - 0.5) * 100);
+        shape.position.set(
+            (Math.random() - 0.5) * 100,
+            (Math.random() - 0.5) * 100,
+            (Math.random() - 0.5) * 100
+        );
         shape.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
         shape.scale.setScalar(Math.random() * 0.5 + 0.5);
         group.add(shape);
@@ -238,7 +236,7 @@ function initBlueprintHeroAnimation() {
 
 
 /* ==========================================================================
-   6. Website Calculator Wizard Logic
+   6. Website Calculator Wizard Logic (FIXED & POLISHED)
    ========================================================================== */
 function initCalculatorWizard() {
     const modal = document.getElementById('calculatorModal');
@@ -264,7 +262,7 @@ function initCalculatorWizard() {
     }
 
     nextBtn.addEventListener('click', () => {
-        if (currentStep === steps.length - 1) {
+        if (currentStep === steps.length - 1) { // If on the step before the quote
             calculateAndDisplayCost();
         }
         if (currentStep < steps.length) {
@@ -285,19 +283,20 @@ function initCalculatorWizard() {
                     radio.closest('.selection-card').classList.remove('selected');
                 });
                 card.classList.add('selected');
-            } else {
+            } else { // Checkbox
                 input.checked = !input.checked;
                 card.classList.toggle('selected');
             }
         });
     });
 
+    // Set defaults
     modal.querySelectorAll('input[type="radio"][checked]').forEach(radio => {
         radio.closest('.selection-card').classList.add('selected');
     });
 
     document.getElementById('send-quote-btn')?.addEventListener('click', () => {
-        // Your EmailJS logic here
+        // ... EmailJS logic for sending the quote ...
     });
 
     updateWizardUI();
@@ -344,7 +343,16 @@ function calculateAndDisplayCost() {
 
     const resultContainer = document.getElementById('cost-result');
     let summaryHtml = summary.map(line => `<li><span class="summary-item">${line.item}:</span><span class="summary-value">${line.value}</span><span class="summary-cost">$${line.cost.toLocaleString()}</span></li>`).join('');
-    resultContainer.innerHTML = `<h4>Quote Summary</h4><ul id="cost-summary">${summaryHtml}</ul><div class="total-cost-wrapper"><p>Estimated Total</p><div class="total-cost">$${totalCost.toLocaleString()}</div></div>`;
+
+    resultContainer.innerHTML = `
+        <h4>Quote Summary</h4>
+        <ul id="cost-summary">${summaryHtml}</ul>
+        <div class="total-cost-wrapper">
+            <p>Estimated Total</p>
+            <div class="total-cost">$${totalCost.toLocaleString()}</div>
+        </div>
+        <p style="font-size: 0.8rem; text-align: center; margin-top: 1rem; color: #6c757d;">This is an estimate. A final quote will be provided after a detailed consultation.</p>
+    `;
     resultContainer.classList.add('active');
 }
 
@@ -366,40 +374,12 @@ function setupContactForm() {
 }
 
 /* ==========================================================================
-   8. Utility Functions & URL Parameter Handling (UPDATED)
+   8. Utility Functions
    ========================================================================== */
 function scrollToSection(id) {
     const element = document.getElementById(id);
     if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-}
-
-function handleUrlParams() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const plan = urlParams.get('plan');
-    if (plan) {
-        const contactSelect = document.getElementById('contact-service');
-        if (contactSelect) {
-            let valueToSelect = '';
-            // Map plan names from services.html to contact form option values
-            if (plan.toLowerCase().includes('website') || plan.toLowerCase().includes('pro') || plan.toLowerCase().includes('enterprise')) {
-                valueToSelect = 'web-design';
-            } else if (plan.toLowerCase().includes('seo')) {
-                valueToSelect = 'seo';
-            } else if (plan.toLowerCase().includes('maintenance')) {
-                valueToSelect = 'maintenance';
-            }
-
-            if (valueToSelect && contactSelect.querySelector(`option[value="${valueToSelect}"]`)) {
-                contactSelect.value = valueToSelect;
-            }
-            
-            // Wait a moment for the page to fully render, then scroll
-            setTimeout(() => {
-                scrollToSection('contact');
-            }, 300);
-        }
     }
 }
 
