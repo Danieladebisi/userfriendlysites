@@ -5,22 +5,19 @@
    1.  Global Styles & Variables
    2.  Typography & Basic Elements
    3.  Header & Navigation
-   4.  Hero Section
+   4.  Hero Section (Plexus)
    5.  Services Section
    6.  Process Section
    7.  Portfolio Section
    8.  Testimonials Section
-   9.  Technology Stack Section
-   10. Blog Preview Section
-   11. FAQ Section
-   12. Final CTA Section
-   13. Contact Section
-   14. Footer
-   15. Utility Classes & Buttons
-   16. Website Calculator Modal (REDESIGNED)
-   17. Dark Mode
-   18. Animations & Transitions
-   19. Media Queries (Responsive Design)
+   9.  Final CTA Section
+   10. Contact Section
+   11. Footer
+   12. Utility Classes & Buttons
+   13. Website Calculator Modal (Redesigned)
+   14. Dark Mode
+   15. Animations & Transitions
+   16. Media Queries (Responsive Design)
    ========================================================================== */
 
 /* ==========================================================================
@@ -178,7 +175,7 @@ nav {
 }
 
 /* ==========================================================================
-   4. Hero Section
+   4. Hero Section (Plexus)
    ========================================================================== */
 
 .hero {
@@ -189,7 +186,7 @@ nav {
     text-align: center;
     min-height: 100vh;
     overflow: hidden;
-    background-color: #1a1b26;
+    background-color: #111;
     color: #fff;
 }
 
@@ -206,19 +203,19 @@ nav {
     z-index: 2;
     position: relative;
     padding: 2rem;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(2px);
+    border-radius: 10px;
 }
 
 .hero-title {
     font-size: 4.5rem;
     font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
     color: #fff;
 }
 
 .hero-subtitle {
     font-size: 1.25rem;
-    margin-bottom: 2rem;
     color: rgba(255, 255, 255, 0.8);
 }
 
@@ -240,10 +237,11 @@ nav {
     color: var(--text-color-dark);
 }
 
+
 /* ==========================================================================
-   5. Services Section & Process Section (Shared Styles)
+   5. Services Section & Process Section
    ========================================================================== */
-.services, .process, .tech-stack, .faq {
+.services, .process, .faq {
     background-color: var(--background-soft);
 }
 
@@ -286,6 +284,7 @@ nav {
     font-weight: bold;
 }
 
+
 /* ==========================================================================
    6. Portfolio Section
    ========================================================================== */
@@ -325,6 +324,7 @@ nav {
     font-size: 1.5rem;
 }
 .show-more-btn { display: block; margin: 3rem auto 0 auto; }
+
 
 /* ==========================================================================
    7. Testimonials Section
@@ -378,131 +378,7 @@ nav {
 
 
 /* ==========================================================================
-   8. Technology Stack Section
-   ========================================================================== */
-.tech-logos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-}
-
-.tech-logo img {
-    filter: grayscale(100%);
-    opacity: 0.6;
-    transition: all 0.3s ease;
-}
-
-.tech-logo img:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-/* ==========================================================================
-   9. Blog Preview Section
-   ========================================================================== */
-.blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.blog-post-card {
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px var(--shadow-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.blog-post-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px var(--shadow-color);
-}
-
-.blog-card-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.blog-card-content {
-    padding: 1.5rem;
-}
-
-.blog-card-category {
-    display: inline-block;
-    background: var(--accent-color);
-    color: var(--text-color-dark);
-    padding: 0.2rem 0.6rem;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-.blog-card-content h3 {
-    font-size: 1.25rem;
-    margin: 0.5rem 0;
-}
-
-.blog-card-readmore {
-    display: inline-block;
-    margin-top: 1rem;
-    font-weight: bold;
-    color: var(--primary-color);
-}
-
-
-/* ==========================================================================
-   10. FAQ Section
-   ========================================================================== */
-.faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.faq-item {
-    border-bottom: 1px solid var(--border-color);
-}
-
-.faq-question {
-    width: 100%;
-    background: none;
-    border: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 0;
-    text-align: left;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.faq-question i {
-    transition: transform 0.3s ease;
-}
-
-.faq-question[aria-expanded="true"] i {
-    transform: rotate(180deg);
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
-}
-
-.faq-answer p {
-    padding: 0 0 1.5rem 0;
-}
-
-
-/* ==========================================================================
-   11. Final CTA Section
+   8. Final CTA Section
    ========================================================================== */
 .final-cta {
     background: var(--primary-color) linear-gradient(45deg, var(--primary-color), #4a14a1);
@@ -512,11 +388,11 @@ nav {
 }
 
 .final-cta h2, .final-cta p { color: #fff; }
-.final-cta p { opacity: 0.8; margin-bottom: 2rem; }
 .final-cta .btn { background-color: var(--accent-color); color: var(--text-color-dark); }
 
+
 /* ==========================================================================
-   12. Contact Section
+   9. Contact Section
    ========================================================================== */
 .contact-container {
     display: grid;
@@ -548,8 +424,9 @@ nav {
 .contact-info li { display: flex; align-items: center; margin-bottom: 1rem; }
 .contact-info i { margin-right: 1rem; color: var(--primary-color); width: 20px; text-align: center; }
 
+
 /* ==========================================================================
-   13. Footer
+   10. Footer
    ========================================================================== */
 .footer {
     background-color: var(--text-color-dark);
@@ -574,8 +451,9 @@ nav {
 .social-icons a { font-size: 1.5rem; }
 .footer-bottom { text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; max-width: 1400px; margin: 0 auto; }
 
+
 /* ==========================================================================
-   14. Utility Classes & Buttons
+   11. Utility Classes & Buttons
    ========================================================================== */
 .btn {
     padding: 1rem 2.5rem;
@@ -609,18 +487,17 @@ nav {
 .hidden { display: none; }
 
 /* ==========================================================================
-   15. Website Calculator Modal (REDESIGNED)
+   12. Website Calculator Modal (Redesigned)
    ========================================================================== */
 .modal {
     display: none;
     position: fixed;
     z-index: 1001;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
     overflow-y: auto;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(17, 17, 17, 0.7);
+    backdrop-filter: blur(5px);
 }
 
 .modal-content {
@@ -641,11 +518,13 @@ nav {
     font-size: 2rem;
     font-weight: bold;
     cursor: pointer;
+    color: #aaa;
 }
+.modal .close:hover { color: #333; }
 
 .calculator-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 .calculator-header h2 { font-size: 2rem; }
 .calculator-header p { color: #6c757d; }
@@ -653,26 +532,33 @@ nav {
 .progress-bar {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     position: relative;
 }
-.progress-bar::before { /* The line behind the steps */
+.progress-bar-line {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background: var(--border-color);
+    z-index: 1;
+}
+.progress-bar-line::after {
     content: '';
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--border-color);
-    transform: translateY(-50%);
-    z-index: 1;
+    height: 100%;
+    width: 0;
+    background: var(--primary-color);
+    transition: width 0.4s ease;
 }
 .progress-bar-step {
     position: relative;
     z-index: 2;
     text-align: center;
-    color: #6c757d;
-    font-size: 0.9rem;
+    width: 25%;
 }
 .progress-bar-step span {
     display: block;
@@ -680,33 +566,39 @@ nav {
     height: 30px;
     line-height: 30px;
     border-radius: 50%;
-    background-color: var(--border-color);
-    color: #fff;
+    background-color: #fff;
+    border: 2px solid var(--border-color);
+    color: #aaa;
     margin: 0 auto 0.5rem auto;
-    transition: background-color 0.4s ease;
+    transition: all 0.4s ease;
+}
+.progress-bar-step p {
+    font-size: 0.9rem;
+    color: #aaa;
+    transition: all 0.4s ease;
 }
 .progress-bar-step.active span {
     background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+    transform: scale(1.2);
 }
-.progress-bar-step.active {
+.progress-bar-step.active p {
     color: var(--text-color-dark);
     font-weight: bold;
 }
+.progress-bar-step.completed span {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+.progress-bar-step.completed p { color: #6c757d; }
 
-.calculator-step {
-    display: none;
-}
-.calculator-step.active {
-    display: block;
-    animation: fadeIn 0.5s ease-in-out;
-}
+.calculator-step { display: none; }
+.calculator-step.active { display: block; animation: fadeIn 0.5s ease-in-out; }
 .calculator-step h3 { text-align: center; margin-bottom: 2rem; font-size: 1.5rem; }
 
-.selection-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-}
+.selection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
 .selection-card {
     border: 2px solid var(--border-color);
     border-radius: 10px;
@@ -714,70 +606,44 @@ nav {
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
-.selection-card:hover {
-    border-color: var(--secondary-color);
-    transform: translateY(-5px);
-}
+.selection-card:hover { border-color: var(--secondary-color); transform: translateY(-5px); box-shadow: 0 10px 20px var(--shadow-color); }
 .selection-card input { display: none; }
 .selection-card.selected {
     border-color: var(--primary-color);
     background-color: #f8f5ff;
     box-shadow: 0 5px 15px var(--shadow-color);
+    transform: translateY(-5px);
 }
 .selection-card.selected i { color: var(--secondary-color); }
-
-.card-content i {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-    transition: color 0.3s ease;
-}
-.style-image {
-    width: 100%;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-}
+.card-content i { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem; transition: color 0.3s ease; }
+.style-image { width: 100%; height: 80px; object-fit: cover; border-radius: 5px; margin-bottom: 1rem; }
 .card-content h4 { font-size: 1.1rem; }
 .card-content p { font-size: 0.9rem; color: #6c757d; }
 
-.calculator-navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
-    border-top: 1px solid var(--border-color);
-    padding-top: 1.5rem;
-}
+.calculator-navigation { display: flex; justify-content: space-between; margin-top: 3rem; border-top: 1px solid var(--border-color); padding-top: 2rem; }
 .cost-result-container {
     background: var(--background-soft);
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
+    border: 1px solid var(--border-color);
 }
+.cost-result-container p { margin-bottom: 0.5rem; }
 .total-cost {
     font-size: 3rem;
     font-family: var(--font-secondary);
     color: var(--primary-color);
-    margin-bottom: 0.5rem;
+    margin: 0.5rem 0;
+    font-weight: 800;
 }
-.quote-actions {
-    margin-top: 1.5rem;
-    text-align: center;
-}
-.quote-actions input {
-    width: 100%;
-    max-width: 300px;
-    padding: 0.8rem;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    margin: 0.5rem auto 1rem auto;
-    display: block;
-}
+.quote-actions { margin-top: 1.5rem; text-align: center; }
+.quote-actions input { width: 100%; max-width: 300px; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 5px; margin: 0.5rem auto 1rem auto; display: block; }
 
 /* ==========================================================================
-   16. Dark Mode
+   13. Dark Mode
    ========================================================================== */
 body.dark-mode {
     --text-color-dark: #F0F2F5;
@@ -790,32 +656,16 @@ body.dark-mode {
 .dark-mode .tech-logo img { filter: invert(1) opacity(0.8); }
 
 /* ==========================================================================
-   17. Animations & Transitions
+   14. Animations & Media Queries
    ========================================================================== */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ==========================================================================
-   18. Media Queries (Responsive Design)
-   ========================================================================== */
 @media (max-width: 992px) {
     .menu-toggle { display: block; z-index: 1001; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-color); }
-    .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100vh;
-        background-color: var(--background-light);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2.5rem;
-        transition: right 0.5s ease-in-out;
-        box-shadow: -5px 0 15px var(--shadow-color);
-    }
+    .nav-links { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background-color: var(--background-light); flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; transition: right 0.5s ease-in-out; box-shadow: -5px 0 15px var(--shadow-color); }
     .nav-links.active { right: 0; }
     .contact-container { grid-template-columns: 1fr; }
 }
@@ -825,4 +675,3 @@ body.dark-mode {
     .hero-title { font-size: 3rem; }
     .selection-grid { grid-template-columns: 1fr; }
 }
-
