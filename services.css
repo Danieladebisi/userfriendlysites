@@ -1,413 +1,284 @@
-:root {
-    --primary-color: #591BC5;
-    --secondary-color: #212335;
-    --light-color: #EFEEF5;
-    --accent-color: #ffde59;
-}
+/* ==========================================================================
+   Table of Contents
+   ==========================================================================
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+   1.  Services Page General Styles
+   2.  Services Hero Section
+   3.  Service Details Section
+   4.  Pricing Tables Section
+   5.  FAQ Section (Redesigned)
+   6.  Responsive Design
+   ========================================================================== */
 
-body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    color: var(--secondary-color);
-    background-color: var(--light-color);
-}
-
-header {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-color: white;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+/* ==========================================================================
+   1. Services Page General Styles
+   ========================================================================== */
 main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 6rem 2rem 2rem; /* Added top padding to push content down */
+    /* Ensures content starts below the fixed header */
+    padding-top: 80px; 
 }
 
-h1, h2, h3 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
 
-h1 {
-    font-size: 3rem;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-h2 {
-    font-size: 2rem;
-}
-
-h3 {
-    font-size: 1.5rem;
-}
-
-p {
-    margin-bottom: 1rem;
-}
-
-ul, ol {
-    margin-bottom: 1rem;
-    padding-left: 2rem;
-}
-
-.parallax {
-    background-image: url('path-to-your-image.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
+/* ==========================================================================
+   2. Services Hero Section
+   ========================================================================== */
+.services-hero {
+    background: linear-gradient(135deg, rgba(89, 27, 197, 0.9), rgba(252, 65, 90, 0.8)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2670&auto=format&fit=crop');
     background-size: cover;
-}
-
-#hero {
+    background-position: center;
+    background-attachment: fixed;
+    padding: 6rem 5%;
     text-align: center;
-    margin-bottom: 4rem;
-    padding: 4rem 2rem;
-    background-color: rgba(33, 35, 53, 0.8);
-    color: var(--light-color);
-    border-radius: 10px;
+    color: #fff;
 }
 
-#hero h1 {
-    color: var(--accent-color);
+.services-hero-content h1 {
+    font-size: 3.5rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
-#services-grid {
+.services-hero-content p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ==========================================================================
+   3. Service Details Section
+   ========================================================================== */
+.service-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-top: 4rem;
+}
+
+.service-detail-card {
+    background-color: var(--background-light);
+    border-radius: 15px;
+    padding: 2.5rem;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.service-detail-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.service-detail-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.service-detail-card p {
+    color: #6c757d;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+
+.service-detail-card ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.service-detail-card ul li {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.service-detail-card ul li i {
+    color: var(--primary-color);
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+/* ==========================================================================
+   4. Pricing Tables Section
+   ========================================================================== */
+.pricing {
+    background-color: var(--background-soft);
+}
+
+.pricing-tables {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    margin-bottom: 4rem;
+    align-items: center;
 }
 
-.service-card {
-    background-color: white;
-    padding: 2rem;
+.pricing-table {
+    background: #fff;
     border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    padding: 2.5rem;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
-    transform: rotate(45deg);
-    transition: all 0.5s ease;
-    opacity: 0;
-}
-
-.service-card:hover::before {
-    opacity: 1;
-}
-
-.service-card:hover {
+.pricing-table:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-.service-icon {
-    font-size: 3rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.service-card h2 {
-    font-size: 1.5rem;
-    color: var(--secondary-color);
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.service-card ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.service-card ul li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
+.pricing-table.featured {
+    transform: scale(1.05);
+    border: 2px solid var(--primary-color);
     position: relative;
 }
 
-.service-card ul li::before {
-    content: '✓';
-    color: var(--primary-color);
+.pricing-table.featured::before {
+    content: 'Most Popular';
     position: absolute;
-    left: 0;
-}
-
-.process h3 {
-    font-size: 1.2rem;
-    color: var(--secondary-color);
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.process-steps {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.step {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.step-number {
-    width: 30px;
-    height: 30px;
-    background-color: var(--primary-color);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto 0.5rem;
-}
-
-.step-name {
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
     font-size: 0.9rem;
-}
-
-.seo-benefits ul li {
-    display: flex;
-    align-items: center;
-}
-
-.seo-benefits ul li i {
-    margin-right: 0.5rem;
-    color: var(--primary-color);
-}
-
-#why-choose-us {
-    background-color: var(--primary-color);
-    color: var(--light-color);
-    padding: 3rem;
-    border-radius: 10px;
-    margin-bottom: 4rem;
-    position: relative;
-    overflow: hidden;
-}
-
-#why-choose-us::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent);
-    background-size: 60px 60px;
-    animation: stripes 3s linear infinite;
-    z-index: 1;
-}
-
-@keyframes stripes {
-    0% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: 60px 0;
-    }
-}
-
-#why-choose-us h2 {
-    color: var(--accent-color);
-    position: relative;
-    z-index: 2;
-}
-
-#why-choose-us ul {
-    position: relative;
-    z-index: 2;
-}
-
-#cta {
-    text-align: center;
-    margin-bottom: 4rem;
-    padding: 3rem;
-    background-color: var(--accent-color);
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-}
-
-.cta-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background-color: var(--primary-color);
-    color: var(--light-color);
-    text-decoration: none;
-    border-radius: 5px;
-    transition: all 0.3s ease;
     font-weight: bold;
-    text-transform: uppercase;
-    position: relative;
-    overflow: hidden;
 }
 
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: all 0.5s;
+.pricing-table h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
-.btn:hover::before {
-    left: 100%;
+.pricing-table .price {
+    font-size: 3.5rem;
+    font-weight: 800;
+    font-family: var(--font-secondary);
+    color: var(--primary-color);
+    margin: 1rem 0;
 }
 
-.btn:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.pricing-table .price sup {
+    font-size: 1.5rem;
+    font-weight: 600;
+    top: -20px;
 }
 
-#faq {
-    margin-bottom: 4rem;
+.pricing-table .price span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.pricing-table > p {
+    color: #6c757d;
+    margin-bottom: 2rem;
+    min-height: 40px;
+}
+
+.pricing-table ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2.5rem;
+    text-align: left;
+}
+
+.pricing-table ul li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.pricing-table ul li:last-child {
+    border-bottom: none;
+}
+
+/* ==========================================================================
+   5. FAQ Section (Redesigned)
+   ========================================================================== */
+
+.faq {
+   background-color: #fff;
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .faq-item {
-    background-color: white;
-    padding: 1.5rem;
+    background-color: var(--background-soft);
     border-radius: 10px;
     margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
 }
 
-.faq-item:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.faq-item h3 {
-    color: var(--secondary-color);
-    cursor: pointer;
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1.5rem;
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: var(--font-secondary);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.faq-question:hover {
+    background-color: #f0e9ff;
 }
 
-.faq-item h3::after {
-    content: '+';
-    font-size: 1.5rem;
+.faq-question i {
     transition: transform 0.3s ease;
+    font-size: 1rem;
+    color: var(--primary-color);
 }
 
-.faq-item.active h3::after {
-    transform: rotate(45deg);
+.faq-question[aria-expanded="true"] i {
+    transform: rotate(180deg);
 }
 
-.faq-item p {
-    display: none;
-    margin-top: 1rem;
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
 }
 
-.tooltip {
-    position: absolute;
-    background-color: var(--secondary-color);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
+.faq-answer p {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    color: #6c757d;
+    margin: 0;
 }
 
-.seo-benefits ul li:hover .tooltip {
-    opacity: 1;
-}
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+/* ==========================================================================
+   6. Responsive Design
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    .pricing-table.featured {
+        transform: scale(1); /* Remove scaling on smaller screens to prevent layout issues */
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate {
-    animation: fadeInUp 0.6s ease-out forwards;
-}
-
-.step {
-    opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
 }
 
 @media (max-width: 768px) {
     main {
-        padding: 6rem 1rem 1rem; /* Adjusted top padding for mobile */
+        padding-top: 70px;
     }
 
-    h1 {
+    .services-hero-content h1 {
         font-size: 2.5rem;
-    }
-
-    h2 {
-        font-size: 1.8rem;
-    }
-
-    h3 {
-        font-size: 1.3rem;
-    }
-
-    .service-card {
-        padding: 1.5rem;
-    }
-
-    .service-icon {
-        font-size: 2.5rem;
-    }
-
-    .service-card h2 {
-        font-size: 1.3rem;
-    }
-
-    .process-steps {
-        flex-direction: column;
-    }
-
-    .step {
-        margin-bottom: 0.5rem;
     }
 }

@@ -1,9 +1,48 @@
 <footer class="footer">
-    <p>&copy; 2024 User Friendly Sites. All rights reserved.</p>
-    <div class="social-icons">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <div class="footer-container">
+        <div class="footer-about">
+            <h4>About User Friendly Sites</h4>
+            <p>We are a passionate team of web professionals based in Groton, CT, dedicated to creating beautiful, effective, and user-friendly websites for businesses of all sizes.</p>
+             <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="index.html#process">Our Process</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Contact Us</h4>
+             <ul>
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Groton,CT" target="_blank" rel="noopener noreferrer">Groton, CT, USA</a>
+                </li>
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:1-860-867-9664">(860) 867-9664</a>
+                </li>
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:contact@userfriendlysites.com">contact@userfriendlysites.com</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; <span id="current-year"></span> User Friendly Sites. All rights reserved.</p>
     </div>
 </footer>
+<script>
+    // Set the current year in the footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();

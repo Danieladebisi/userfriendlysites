@@ -6,22 +6,11 @@
  * 1.  Core DOM Ready Event Listener & Initializers
  * 2.  Dynamic Content Loading (Header/Footer)
  * 3.  UI Enhancements
- * - Dark Mode
- * - Mobile Navigation
- * - Scroll to Top Button
- * - Animate on Scroll (Intersection Observer)
  * 4.  Interactive Components
- * - Testimonial Carousel
- * - "Show More" for Portfolio
- * 5.  Hero Animation (UPDATED: Digital Blueprint)
- * 6.  Website Calculator Wizard Logic (FIXED & POLISHED)
- * - Element Caching & State Management
- * - Step Navigation & UI Updates
- * - Input Handling (FIXED)
- * - Cost Calculation Engine & Quote Display (FIXED)
- * - Quote Submission (EmailJS)
+ * 5.  Hero Animation
+ * 6.  Website Calculator Wizard Logic
  * 7.  Contact Form Submission
- * 8.  Utility Functions
+ * 8.  Utility Functions & URL Parameter Handling (UPDATED)
  *
  * ==========================================================================
  */
@@ -33,13 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
         setupDarkMode();
         setupMobileNav();
     });
-    loadHTML('footer-placeholder', 'footer.html');
+    loadHTML('footer-placeholder', 'footer.html').then(() => {
+        setCopyrightYear();
+    });
 
     initUI();
     initInteractiveComponents();
     initBlueprintHeroAnimation();
     initCalculatorWizard();
     setupContactForm();
+    handleUrlParams(); // <-- NEW: Handle incoming plan selections
 });
 
 
@@ -58,7 +50,7 @@ async function loadHTML(elementId, url) {
     }
 }
 
-// --- Grouped Initializers for cleaner code ---
+// --- Grouped Initializers ---
 function initUI() {
     setupScrollToTop();
     setupScrollAnimations();
@@ -73,7 +65,6 @@ function initInteractiveComponents() {
    3. UI Enhancements
    ========================================================================== */
 function setupDarkMode() {
-    // Use event delegation on the body for dynamically loaded elements
     document.body.addEventListener('click', e => {
         const toggleButton = e.target.closest('#darkModeToggle');
         if (toggleButton) {
@@ -84,17 +75,15 @@ function setupDarkMode() {
         }
     });
 
-    // Apply saved or preferred theme on initial load
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (localStorage.getItem('darkMode') === 'true' || (localStorage.getItem('darkMode') === null && prefersDark)) {
         document.body.classList.add('dark-mode');
-        setTimeout(() => { // Delay to ensure header is loaded before changing icon
+        setTimeout(() => {
             const toggleButton = document.getElementById('darkModeToggle');
             if (toggleButton) toggleButton.innerHTML = '<i class="fas fa-sun"></i>';
         }, 300);
     }
 }
-
 
 function setupMobileNav() {
      document.body.addEventListener('click', e => {
@@ -133,6 +122,13 @@ function setupScrollAnimations() {
         element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
         observer.observe(element);
     });
+}
+
+function setCopyrightYear() {
+    const yearElement = document.getElementById('current-year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 }
 
 /* ==========================================================================
@@ -174,7 +170,7 @@ function setupShowMore() {
 
 
 /* ==========================================================================
-   5. Hero Animation (UPDATED: Digital Blueprint)
+   5. Hero Animation
    ========================================================================== */
 function initBlueprintHeroAnimation() {
     const container = document.getElementById('hero-animation-container');
@@ -207,11 +203,7 @@ function initBlueprintHeroAnimation() {
         });
         const shape = new THREE.Mesh(geometry, material);
 
-        shape.position.set(
-            (Math.random() - 0.5) * 100,
-            (Math.random() - 0.5) * 100,
-            (Math.random() - 0.5) * 100
-        );
+        shape.position.set((Math.random() - 0.5) * 100, (Math.random() - 0.5) * 100, (Math.random() - 0.5) * 100);
         shape.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
         shape.scale.setScalar(Math.random() * 0.5 + 0.5);
         group.add(shape);
@@ -246,7 +238,7 @@ function initBlueprintHeroAnimation() {
 
 
 /* ==========================================================================
-   6. Website Calculator Wizard Logic (FIXED & POLISHED)
+   6. Website Calculator Wizard Logic
    ========================================================================== */
 function initCalculatorWizard() {
     const modal = document.getElementById('calculatorModal');
@@ -260,17 +252,14 @@ function initCalculatorWizard() {
 
     function updateWizardUI() {
         steps.forEach((step, index) => step.classList.toggle('active', index + 1 === currentStep));
-        
         modal.querySelectorAll('.progress-bar-step').forEach((step, index) => {
             step.classList.remove('active', 'completed');
             if (index < currentStep - 1) step.classList.add('completed');
             else if (index === currentStep - 1) step.classList.add('active');
         });
-
         prevBtn.style.display = currentStep === 1 ? 'none' : 'inline-block';
         nextBtn.textContent = currentStep === steps.length - 1 ? 'Calculate Quote' : 'Next Step';
         nextBtn.style.display = currentStep === steps.length ? 'none' : 'inline-block';
-        
         costResultContainer.classList.remove('active');
     }
 
@@ -289,9 +278,7 @@ function initCalculatorWizard() {
     modal.querySelectorAll('.selection-card').forEach(card => {
         card.addEventListener('click', (e) => {
             if (e.target.nodeName === 'INPUT') return;
-            
             const input = card.querySelector('input');
-            
             if (input.type === 'radio') {
                 input.checked = true;
                 document.querySelectorAll(`input[name="${input.name}"]`).forEach(radio => {
@@ -305,13 +292,12 @@ function initCalculatorWizard() {
         });
     });
 
-    // Set defaults on load
     modal.querySelectorAll('input[type="radio"][checked]').forEach(radio => {
         radio.closest('.selection-card').classList.add('selected');
     });
 
     document.getElementById('send-quote-btn')?.addEventListener('click', () => {
-        // ... EmailJS logic for sending the quote ...
+        // Your EmailJS logic here
     });
 
     updateWizardUI();
@@ -326,7 +312,7 @@ function calculateAndDisplayCost() {
 
     const typeCosts = { portfolio: 2500, corporate: 4000, 'e-commerce': 7500, custom: 12000 };
     const websiteType = formData.get('website-type');
-    if (websiteType) {
+    if(websiteType) {
         const websiteTypeText = document.querySelector(`input[name="website-type"][value="${websiteType}"]`).closest('.selection-card').querySelector('h4').textContent;
         totalCost += typeCosts[websiteType];
         summary.push({ item: 'Project Type', value: websiteTypeText, cost: typeCosts[websiteType] });
@@ -344,7 +330,7 @@ function calculateAndDisplayCost() {
 
     const designMultipliers = { minimalist: 1, modern: 1.15, creative: 1.3 };
     const designStyle = formData.get('design-style');
-    if (designStyle) {
+    if(designStyle) {
         const designMultiplier = designMultipliers[designStyle];
         const designStyleText = document.querySelector(`input[value="${designStyle}"]`).closest('.selection-card').querySelector('h4').textContent;
         if (designMultiplier > 1) {
@@ -357,23 +343,8 @@ function calculateAndDisplayCost() {
     }
 
     const resultContainer = document.getElementById('cost-result');
-    let summaryHtml = summary.map(line => `
-        <li>
-            <span class="summary-item">${line.item}</span>
-            <span class="summary-value">${line.value}</span>
-            <span class="summary-cost">$${line.cost.toLocaleString()}</span>
-        </li>`
-    ).join('');
-
-    resultContainer.innerHTML = `
-        <h4>Quote Summary</h4>
-        <ul id="cost-summary">${summaryHtml}</ul>
-        <div class="total-cost-wrapper">
-            <p>Estimated Total</p>
-            <div class="total-cost">$${totalCost.toLocaleString()}</div>
-        </div>
-        <p style="font-size: 0.8rem; text-align: center; margin-top: 1rem; color: #6c757d;">This is an estimate. A final quote will be provided after a detailed consultation.</p>
-    `;
+    let summaryHtml = summary.map(line => `<li><span class="summary-item">${line.item}:</span><span class="summary-value">${line.value}</span><span class="summary-cost">$${line.cost.toLocaleString()}</span></li>`).join('');
+    resultContainer.innerHTML = `<h4>Quote Summary</h4><ul id="cost-summary">${summaryHtml}</ul><div class="total-cost-wrapper"><p>Estimated Total</p><div class="total-cost">$${totalCost.toLocaleString()}</div></div>`;
     resultContainer.classList.add('active');
 }
 
@@ -383,31 +354,52 @@ function calculateAndDisplayCost() {
 function setupContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) return;
-
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
         const serviceID = 'YOUR_SERVICE_ID';
         const templateID = 'YOUR_CONTACT_TEMPLATE_ID';
         const publicKey = 'YOUR_PUBLIC_KEY';
-
         emailjs.sendForm(serviceID, templateID, this, publicKey)
-            .then(() => {
-                alert('Message sent successfully!');
-                contactForm.reset();
-            }, (err) => {
-                alert('Failed to send message. Error: ' + JSON.stringify(err));
-            });
+            .then(() => { alert('Message sent successfully!'); contactForm.reset(); },
+                  (err) => { alert('Failed to send message. Error: ' + JSON.stringify(err)); });
     });
 }
 
 /* ==========================================================================
-   8. Utility Functions
+   8. Utility Functions & URL Parameter Handling (UPDATED)
    ========================================================================== */
 function scrollToSection(id) {
     const element = document.getElementById(id);
     if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function handleUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const plan = urlParams.get('plan');
+    if (plan) {
+        const contactSelect = document.getElementById('contact-service');
+        if (contactSelect) {
+            let valueToSelect = '';
+            // Map plan names from services.html to contact form option values
+            if (plan.toLowerCase().includes('website') || plan.toLowerCase().includes('pro') || plan.toLowerCase().includes('enterprise')) {
+                valueToSelect = 'web-design';
+            } else if (plan.toLowerCase().includes('seo')) {
+                valueToSelect = 'seo';
+            } else if (plan.toLowerCase().includes('maintenance')) {
+                valueToSelect = 'maintenance';
+            }
+
+            if (valueToSelect && contactSelect.querySelector(`option[value="${valueToSelect}"]`)) {
+                contactSelect.value = valueToSelect;
+            }
+            
+            // Wait a moment for the page to fully render, then scroll
+            setTimeout(() => {
+                scrollToSection('contact');
+            }, 300);
+        }
     }
 }
 

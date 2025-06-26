@@ -1,32 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    
-</body>
-</html>
 <header>
     <nav>
-        <a href="index.html">
+        <a href="index.html" class="logo-link">
             <div class="logo">
+                <!-- The script.js will toggle the display of these based on dark mode class on the body -->
                 <img src="./images/user friendly sites logo black.png" alt="User Friendly Sites Logo" class="logo-light">
                 <img src="./images/user friendly sites logo.png" alt="User Friendly Sites Logo" class="logo-dark">
             </div>
         </a>
-        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-        <ul class="nav-links">
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#why-website">Why a Website</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#contact">Contact</a></li>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#process">Our Process</a></li>
+            <li><a href="index.html#portfolio">Portfolio</a></li>
+            <li><a href="index.html#testimonials">Testimonials</a></li>
+            <li><a href="index.html#contact">Contact Us</a></li>
         </ul>
-        <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
+        <button id="darkModeToggle" aria-label="Toggle Dark Mode">
+            <i class="fas fa-moon"></i>
+        </button>
     </nav>
 </header>

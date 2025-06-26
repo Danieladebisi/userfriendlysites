@@ -1,390 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HTY0GLMD2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-0HTY0GLMD2');
-    </script>
-    
     <!-- Meta Tags for SEO and Browser Configuration -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Friendly Sites - Professional Web Design, Development & SEO</title>
-    <meta name="description" content="User Friendly Sites, a top web agency in Groton, CT, offers expert, affordable web design, development, and SEO services to help your business build a powerful online presence.">
-    <meta name="keywords" content="web design connecticut, seo services groton, affordable web development, e-commerce solutions, professional website management, user friendly websites, responsive design, local seo experts">
+    <title>Our Services - Web Design, SEO, and Maintenance | User Friendly Sites</title>
+    <meta name="description" content="Explore our comprehensive web services, including custom web design, expert SEO optimization, and reliable website maintenance plans. Let's build your success online.">
     <meta name="author" content="User Friendly Sites">
     
     <!-- Open Graph Meta Tags for Social Sharing -->
-    <meta property="og:title" content="User Friendly Sites - Professional Web Design & Development">
-    <meta property="og:description" content="We create tailored, responsive websites that drive engagement and growth for businesses in Connecticut and beyond.">
+    <meta property="og:title" content="Our Services | User Friendly Sites">
+    <meta property="og:description" content="From stunning designs to powerful marketing strategies, discover how our services can elevate your brand.">
     <meta property="og:image" content="./images/user-friendly-sites-og-image.png">
-    <meta property="og:url" content="https://userfriendlysites.com">
+    <meta property="og:url" content="https://userfriendlysites.com/services.html">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="User Friendly Sites">
-    <meta property="og:locale" content="en_US">
 
     <!-- Fonts and Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
-    <!-- Main Stylesheet -->
+    <!-- Main Stylesheets -->
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Lightbox for Portfolio -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="services.css">
 
 </head>
 <body>
+
     <!-- Placeholder for header.html -->
     <div id="header-placeholder"></div>
 
     <main>
 
-        <section id="home" class="hero">
-            <canvas id="hero-canvas"></canvas>
-            <div class="hero-content">
-                <h1 class="hero-title">Build Your Digital Future</h1>
-                <p class="hero-subtitle">We craft stunning, user-friendly websites that drive results.</p>
-                <div id="text-animation" class="hero-text"></div>
-                <div class="hero-buttons">
-                    <button onclick="scrollToSection('contact')" class="btn btn-primary">Get Started</button>
-                    <button onclick="openCalculator()" class="btn btn-secondary">Website Calculator</button>
+        <section class="services-hero">
+            <div class="services-hero-content">
+                <h1>Our Professional Services</h1>
+                <p>We combine creativity, technology, and strategy to build digital experiences that drive results.</p>
+            </div>
+        </section>
+
+        <section id="service-details" class="service-details">
+            <div class="service-detail-card" id="web-design-development">
+                <div class="service-detail-icon"><i class="fas fa-laptop-code"></i></div>
+                <h2>Custom Web Design & Development</h2>
+                <p>We don't just build websites; we build digital experiences. Our focus is on creating a stunning, functional, and user-friendly site that represents your brand perfectly and converts visitors into customers.</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Fully Responsive Design (Desktop, Tablet, Mobile)</li>
+                    <li><i class="fas fa-check-circle"></i> Custom UI/UX Design Tailored to Your Brand</li>
+                    <li><i class="fas fa-check-circle"></i> E-commerce and Online Store Integration</li>
+                    <li><i class="fas fa-check-circle"></i> Content Management System (CMS) for Easy Updates</li>
+                    <li><i class="fas fa-check-circle"></i> High-Performance and Fast Loading Speeds</li>
+                </ul>
+            </div>
+
+            <div class="service-detail-card" id="seo-marketing">
+                <div class="service-detail-icon"><i class="fas fa-chart-line"></i></div>
+                <h2>Search Engine Optimization (SEO)</h2>
+                <p>A beautiful website is only effective if people can find it. Our SEO services are designed to increase your visibility in search engine results, driving organic, high-quality traffic to your site.</p>
+                 <ul>
+                    <li><i class="fas fa-check-circle"></i> Comprehensive Keyword Research and Strategy</li>
+                    <li><i class="fas fa-check-circle"></i> On-Page SEO (Titles, Meta Descriptions, Content)</li>
+                    <li><i class="fas fa-check-circle"></i> Technical SEO (Site Speed, Schema, Mobile-Friendliness)</li>
+                    <li><i class="fas fa-check-circle"></i> Local SEO for Groton, CT and surrounding areas</li>
+                    <li><i class="fas fa-check-circle"></i> Monthly Performance Reporting and Analysis</li>
+                </ul>
+            </div>
+
+            <div class="service-detail-card" id="website-maintenance">
+                <div class="service-detail-icon"><i class="fas fa-shield-alt"></i></div>
+                <h2>Website Maintenance & Support</h2>
+                <p>Your website is a living asset that needs ongoing care. Our maintenance plans ensure your site remains fast, secure, and up-to-date, so you can focus on running your business.</p>
+                 <ul>
+                    <li><i class="fas fa-check-circle"></i> Regular Software and Plugin Updates</li>
+                    <li><i class="fas fa-check-circle"></i> 24/7 Security Monitoring and Malware Scans</li>
+                    <li><i class="fas fa-check-circle"></i> Daily or Weekly Website Backups</li>
+                    <li><i class="fas fa-check-circle"></i> Performance and Uptime Monitoring</li>
+                    <li><i class="fas fa-check-circle"></i> Priority Support for Content Updates and Fixes</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing">
+            <h2>Transparent Pricing Plans</h2>
+            <p class="section-subtitle">Choose a plan that fits your needs and budget. No hidden fees.</p>
+            <div class="pricing-tables">
+                <div class="pricing-table">
+                    <h3>Basic Website</h3>
+                    <div class="price"><sup>$</sup>2,500<span>+</span></div>
+                    <p>Perfect for new businesses or portfolios.</p>
+                    <ul>
+                        <li>Up to 5 Pages</li>
+                        <li>Custom Design</li>
+                        <li>Mobile-Friendly</li>
+                        <li>Basic SEO Setup</li>
+                        <li>Contact Form</li>
+                    </ul>
+                    <a href="index.html#contact?plan=Basic%20Website" class="btn btn-secondary">Get Started</a>
+                </div>
+
+                <div class="pricing-table featured">
+                    <h3>Business Pro</h3>
+                    <div class="price"><sup>$</sup>5,000<span>+</span></div>
+                    <p>The most popular choice for growing businesses.</p>
+                    <ul>
+                        <li>Up to 15 Pages</li>
+                        <li>Custom Design &amp; UI/UX</li>
+                        <li>E-commerce Ready</li>
+                        <li>Advanced SEO &amp; Analytics</li>
+                        <li>Blog Integration</li>
+                    </ul>
+                    <a href="index.html#contact?plan=Business%20Pro" class="btn btn-primary">Choose Plan</a>
+                </div>
+
+                <div class="pricing-table">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <p>For custom applications and unique requirements.</p>
+                    <ul>
+                        <li>Unlimited Pages</li>
+                        <li>Custom Web Application</li>
+                        <li>API Integrations</li>
+                        <li>Dedicated Support</li>
+                        <li>Advanced Security</li>
+                    </ul>
+                    <a href="index.html#contact?plan=Enterprise" class="btn btn-secondary">Contact Us</a>
                 </div>
             </div>
         </section>
 
-        <section id="services" class="services">
-            <h2>Our Core Services</h2>
-            <p class="section-subtitle">From concept to launch, we provide the complete solution for your online needs.</p>
-            <div class="service-grid">
-                <div class="service-box">
-                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
-                    <h3>Web Design & Development</h3>
-                    <p>Creating responsive, dynamic, and custom-tailored websites that reflect your brand and engage your audience.</p>
-                </div>
-                <div class="service-box">
-                    <div class="service-icon"><i class="fas fa-search-dollar"></i></div>
-                    <h3>SEO & Digital Marketing</h3>
-                    <p>Enhancing your website's visibility on search engines to attract qualified leads and grow your business.</p>
-                </div>
-                <div class="service-box">
-                    <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Website Maintenance</h3>
-                    <p>Providing ongoing support, security, and updates to ensure your website runs smoothly and securely.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="process" class="process">
-            <h2>Our Proven Process</h2>
-            <p class="section-subtitle">We follow a clear, collaborative path to ensure your project's success.</p>
-            <div class="process-timeline">
-                <div class="process-step-container">
-                    <div class="process-step">
-                        <div class="step-icon"><i class="fas fa-lightbulb"></i></div>
-                        <h3>1. Discovery & Strategy</h3>
-                        <p>We start by understanding your goals, audience, and vision to build a comprehensive project roadmap.</p>
+        <section id="faq" class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Can you redesign my existing website?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely! We specialize in modernizing outdated websites. We can revamp your current site to improve its design, functionality, mobile-friendliness, and overall performance, all while preserving your valuable content.</p>
                     </div>
                 </div>
-                <div class="process-step-container">
-                    <div class="process-step">
-                        <div class="step-icon"><i class="fas fa-palette"></i></div>
-                        <h3>2. UI/UX Design</h3>
-                        <p>Our team creates intuitive wireframes and stunning visual designs focused on user experience.</p>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What is a Content Management System (CMS)?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A CMS is a platform like WordPress that allows you to easily update your website's content (text, images, blog posts) yourself, without needing to know how to code. We provide training on how to use your new CMS after we launch your site.</p>
                     </div>
                 </div>
-                <div class="process-step-container">
-                    <div class="process-step">
-                        <div class="step-icon"><i class="fas fa-code"></i></div>
-                        <h3>3. Development</h3>
-                        <p>We bring the designs to life with clean, efficient, and scalable code on your chosen platform.</p>
-                    </div>
-                </div>
-                <div class="process-step-container">
-                    <div class="process-step">
-                        <div class="step-icon"><i class="fas fa-rocket"></i></div>
-                        <h3>4. Launch & Support</h3>
-                        <p>After rigorous testing, we deploy your website and provide ongoing support to help you grow.</p>
+                 <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Do I need a maintenance plan after my site is built?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We highly recommend it. Just like a car, a website needs regular maintenance to perform at its best. Our plans keep your site secure from hackers, up-to-date with the latest software, and running smoothly for your visitors.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="portfolio" class="portfolio">
-            <h2>Our Work</h2>
-            <p class="section-subtitle">We're proud of the results we've delivered for our clients.</p>
-            <div class="portfolio-grid">
-                 <div class="portfolio-item">
-                    <a href="./images/anikeolaschools.png" data-lightbox="portfolio" data-title="Anikeola Schools - Educational Website">
-                        <img src="./images/anikeolaschools.png" alt="Anikeola Schools educational website project" loading="lazy">
-                        <div class="overlay"><div class="overlay-text">Anikeola Schools</div></div>
-                    </a>
-                </div>
-                <div class="portfolio-item">
-                    <a href="./images/jeslovesinterior.png" data-lightbox="portfolio" data-title="Jes Loves Interior - E-commerce Store">
-                        <img src="./images/jeslovesinterior.png" alt="Jes Loves Interior e-commerce website project" loading="lazy">
-                        <div class="overlay"><div class="overlay-text">Jes Loves Interior</div></div>
-                    </a>
-                </div>
-                <div class="portfolio-item">
-                    <a href="./images/lifehouseChurch.png" data-lightbox="portfolio" data-title="Lifehouse Church - Community Website">
-                        <img src="./images/lifehouseChurch.png" alt="Lifehouse Church community website project" loading="lazy">
-                        <div class="overlay"><div class="overlay-text">Lifehouse Church</div></div>
-                    </a>
-                </div>
-                <div class="portfolio-item hidden">
-                    <a href="./images/savingstarget.png" data-lightbox="portfolio" data-title="Savings Target - Financial App Landing Page">
-                        <img src="./images/savingstarget.png" alt="Savings Target financial app landing page project" loading="lazy">
-                        <div class="overlay"><div class="overlay-text">Savings Target</div></div>
-                    </a>
-                </div>
-            </div>
-            <button id="show-more" class="show-more-btn">Show More Projects</button>
-        </section>
-
-        <section id="testimonials" class="testimonials">
-            <h2>What Our Clients Say</h2>
-            <div class="testimonial-carousel-wrapper">
-                <div class="testimonial-carousel">
-                    <div class="testimonial-box">
-                        <img src="./images/client1-placeholder.jpg" alt="Photo of John Doe" class="client-image" loading="lazy">
-                        <div class="testimonial-content">
-                            <p>"User Friendly Sites transformed our online presence! The team was professional and attentive to our needs."</p>
-                            <h4>- John Doe, CEO of Anikeola Schools</h4>
-                        </div>
-                    </div>
-                    <div class="testimonial-box">
-                        <img src="./images/jes.jpg" alt="Photo of Jes" class="client-image" loading="lazy">
-                        <div class="testimonial-content">
-                            <p>"Their SEO strategies brought us new customers and significantly increased our website traffic."</p>
-                            <h4>- Jes, Owner of Jes Loves Interior</h4>
-                        </div>
-                    </div>
-                    <div class="testimonial-box">
-                        <img src="./images/client3-placeholder.jpg" alt="Photo of Jonathan Santos" class="client-image" loading="lazy">
-                        <div class="testimonial-content">
-                            <p>"The redesign of our website was seamless and the results were outstanding. Highly recommend!"</p>
-                            <h4>- Jonathan Santos, Media Director, Lifehouse Church</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-controls">
-                <button id="prevBtn" aria-label="Previous Testimonial"><i class="fas fa-chevron-left"></i></button>
-                <button id="nextBtn" aria-label="Next Testimonial"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </section>
-        
         <section id="final-cta" class="final-cta">
             <div class="cta-content">
-                <h2>Ready to Elevate Your Online Presence?</h2>
-                <p>Let's build a website that not only looks great but also drives growth for your business.</p>
-                <a href="#contact" class="btn btn-primary cta-btn">Get Your Free Proposal</a>
-            </div>
-        </section>
-
-        <section id="contact" class="contact">
-            <h2>Get in Touch</h2>
-            <p class="section-subtitle">Have a question or ready to start your project? We're here to help.</p>
-            <div class="contact-container">
-                <div class="contact-form-wrapper">
-                    <form id="contactForm">
-                         <div class="form-group">
-                            <label for="contact-name">Name</label>
-                            <input type="text" id="contact-name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-email">Email</label>
-                            <input type="email" id="contact-email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-service">Service of Interest</label>
-                            <select id="contact-service" name="service" required>
-                                <option value="" disabled selected>Select a service</option>
-                                <option value="web-design">Web Design & Development</option>
-                                <option value="seo">SEO Optimization</option>
-                                <option value="maintenance">Website Maintenance</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-message">Message</label>
-                            <textarea id="contact-message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                </div>
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <p>We're based in Groton, CT and serve clients worldwide. Reach out to us anytime!</p>
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> <a href="https://www.google.com/maps/search/?api=1&query=Groton,CT" target="_blank" rel="noopener noreferrer">Groton, CT, USA</a></li>
-                        <li><i class="fas fa-phone"></i> <a href="tel:1-860-867-9664">(860) 867-9664</a></li>
-                        <li><i class="fas fa-envelope"></i> <a href="mailto:contact@userfriendlysites.com">contact@userfriendlysites.com</a></li>
-                        <li><i class="fas fa-clock"></i> Mon - Fri: 9:00 AM - 5:00 PM</li>
-                    </ul>
-                </div>
+                <h2>Have a Project in Mind?</h2>
+                <p>Let's discuss your ideas and how we can help you achieve your business goals.</p>
+                <a href="index.html#contact" class="btn btn-primary cta-btn">Let's Talk</a>
             </div>
         </section>
 
     </main>
-    
+
     <!-- Placeholder for footer.html -->
     <div id="footer-placeholder"></div>
 
-    <button id="scrollToTop" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
-
-    <div id="calculatorModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeCalculator()">&times;</span>
-            <div class="calculator-header">
-                <h2>Website Cost Estimator</h2>
-                <p>Follow the steps to get a customized estimate for your project.</p>
-            </div>
-            
-            <div class="progress-bar">
-                <div class="progress-bar-line"></div>
-                <div class="progress-bar-step active" data-step="1"><span>1</span><p>Project</p></div>
-                <div class="progress-bar-step" data-step="2"><span>2</span><p>Features</p></div>
-                <div class="progress-bar-step" data-step="3"><span>3</span><p>Design</p></div>
-                <div class="progress-bar-step" data-step="4"><span>4</span><p>Quote</p></div>
-            </div>
-
-            <form id="calculator-form">
-                <div class="calculator-step active" data-step="1">
-                    <h3>What type of website do you need?</h3>
-                    <div class="selection-grid">
-                        <label class="selection-card">
-                            <input type="radio" name="website-type" value="portfolio">
-                            <div class="card-content">
-                                <i class="fas fa-portrait"></i>
-                                <h4>Portfolio / Brochure</h4>
-                                <p>A beautiful site to showcase your work (1-10 pages).</p>
-                            </div>
-                        </label>
-                        <label class="selection-card">
-                            <input type="radio" name="website-type" value="corporate">
-                            <div class="card-content">
-                                <i class="fas fa-building"></i>
-                                <h4>Corporate / Business</h4>
-                                <p>A professional site for your company (10-50 pages).</p>
-                            </div>
-                        </label>
-                        <label class="selection-card">
-                            <input type="radio" name="website-type" value="e-commerce">
-                            <div class="card-content">
-                                <i class="fas fa-shopping-cart"></i>
-                                <h4>E-commerce / Store</h4>
-                                <p>A full-featured online store to sell your products.</p>
-                            </div>
-                        </label>
-                         <label class="selection-card">
-                            <input type="radio" name="website-type" value="custom">
-                            <div class="card-content">
-                                <i class="fas fa-cogs"></i>
-                                <h4>Custom Web App</h4>
-                                <p>A complex application with unique functionality.</p>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="calculator-step" data-step="2">
-                    <h3>Select the features you need:</h3>
-                     <div class="selection-grid feature-grid">
-                        <label class="selection-card">
-                            <input type="checkbox" name="features" value="blog">
-                            <div class="card-content">
-                                <i class="fas fa-newspaper"></i>
-                                <h4>Blog Integration</h4>
-                            </div>
-                        </label>
-                        <label class="selection-card">
-                            <input type="checkbox" name="features" value="seo-tools">
-                            <div class="card-content">
-                                <i class="fas fa-chart-line"></i>
-                                <h4>SEO Foundation Pack</h4>
-                            </div>
-                        </label>
-                         <label class="selection-card">
-                            <input type="checkbox" name="features" value="payment-gateways">
-                            <div class="card-content">
-                                <i class="fab fa-cc-stripe"></i>
-                                <h4>Payment Gateway</h4>
-                            </div>
-                        </label>
-                         <label class="selection-card">
-                            <input type="checkbox" name="features" value="user-logins">
-                            <div class="card-content">
-                                <i class="fas fa-users"></i>
-                                <h4>User Accounts</h4>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="calculator-step" data-step="3">
-                    <h3>What's your desired design style?</h3>
-                    <div class="selection-grid">
-                        <label class="selection-card">
-                            <input type="radio" name="design-style" value="minimalist">
-                            <div class="style-preview">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><rect width="100" height="60" fill="#f0f0f0"/><rect x="10" y="10" width="80" height="8" fill="#ccc"/><rect x="10" y="22" width="60" height="6" fill="#ddd"/><rect x="10" y="32" width="70" height="6" fill="#ddd"/></svg>
-                            </div>
-                            <div class="card-content"><h4>Minimalist & Clean</h4></div>
-                        </label>
-                        <label class="selection-card">
-                            <input type="radio" name="design-style" value="modern">
-                            <div class="style-preview">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><rect width="100" height="60" fill="#212335"/><rect x="10" y="10" width="30" height="40" fill="#591BC5"/><rect x="45" y="10" width="45" height="8" fill="#fff"/><rect x="45" y="22" width="35" height="6" fill="#aaa"/></svg>
-                            </div>
-                            <div class="card-content"><h4>Modern & Bold</h4></div>
-                        </label>
-                        <label class="selection-card">
-                            <input type="radio" name="design-style" value="creative">
-                            <div class="style-preview">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><rect width="100" height="60" fill="#f0f0f0"/><circle cx="75" cy="30" r="20" fill="#FC415A"/><path d="M0,60 Q 25,10 50,30 T 100,20" stroke="#591BC5" fill="none" stroke-width="2"/></svg>
-                            </div>
-                            <div class="card-content"><h4>Creative & Unique</h4></div>
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="calculator-step" data-step="4">
-                    <h3>Your Estimated Quote</h3>
-                    <div id="cost-result" class="cost-result-container">
-                        <!-- Results will be dynamically inserted here -->
-                    </div>
-                     <div class="quote-actions">
-                        <p>Enter your email to receive a copy of this quote.</p>
-                        <input type="email" id="quote-email" placeholder="your.email@example.com">
-                        <button type="button" id="send-quote-btn" class="btn btn-primary">Send to My Email</button>
-                    </div>
-                </div>
-
-                <div class="calculator-navigation">
-                    <button type="button" id="prev-step-btn" class="btn btn-secondary" style="display: none;">Previous</button>
-                    <button type="button" id="next-step-btn" class="btn btn-primary">Next Step</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
     <!-- JavaScript Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script> <!-- GSAP for smoother animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    
-    <!-- Main Script File -->
     <script src="script.js"></script>
+    <script src="services.js"></script>
 </body>
 </html>
