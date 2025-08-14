@@ -411,5 +411,15 @@
     
     <!-- Main Script File -->
     <script src="script.js"></script>
+<script>
+    // Force cache busting for CSS and JS files
+    document.querySelectorAll('link[rel="stylesheet"], script[src]').forEach(function(el) {
+        var attr = el.tagName === 'LINK' ? 'href' : 'src';
+        var url = el.getAttribute(attr);
+        if (url && !url.includes('nocache')) {
+            el.setAttribute(attr, url + (url.includes('?') ? '&' : '?') + 'nocache=' + Date.now());
+        }
+    });
+</script>
 </body>
 </html>
