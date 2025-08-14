@@ -6,23 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentIndex = 0;
     let interval;
 
-    // Resize images client-side for performance
-    images.forEach((img, i) => {
-        const src = img.getAttribute('data-src');
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const tempImg = new window.Image();
-        tempImg.crossOrigin = 'anonymous';
-        tempImg.onload = function() {
-            // Resize to 400x220 (or mobile size)
-            canvas.width = 400;
-            canvas.height = 220;
-            ctx.drawImage(tempImg, 0, 0, canvas.width, canvas.height);
-            img.src = canvas.toDataURL('image/jpeg', 0.7); // Compress
-        };
-        tempImg.src = src;
-    });
-
+    // Show only one image at a time
     function showSlide(index) {
         carousel.style.transform = `translateX(-${index * 100}%)`;
         dots.forEach(dot => dot.classList.remove('active'));
