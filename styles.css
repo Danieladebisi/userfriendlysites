@@ -1,5 +1,116 @@
 /* Carousel Styles */
 /* Why Choose Us Section Layout */
+/* Modern Why Choose Us Section */
+.modern-section {
+    position: relative;
+    padding: 3rem 0 2rem 0;
+    background: #f7f8fa;
+    overflow: hidden;
+}
+.why-choose-bg-shape {
+    position: absolute;
+    top: -80px; left: -120px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle at 40% 40%, #ffd70033 0%, #23234a00 80%);
+    z-index: 0;
+    pointer-events: none;
+}
+.modern-layout {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+.why-choose-images {
+    flex: 1 1 320px;
+    min-width: 260px;
+    max-width: 340px;
+    display: flex;
+    justify-content: center;
+}
+.why-img-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.why-img {
+    width: 100%;
+    max-width: 320px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    transition: transform 0.3s cubic-bezier(.77,0,.18,1), box-shadow 0.3s;
+    background: #eaeaea;
+}
+.why-img:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+}
+.why-choose-info {
+    flex: 1 1 340px;
+    min-width: 260px;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    padding: 2.5rem 2rem;
+    position: relative;
+}
+.why-choose-title {
+    font-size: 2.3rem;
+    color: #23234a;
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+.why-choose-intro {
+    color: #444;
+    font-size: 1.15rem;
+    margin-bottom: 2rem;
+}
+.why-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.why-feature {
+    margin-bottom: 2rem;
+    font-size: 1.13rem;
+    color: #23234a;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s, transform 0.7s;
+}
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+}
+.feature-desc {
+    color: #ffd700;
+    font-size: 1rem;
+    margin-top: 0.2rem;
+}
+@media (max-width: 900px) {
+    .modern-layout {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: stretch;
+    }
+    .why-choose-images, .why-choose-info {
+        max-width: 98vw;
+        min-width: 0;
+    }
+    .why-img {
+        height: 90px;
+    }
+}
 /* Creative Why Choose Us Section */
 .creative-section {
     padding: 3rem 0 2rem 0;

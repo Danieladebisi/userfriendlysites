@@ -1,3 +1,19 @@
+// Animate feature list items on scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const features = document.querySelectorAll('.why-feature');
+    function animateFeatures() {
+        features.forEach((feature, i) => {
+            const rect = feature.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 60) {
+                feature.style.opacity = '1';
+                feature.style.transform = 'translateY(0)';
+                feature.style.transitionDelay = `${i * 0.2}s`;
+            }
+        });
+    }
+    window.addEventListener('scroll', animateFeatures);
+    animateFeatures();
+});
 // Carousel functionality and image optimization
 document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.querySelector('.carousel');
