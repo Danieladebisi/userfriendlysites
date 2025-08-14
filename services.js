@@ -1,3 +1,59 @@
+// Carousel functionality and image optimization
+document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.carousel');
+    const images = document.querySelectorAll('.carousel-img');
+    const dots = document.querySelectorAll('.carousel-dot');
+    let currentIndex = 0;
+    let interval;
+
+    // Resize images client-side for performance
+    images.forEach((img, i) => {
+        const src = img.getAttribute('data-src');
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const tempImg = new window.Image();
+        tempImg.crossOrigin = 'anonymous';
+        tempImg.onload = function() {
+            // Resize to 400x220 (or mobile size)
+            canvas.width = 400;
+            canvas.height = 220;
+            ctx.drawImage(tempImg, 0, 0, canvas.width, canvas.height);
+            img.src = canvas.toDataURL('image/jpeg', 0.7); // Compress
+        };
+        tempImg.src = src;
+    });
+
+    function showSlide(index) {
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[index].classList.add('active');
+        currentIndex = index;
+    }
+
+    function nextSlide() {
+        let next = (currentIndex + 1) % images.length;
+        showSlide(next);
+    }
+
+    function startAutoSlide() {
+        interval = setInterval(nextSlide, 3500);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(interval);
+    }
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            showSlide(i);
+            stopAutoSlide();
+            startAutoSlide();
+        });
+    });
+
+    showSlide(0);
+    startAutoSlide();
+});
 /**
  * ==========================================================================
  * services.js
