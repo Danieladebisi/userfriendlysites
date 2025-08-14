@@ -1,26 +1,32 @@
 // Carousel functionality and image optimization
 document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.querySelector('.carousel');
-    const images = document.querySelectorAll('.carousel-img');
+    const cards = document.querySelectorAll('.carousel-card');
     const dots = document.querySelectorAll('.carousel-dot');
     let currentIndex = 0;
     let interval;
 
-    // Show only one image at a time
     function showSlide(index) {
         carousel.style.transform = `translateX(-${index * 100}%)`;
         dots.forEach(dot => dot.classList.remove('active'));
         dots[index].classList.add('active');
+        cards.forEach((card, i) => {
+            card.style.opacity = (i === index) ? '1' : '0.6';
+            card.style.transform = (i === index)
+                ? 'scale(1)'
+                : 'scale(0.92)';
+            card.style.zIndex = (i === index) ? '2' : '1';
+        });
         currentIndex = index;
     }
 
     function nextSlide() {
-        let next = (currentIndex + 1) % images.length;
+        let next = (currentIndex + 1) % cards.length;
         showSlide(next);
     }
 
     function startAutoSlide() {
-        interval = setInterval(nextSlide, 3500);
+        interval = setInterval(nextSlide, 4000);
     }
 
     function stopAutoSlide() {
