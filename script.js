@@ -300,6 +300,33 @@ function initCalculatorWizard() {
     });
 
     updateWizardUI();
+        /**
+         * Smart event listeners for unified calculator modal (homepage + intake)
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            // Open calculator from homepage button
+            const openCalcBtn = document.getElementById('openCalculatorHome');
+            const calcModal = document.getElementById('calculatorModal');
+            const closeCalcBtn = document.getElementById('closeCalculatorHome');
+            if (openCalcBtn && calcModal) {
+                openCalcBtn.addEventListener('click', function() {
+                    calcModal.style.display = 'block';
+                });
+            }
+            if (closeCalcBtn && calcModal) {
+                closeCalcBtn.addEventListener('click', function() {
+                    calcModal.style.display = 'none';
+                });
+            }
+            // Close modal on outside click
+            if (calcModal) {
+                calcModal.addEventListener('click', function(e) {
+                    if (e.target === calcModal) {
+                        calcModal.style.display = 'none';
+                    }
+                });
+            }
+        });
 }
 
 function calculateAndDisplayCost() {

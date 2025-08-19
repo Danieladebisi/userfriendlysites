@@ -106,10 +106,47 @@
                 <div class="hero-accent creative-accent"></div>
                 <p class="hero-subtitle">Stunning, fast, and user-friendly websites that convert visitors into customers.</p>
                 <a href="#portfolio" class="hero-btn">See Our Work</a>
-                <button class="hero-btn" onclick="openCalculator()"><i class="fas fa-calculator" style="margin-right:0.5rem;"></i>Get Instant Website Quote</button>
+                <button class="hero-btn" id="openCalculatorHome"><i class="fas fa-calculator" style="margin-right:0.5rem;"></i>Get Instant Website Quote</button>
                 <div class="hero-tagline">Trusted by businesses and organizations worldwide.</div>
             </div>
         </section>
+
+        <!-- Calculator Modal (shared with projectintake.html) -->
+        <div id="calculatorModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeCalculatorHome">&times;</span>
+                <h2>Website Cost Calculator</h2>
+                <form id="calculator-form">
+                    <div class="form-group">
+                        <label for="website-type">Type of Website:</label>
+                        <select id="website-type" name="website-type">
+                            <option value="basic">Basic</option>
+                            <option value="ecommerce">E-commerce</option>
+                            <option value="blog">Blog</option>
+                            <option value="portfolio">Portfolio</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pages">Number of Pages:</label>
+                        <input type="range" id="pages" name="pages" min="1" max="100" value="1" oninput="this.nextElementSibling.value = this.value">
+                        <output>1</output>
+                    </div>
+                    <div class="form-group">
+                        <label for="features">Features:</label>
+                        <div class="options">
+                            <label><input type="checkbox" name="features" value="seo"> SEO</label>
+                            <label><input type="checkbox" name="features" value="responsive"> Responsive Design</label>
+                            <label><input type="checkbox" name="features" value="cms"> CMS Integration</label>
+                            <label><input type="checkbox" name="features" value="ecommerce"> E-commerce Functionality</label>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="calculateCost()">Calculate Cost</button>
+                </form>
+                <div id="cost-result"></div>
+                <button id="contact-us" class="btn btn-secondary" style="display: none;" onclick="scrollToSection('contact')">Contact Us</button>
+            </div>
+        </div>
 
         <!-- Services Section -->
         <section id="services" class="services">
