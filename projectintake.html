@@ -2,85 +2,14 @@
 <html lang="en">
 
 <head>
-        <!-- SEO Meta Tags & Best Practices -->
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Project Intake Form | User Friendly Sites</title>
-        <meta name="description" content="Start your web project with User Friendly Sites. Fill out our intake form for custom web design, SEO, and website development in Groton, CT.">
-        <meta name="keywords" content="project intake, web design, SEO, website development, Groton CT, User Friendly Sites, e-commerce, responsive design">
-        <meta name="author" content="User Friendly Sites">
-        <meta name="robots" content="index, follow">
-        <link rel="canonical" href="https://userfriendlysites.com/projectintake.html">
-        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
-
-        <!-- Open Graph / Facebook -->
-        <meta property="og:title" content="Project Intake Form | User Friendly Sites">
-        <meta property="og:description" content="Start your web project with User Friendly Sites. Fill out our intake form for custom web design, SEO, and website development in Groton, CT.">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="https://userfriendlysites.com/projectintake.html">
-        <meta property="og:image" content="https://userfriendlysites.com/images/user-friendly-sites-og-image.png">
-
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Project Intake Form | User Friendly Sites">
-        <meta name="twitter:description" content="Start your web project with User Friendly Sites. Fill out our intake form for custom web design, SEO, and website development in Groton, CT.">
-        <meta name="twitter:image" content="https://userfriendlysites.com/images/user-friendly-sites-og-image.png">
-
-        <!-- Favicon -->
-        <link rel="icon" type="image/png" href="./images/Copy of User Friendly Sites.png">
-
-        <!-- Fonts and Stylesheets -->
-        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="styles.css">
-
-        <!-- Structured Data: Organization & LocalBusiness -->
-        <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            "name": "User Friendly Sites",
-            "image": "https://userfriendlysites.com/images/user-friendly-sites-og-image.png",
-            "@id": "https://userfriendlysites.com/",
-            "url": "https://userfriendlysites.com/",
-            "telephone": "+1-860-867-9664",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Groton, CT",
-                "addressLocality": "Groton",
-                "addressRegion": "CT",
-                "postalCode": "06340",
-                "addressCountry": "US"
-            },
-            "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": "41.3501",
-                "longitude": "-72.0781"
-            },
-            "openingHoursSpecification": [{
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday"
-                ],
-                "opens": "09:00",
-                "closes": "17:00"
-            }],
-            "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+1-860-867-9664",
-                "contactType": "customer service",
-                "email": "contact@userfriendlysites.com"
-            }
-        }
-        </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Intake Form</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
-<body lang="en">
+<body>
 
     <div id="header-placeholder"></div>
 
@@ -162,8 +91,7 @@
                     <span class="input-group-addon">$</span>
                     <input type="text" id="budget" name="budget" placeholder="Enter your budget">
                 </div>
-                <p>If you're not sure about your budget, you can use our <a href="#calculatorModal"
-                        id="openCalculator">website cost calculator</a>.</p>
+                <p>If you're not sure about your budget, you can use our <a href="#" id="openCalculator">website cost calculator</a>.</p>
             </div>
 
             <div class="form-group">
@@ -208,46 +136,8 @@
         </div>
     </div>
 
-    <div id="calculatorModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Website Cost Calculator</h2>
-            <form id="calculator-form">
-                <div class="form-group">
-                    <label for="website-type">Type of Website:</label>
-                    <select id="website-type" name="website-type">
-                        <option value="basic">Basic</option>
-                        <option value="ecommerce">E-commerce</option>
-                        <option value="blog">Blog</option>
-                        <option value="portfolio">Portfolio</option>
-                        <option value="custom">Custom</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="pages">Number of Pages:</label>
-                    <input type="range" id="pages" name="pages" min="1" max="100" value="1"
-                        oninput="this.nextElementSibling.value = this.value">
-                    <output>1</output>
-                </div>
-
-                <div class="form-group">
-                    <label for="features">Features:</label>
-                    <div class="options">
-                        <label><input type="checkbox" name="features" value="seo"> SEO</label>
-                        <label><input type="checkbox" name="features" value="responsive"> Responsive Design</label>
-                        <label><input type="checkbox" name="features" value="cms"> CMS Integration</label>
-                        <label><input type="checkbox" name="features" value="ecommerce"> E-commerce Functionality</label>
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-primary" onclick="calculateCost()">Calculate Cost</button>
-            </form>
-            <div id="cost-result"></div>
-            <button id="contact-us" class="btn btn-secondary" style="display: none;"
-                onclick="scrollToSection('contact')">Contact Us</button>
-        </div>
-    </div>
+    <!-- Shared Calculator Placeholder (loaded dynamically) -->
+    <div id="calculator-placeholder"></div>
 
     <div id="footer-placeholder"></div>
 
@@ -269,15 +159,7 @@
         });
     </script>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function () {
-            emailjs.init({
-                publicKey: "m5cA-okHHGdZuWJoh", // ***IMPORTANT: Replace with your actual Public Key***
-            });
-        })();
-    </script>
-
+    <!-- Note: EmailJS initialization should be centralized. Add your public key in a single place (e.g., header or a small inline script) before `script.js` if you want the contact form to send messages. -->
     <script src="script.js"></script>
 </body>
 

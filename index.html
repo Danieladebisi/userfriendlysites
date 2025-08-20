@@ -81,21 +81,8 @@
         </script>
 </head>
 <body lang="en">
-    <!-- Navigation -->
-    <header class="main-header">
-        <nav class="main-nav">
-            <a href="#home" class="logo">User Friendly Sites</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#why-choose-us">Why Choose Us</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <a href="#contact" class="nav-cta">Get Started</a>
-        </nav>
-    </header>
+    <div id="header-placeholder"></div>
+    <!-- Dynamic Header -->
 
     <main>
         <!-- Hero Section -->
@@ -111,42 +98,8 @@
             </div>
         </section>
 
-        <!-- Calculator Modal (shared with projectintake.html) -->
-        <div id="calculatorModal" class="modal">
-            <div class="modal-content">
-                <span class="close" id="closeCalculatorHome">&times;</span>
-                <h2>Website Cost Calculator</h2>
-                <form id="calculator-form">
-                    <div class="form-group">
-                        <label for="website-type">Type of Website:</label>
-                        <select id="website-type" name="website-type">
-                            <option value="basic">Basic</option>
-                            <option value="ecommerce">E-commerce</option>
-                            <option value="blog">Blog</option>
-                            <option value="portfolio">Portfolio</option>
-                            <option value="custom">Custom</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pages">Number of Pages:</label>
-                        <input type="range" id="pages" name="pages" min="1" max="100" value="1" oninput="this.nextElementSibling.value = this.value">
-                        <output>1</output>
-                    </div>
-                    <div class="form-group">
-                        <label for="features">Features:</label>
-                        <div class="options">
-                            <label><input type="checkbox" name="features" value="seo"> SEO</label>
-                            <label><input type="checkbox" name="features" value="responsive"> Responsive Design</label>
-                            <label><input type="checkbox" name="features" value="cms"> CMS Integration</label>
-                            <label><input type="checkbox" name="features" value="ecommerce"> E-commerce Functionality</label>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="calculateCost()">Calculate Cost</button>
-                </form>
-                <div id="cost-result"></div>
-                <button id="contact-us" class="btn btn-secondary" style="display: none;" onclick="scrollToSection('contact')">Contact Us</button>
-            </div>
-        </div>
+    <!-- Shared Calculator Placeholder (loaded dynamically) -->
+    <div id="calculator-placeholder"></div>
 
         <!-- Services Section -->
         <section id="services" class="services">
@@ -334,16 +287,8 @@
         </section>
 
         <!-- Footer -->
-        <footer class="main-footer">
-            <div class="footer-content">
-                <p>&copy; <span id="current-year"></span> User Friendly Sites. All rights reserved.</p>
-                <ul class="footer-links">
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </footer>
+    <!-- Dynamic Footer -->
+    <div id="footer-placeholder"></div>
             </main>
 
     <!-- ...existing code... -->

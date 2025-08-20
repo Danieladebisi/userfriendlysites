@@ -25,10 +25,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     loadHTML('footer-placeholder', 'footer.html');
 
+    // Load shared calculator fragment first (if placeholder present)
+    loadHTML('calculator-placeholder', 'calculator.html').then(() => {
+        // Wire calculator open/close and calculate button handlers if fragment was loaded
+        const calcModal = document.getElementById('calculatorModal');
+        if (calcModal) {
+            // Close buttons inside fragment
+            const closeBtn = document.getElementById('calculator-close') || calcModal.querySelector('.close');
+            if (closeBtn) closeBtn.addEventListener('click', () => window.closeCalculator());
+            const cancelBtn = document.getElementById('calculator-cancel');
+            if (cancelBtn) cancelBtn.addEventListener('click', () => window.closeCalculator());
+
+            // Calculate button
+            const calcBtn = document.getElementById('calculator-calc');
+            if (calcBtn) calcBtn.addEventListener('click', () => calculateCost());
+        }
+
+        // Wire any open-calculator triggers (links/buttons) on the page
+        document.querySelectorAll('#openCalculator, #openCalculatorHome').forEach(el => {
+            el.addEventListener('click', (ev) => { ev.preventDefault(); window.openCalculator(); });
+        });
+
+        // Now initialize the calculator logic (if any wizard steps exist they'll be activated)
+        initCalculatorWizard();
+    }).catch(err => {
+        // If the calculator fragment fails to load, still attempt to initialize (safe guards exist)
+        console.warn('Calculator fragment failed to load or is missing:', err);
+        initCalculatorWizard();
+    });
+
+    // Other initializers
     initUI();
     initInteractiveComponents();
     initBlueprintHeroAnimation();
-    initCalculatorWizard();
     setupContactForm();
 });
 
@@ -241,8 +270,10 @@ function initBlueprintHeroAnimation() {
 function initCalculatorWizard() {
     const modal = document.getElementById('calculatorModal');
     if (!modal) return;
-
     const steps = modal.querySelectorAll('.calculator-step');
+    // If there are no wizard steps on this page, skip the complex wizard initialization.
+    // Some pages (like index.html) use a simplified calculator modal instead.
+    if (!steps || steps.length === 0) return;
     const prevBtn = modal.querySelector('#prev-step-btn');
     const nextBtn = modal.querySelector('#next-step-btn');
     const costResultContainer = modal.querySelector('#cost-result');
@@ -300,33 +331,6 @@ function initCalculatorWizard() {
     });
 
     updateWizardUI();
-        /**
-         * Smart event listeners for unified calculator modal (homepage + intake)
-         */
-        document.addEventListener('DOMContentLoaded', function() {
-            // Open calculator from homepage button
-            const openCalcBtn = document.getElementById('openCalculatorHome');
-            const calcModal = document.getElementById('calculatorModal');
-            const closeCalcBtn = document.getElementById('closeCalculatorHome');
-            if (openCalcBtn && calcModal) {
-                openCalcBtn.addEventListener('click', function() {
-                    calcModal.style.display = 'block';
-                });
-            }
-            if (closeCalcBtn && calcModal) {
-                closeCalcBtn.addEventListener('click', function() {
-                    calcModal.style.display = 'none';
-                });
-            }
-            // Close modal on outside click
-            if (calcModal) {
-                calcModal.addEventListener('click', function(e) {
-                    if (e.target === calcModal) {
-                        calcModal.style.display = 'none';
-                    }
-                });
-            }
-        });
 }
 
 function calculateAndDisplayCost() {
@@ -383,6 +387,33 @@ function calculateAndDisplayCost() {
     resultContainer.classList.add('active');
 }
 
+// Backwards-compatible function used by index.html's inline onclick
+function calculateCost() {
+    // If the wizard is present, delegate to the unified function
+    try {
+        calculateAndDisplayCost();
+    } catch (err) {
+        console.error('calculateCost error:', err);
+        const form = document.getElementById('calculator-form');
+        if (!form) return;
+        // Simple fallback: estimate cost based on website-type and checkboxes
+        const formData = new FormData(form);
+        let total = 0;
+        const base = { basic: 1500, ecommerce: 7000, blog: 1800, portfolio: 1200, custom: 10000 };
+        const type = formData.get('website-type');
+        if (type && base[type]) total += base[type];
+        const pages = parseInt(formData.get('pages') || '1', 10);
+        total += Math.max(0, pages - 1) * 50;
+        const features = formData.getAll('features');
+        if (features.includes('seo')) total += 400;
+        if (features.includes('responsive')) total += 300;
+        if (features.includes('cms')) total += 800;
+        if (features.includes('ecommerce')) total += 1500;
+        const result = document.getElementById('cost-result');
+        if (result) result.innerHTML = `<h4>Estimated Total</h4><div class="total-cost">$${total.toLocaleString()}</div>`;
+    }
+}
+
 /* ==========================================================================
    7. Contact Form Submission
    ========================================================================== */
@@ -394,9 +425,22 @@ function setupContactForm() {
         const serviceID = 'YOUR_SERVICE_ID';
         const templateID = 'YOUR_CONTACT_TEMPLATE_ID';
         const publicKey = 'YOUR_PUBLIC_KEY';
+
+        // Basic validation: if EmailJS is not loaded or keys are placeholders, don't attempt to send
+        if (typeof emailjs === 'undefined') {
+            console.warn('EmailJS is not loaded. Contact form submission skipped.');
+            alert('Contact form is not configured on this demo. Please configure EmailJS keys to enable sending.');
+            return;
+        }
+        if (serviceID.includes('YOUR_') || templateID.includes('YOUR_') || publicKey.includes('YOUR_')) {
+            console.warn('EmailJS keys are placeholders. Update serviceID/templateID/publicKey to enable sending.');
+            alert('Contact form is not configured. Please update EmailJS configuration before sending.');
+            return;
+        }
+
         emailjs.sendForm(serviceID, templateID, this, publicKey)
             .then(() => { alert('Message sent successfully!'); contactForm.reset(); },
-                  (err) => { alert('Failed to send message. Error: ' + JSON.stringify(err)); });
+                  (err) => { console.error('EmailJS send error:', err); alert('Failed to send message. Please try again later.'); });
     });
 }
 

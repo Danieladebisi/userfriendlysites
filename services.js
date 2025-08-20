@@ -1,20 +1,16 @@
 // Parallax effect for hero background
-// --- Main DOMContentLoaded Handler ---
+document.addEventListener('scroll', function() {
+    var hero = document.querySelector('.enhanced-hero');
+    if (hero) {
+        var scrolled = window.scrollY;
+        var parallax = Math.min(scrolled * 0.2, 60);
+        hero.classList.add('parallax');
+        hero.style.setProperty('--parallax', parallax + 'px');
+    }
+});
+// Portfolio entrance animation and Show More Projects button
 document.addEventListener('DOMContentLoaded', function() {
-    // Parallax effect for hero background
-    document.addEventListener('scroll', function() {
-        var hero = document.querySelector('.enhanced-hero');
-        if (hero) {
-            var scrolled = window.scrollY;
-            var parallax = Math.min(scrolled * 0.2, 60);
-            if (!hero.classList.contains('parallax')) {
-                hero.classList.add('parallax');
-            }
-            hero.style.setProperty('--parallax', parallax + 'px');
-        }
-    });
-
-    // Portfolio entrance animation and Show More Projects button
+    // Portfolio entrance animation
     const portfolioItems = document.querySelectorAll('.portfolio-item');
     function animatePortfolio() {
         portfolioItems.forEach((item, i) => {
@@ -62,34 +58,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const lightboxModal = document.getElementById('lightbox-modal');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
-    if (lightboxModal && lightboxImg && lightboxCaption) {
-        document.querySelectorAll('.portfolio-item img').forEach(img => {
-            img.addEventListener('click', function() {
-                lightboxImg.src = img.src;
-                const overlay = img.parentElement.querySelector('.portfolio-overlay');
-                lightboxCaption.innerHTML = overlay ? overlay.innerHTML : '';
-                lightboxModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
+    document.querySelectorAll('.portfolio-item img').forEach(img => {
+        img.addEventListener('click', function() {
+            lightboxImg.src = img.src;
+            const overlay = img.parentElement.querySelector('.portfolio-overlay');
+            lightboxCaption.innerHTML = overlay ? overlay.innerHTML : '';
+            lightboxModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
-        const closeBtn = document.querySelector('.lightbox-close');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function() {
-                lightboxModal.classList.remove('active');
-                document.body.style.overflow = '';
-                lightboxImg.src = '';
-            });
+    });
+    document.querySelector('.lightbox-close').addEventListener('click', function() {
+        lightboxModal.classList.remove('active');
+        document.body.style.overflow = '';
+        lightboxImg.src = '';
+    });
+    lightboxModal.addEventListener('click', function(e) {
+        if (e.target === lightboxModal) {
+            lightboxModal.classList.remove('active');
+            document.body.style.overflow = '';
+            lightboxImg.src = '';
         }
-        lightboxModal.addEventListener('click', function(e) {
-            if (e.target === lightboxModal) {
-                lightboxModal.classList.remove('active');
-                document.body.style.overflow = '';
-                lightboxImg.src = '';
-            }
-        });
-    }
-
-    // Animate feature list items on scroll
+    });
+});
+// Animate feature list items on scroll
+document.addEventListener('DOMContentLoaded', function() {
     const features = document.querySelectorAll('.why-feature');
     function animateFeatures() {
         features.forEach((feature, i) => {
@@ -103,8 +95,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     window.addEventListener('scroll', animateFeatures);
     animateFeatures();
-
-    // Carousel functionality and image optimization
+});
+// Carousel functionality and image optimization
+document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.querySelector('.carousel');
     const cards = document.querySelectorAll('.carousel-card');
     const dots = document.querySelectorAll('.carousel-dot');
@@ -112,10 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let interval;
 
     function showSlide(index) {
-        if (!carousel || cards.length === 0 || dots.length === 0) return;
         carousel.style.transform = `translateX(-${index * 100}%)`;
         dots.forEach(dot => dot.classList.remove('active'));
-        if (dots[index]) dots[index].classList.add('active');
+        dots[index].classList.add('active');
         cards.forEach((card, i) => {
             card.style.opacity = (i === index) ? '1' : '0.6';
             card.style.transform = (i === index)
@@ -132,12 +124,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startAutoSlide() {
-        stopAutoSlide(); // Clean up previous interval
         interval = setInterval(nextSlide, 4000);
     }
 
     function stopAutoSlide() {
-        if (interval) clearInterval(interval);
+        clearInterval(interval);
     }
 
     dots.forEach((dot, i) => {
@@ -150,15 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     showSlide(0);
     startAutoSlide();
-
-    // --- Dynamic Content Loading (Header/Footer) ---
-    // This ensures the header and footer are loaded into their respective placeholders.
-    loadHTML('header-placeholder', 'header.html');
-    loadHTML('footer-placeholder', 'footer.html');
-
-    // --- FAQ Accordion Functionality ---
-    // Sets up the click listeners to expand and collapse the FAQ items.
-    setupFaqAccordion();
 });
 /**
  * ==========================================================================
