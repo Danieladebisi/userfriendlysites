@@ -185,7 +185,65 @@ header .menu-toggle { display: none; }
 .creative-hero .hero-title .accented { background: linear-gradient(90deg,#ffd700,#ffde59); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .creative-hero .hero-subtitle { font-size: 1.05rem; color: rgba(255,255,255,0.95); margin-bottom: 1.2rem; max-width: 44rem; }
 .hero-ctas { display:flex; gap: 1rem; align-items: center; margin-bottom: 1.2rem; }
-.hero-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.6rem 1rem; border-radius: 10px; }
+
+/* Modern CTA card + ghost button style */
+.hero-cta-wrap { display:inline-flex; align-items:center; gap:.8rem; }
+.hero-ghost {
+    background: #ffffff !important; /* white card background for hero */
+    color: var(--text-color-dark) !important;
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(15,23,36,0.06) !important;
+    box-shadow: 0 12px 30px rgba(12,18,31,0.08);
+    transition: transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .18s ease, background .12s ease;
+    display:inline-flex; align-items:center; gap:.6rem; font-weight:700;
+}
+.hero-ghost:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 20px 50px rgba(12,18,31,0.12); }
+.hero-ghost:focus { outline: 3px solid rgba(14,165,164,0.12); outline-offset: 4px; }
+
+/* Remove decorative pseudo-element; use interactive SVG icon instead */
+.hero-ghost::before { content: none !important; }
+
+/* Ring animation for CTA icon to indicate interactivity */
+.cta-icon { width: 18px; height: 18px; margin-right: 8px; display:inline-block; vertical-align:middle; transition: transform .18s ease, filter .18s ease; }
+.hero-ghost:hover .cta-icon { transform: translateY(-3px) rotate(-6deg); filter: drop-shadow(0 6px 18px rgba(0,0,0,0.06)); }
+.cta-icon.ring { position: relative; }
+.cta-icon.ring::after { content: ''; position: absolute; left: -6px; top: -6px; right: -6px; bottom: -6px; border-radius: 50%; border: 2px solid rgba(14,165,164,0.12); opacity: 0; transform: scale(.8); transition: opacity .28s ease, transform .28s ease; }
+.hero-ghost:hover .cta-icon.ring::after { opacity: 1; transform: scale(1.05); }
+.hero-ghost span { vertical-align: middle; }
+
+/* CTA icon inside the ghost CTA */
+.cta-icon { width: 18px; height: 18px; margin-right: 8px; display:inline-block; vertical-align:middle; transition: transform .18s ease, filter .18s ease; }
+.hero-ghost:hover .cta-icon { transform: translateY(-3px) rotate(-6deg); filter: drop-shadow(0 6px 18px rgba(0,0,0,0.06)); }
+.hero-ghost span { vertical-align: middle; }
+
+/* Primary CTA (if used) — elevated pill */
+.hero-btn { border-radius: 999px; padding: .9rem 1.4rem; box-shadow: 0 14px 36px rgba(35,35,74,0.14); transition: transform .18s ease, box-shadow .18s ease; }
+.hero-btn:hover { transform: translateY(-4px); box-shadow: 0 22px 56px rgba(35,35,74,0.16); }
+
+/* Subtle animated highlight behind CTAs */
+.hero-ctas { position: relative; }
+.hero-ctas::after {
+    content: '';
+    position: absolute; left: -40px; right: -40px; top: -18px; bottom: -18px;
+    background: radial-gradient(600px 120px at 10% 10%, rgba(14,165,164,0.06), transparent 18%), radial-gradient(400px 100px at 90% 90%, rgba(99,102,241,0.04), transparent 24%);
+    z-index: 0; border-radius: 18px; pointer-events: none; filter: blur(14px);
+}
+.hero-ctas > * { position: relative; z-index: 2; }
+
+/* Floating decorative shapes for hero (lightweight, CSS-only) */
+.hero::before, .hero::after { content:''; position:absolute; border-radius:50%; opacity:.12; pointer-events:none; }
+.hero::before { width:220px; height:220px; background: radial-gradient(circle at 30% 30%, #7c3aed, transparent 40%); left:6%; top:12%; transform: translateZ(0); }
+.hero::after { width:160px; height:160px; background: radial-gradient(circle at 70% 70%, #06b6d4, transparent 40%); right:8%; bottom:12%; }
+
+/* Micro-interaction for hover on hero CTA group */
+.hero-ctas:hover .hero-ghost { transform: translateY(-6px) scale(1.02); }
+
+@media (max-width: 520px) {
+    .hero-ghost { padding: .7rem .9rem; font-size: .95rem; }
+    .hero::before, .hero::after { display: none; }
+}
+.hero .hero-ghost, a.hero-ghost, .hero-ghost.btn-secondary { color: var(--text-color-dark) !important; background: #ffffff !important; border-color: rgba(15,23,36,0.06) !important; }
 .hero-badges { display:flex; gap: 0.6rem; list-style:none; padding:0; margin: 1rem 0 0 0; }
 .hero-badges .badge { background: rgba(255,255,255,0.06); color: #fff; padding: 0.45rem 0.7rem; border-radius: 999px; font-weight:700; font-size:0.9rem; }
 
@@ -199,13 +257,41 @@ header .menu-toggle { display: none; }
 
 /* Gallery stack for hero visual */
 .hero-gallery .gallery-stack { position: relative; width: 100%; max-width: 480px; height: 320px; border-radius: 16px; overflow: visible; z-index: 30; }
-.gallery-img { position: absolute; width: calc(100% - 40px); right: 0; border-radius: 12px; box-shadow: 0 18px 40px rgba(6,8,20,0.5); transition: transform 320ms ease, box-shadow 320ms ease, opacity 320ms ease; opacity: 1; display: block; }
+.hero-gallery .gallery-stack { /* fallback background in case <img> fails to render */
+    background-color: transparent;
+    background-image: url('./images/business-team-standing-around-computer-for-present-2024-09-16-22-11-46-utc.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.gallery-img { position: absolute; width: calc(100% - 40px); right: 0; border-radius: 12px; box-shadow: 0 18px 40px rgba(6,8,20,0.5); transition: transform 320ms ease, box-shadow 320ms ease, opacity 320ms ease; opacity: 1 !important; display: block !important; visibility: visible !important; }
 .gallery-img.img-1 { top: 0; transform: translateY(12px) rotate(-2deg); z-index: 1; }
 .gallery-img.img-2 { top: 18px; transform: translateY(8px) rotate(-1deg); z-index: 2; }
 .gallery-img.img-3 { top: 36px; transform: translateY(0px) rotate(0deg); z-index: 3; }
 .gallery-stack:hover .gallery-img { transform: translateY(-6px) scale(1.02); box-shadow: 0 30px 70px rgba(6,8,20,0.6); opacity: 1; }
 .gallery-img { z-index: 40; }
 .gallery-stack .mock-overlay { position: absolute; right: 12px; bottom: 12px; z-index: 4; }
+
+/* Debugging aid: outline the gallery area so we can see its bounds if images aren't visible */
+.hero-gallery .gallery-stack { outline: 2px dashed rgba(255,255,255,0.04); }
+
+/* DEBUG: Force gallery images into normal flow so they are visible while diagnosing issues.
+   Remove this block once images are confirmed. */
+.gallery-stack.debug, .hero-gallery.debug .gallery-stack { outline: 3px dashed rgba(99,102,241,0.14); }
+.gallery-stack.debug .gallery-img, .hero-gallery.debug .gallery-img {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    transform: none !important;
+    right: auto !important;
+    top: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+/* Also ensure the gallery stack uses a visible background while debugging */
+.hero-gallery.debug .gallery-stack { background-image: none !important; background-color: rgba(255,255,255,0.02) !important; }
 .price-pill strong { font-weight: 900; color: #fff; }
 
 /* Wave divider */
@@ -407,7 +493,6 @@ header .menu-toggle { display: none; }
 .process-step-container:nth-child(even)::after { left: -12px; }
 .process-step {
     padding: 30px;
-    background-color: white;
     position: relative;
     border-radius: 8px;
     box-shadow: 0 5px 25px var(--shadow-color);
@@ -419,6 +504,14 @@ header .menu-toggle { display: none; }
    font-size: 2rem;
    color: var(--primary-color);
    margin-bottom: 1rem;
+process-step-container::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: -12px;
+    background-color: white;
+}
    display: block;
 }
 .process-step-container:nth-child(odd) .process-step { text-align: right; }
@@ -758,34 +851,11 @@ input[type="range"]:focus { outline: none; }
 
 /* Visible checkbox / checkmark inside feature pills */
 .feature-pill .pill-label { position: relative; }
-.feature-pill .pill-label::before {
-    content: "";
-    position: absolute;
-    left: -26px; /* aligns with existing margin-left on .pill-label */
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    background: #fff;
-    border: 1px solid #dcdfe6;
-    box-sizing: border-box;
-}
-.feature-pill input:checked + .pill-label::before {
-    background: linear-gradient(90deg,#ffd700,#ffde59);
-    border-color: #ffd700;
-    box-shadow: 0 4px 14px rgba(255,222,89,0.25);
-}
-.feature-pill input:checked + .pill-label::after {
-    content: "\2713";
-    position: absolute;
-    left: -22px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #23234a;
-    font-size: 12px;
-    font-weight: 900;
-}
+/* Icon styling for feature pills (SVG inserted in markup) */
+.feature-pill .icon { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; margin-right:8px; flex:0 0 22px; }
+.feature-pill .icon svg { width:18px; height:18px; transition: transform .12s ease, fill .12s ease; fill:#0f1724; }
+.feature-pill input:checked ~ .icon svg { fill: #111827; filter: drop-shadow(0 6px 16px rgba(35,35,74,0.06)); }
+.feature-pill input:checked ~ .pill-label { color: #111827; }
 
 /* Modal open/close animations */
 .modal { opacity: 0; transform: translateY(10px) scale(0.995); transition: opacity 220ms ease, transform 220ms ease; }
@@ -843,3 +913,354 @@ body.dark-mode #darkModeToggle { color: #fff; }
     .process-step-container:nth-child(odd) .process-step { text-align: left; }
     .process-step-container:nth-child(odd) .step-icon { text-align: left; }
 }
+
+/* Additional calculator styles */
+.maintenance-row { display:flex; gap:0.5rem; flex-wrap:wrap; }
+.feature-pill.small { width: auto; padding: 0.4rem 0.6rem; font-size: 0.95rem; border-radius: 8px; }
+.discount-row { display:flex; gap:0.5rem; align-items:center; }
+.discount-row input { flex:1; }
+.payment-row { display:flex; align-items:center; gap:0.5rem; }
+.monthly-wrapper { margin-top: 0.8rem; text-align: right; }
+.monthly-amount { font-size: 1.2rem; font-weight: 900; color: var(--primary-color); }
+.maintenance-note { margin-top: 0.6rem; font-size: 0.95rem; color: #6c757d; }
+.summary-row { display:flex; justify-content:space-between; align-items:center; padding: 0.5rem 0; border-bottom: 1px dashed rgba(35,35,74,0.04); }
+.summary-left { display:flex; flex-direction:column; }
+.summary-sub { font-size: 0.85rem; color: #6c757d; }
+.summary-right { min-width: 120px; text-align:right; font-weight:700; color: var(--primary-color); }
+
+@media (max-width: 600px) {
+    .summary-right { min-width: 80px; }
+}
+
+/* ====== Calculator visual polish ====== */
+/* Stronger container, two-column layout on wide screens with sticky result */
+.calculator-modern { max-width: 1100px; padding: 1.6rem; }
+.calculator-body { grid-template-columns: 1fr 380px; gap: 1.25rem; }
+.calculator-body .cost-result-container { align-self: start; position: sticky; top: 84px; }
+
+/* Result panel improvements */
+.cost-result-container { padding: 1.25rem; border-radius: 12px; background: linear-gradient(180deg,#ffffff,#f7fbff); border:1px solid rgba(15,23,36,0.04); }
+.cost-result-container .big-amount { font-size: 1.8rem; color: var(--primary-color); }
+.cost-result-container .details { font-size: 0.95rem; color:#475569; margin-top:0.35rem; }
+.total-cost { font-size: 2.6rem; color: var(--primary-color); font-weight:900; letter-spacing:-0.6px; }
+.total-cost-wrapper { text-align: right; padding-top: 0.6rem; }
+
+/* Quote breakdown visual */
+.quote-summary { display:block; padding:0.9rem; border-radius:10px; background: linear-gradient(90deg,#fff9e6,#fffbe6); border:1px solid rgba(255,215,0,0.08); }
+#quote-breakdown li { padding: 0.5rem 0; display:flex; justify-content:space-between; border-bottom: 1px dashed rgba(20,26,55,0.03); }
+#quote-breakdown li:last-child { border-bottom: none; }
+
+/* Feature pills: modern look and checked state */
+.feature-pill { background: linear-gradient(180deg,#ffffff,#fbfdff); border:1px solid rgba(15,23,36,0.06); }
+.feature-pill .pill-label { font-weight:700; }
+.feature-pill input { position: absolute; left: 12px; top: 12px; width: 16px; height: 16px; opacity: 0; }
+.feature-pill input:checked ~ .pill-label, .feature-pill input:checked ~ .feature-desc { color: #0b1220; }
+.feature-pill input:checked ~ .icon svg { transform: translateY(-2px) scale(1.03); }
+.feature-pill input:checked ~ .icon { background: linear-gradient(90deg,#ffd700,#ffde59); border-radius: 6px; padding: 2px; }
+.feature-pill .feature-desc { color: #64748b; font-weight:500; }
+
+/* Maintenance pill radios styled like pills */
+.maintenance-row .feature-pill { display:inline-flex; align-items:center; gap:0.6rem; padding:0.5rem 0.8rem; border-radius: 999px; }
+.maintenance-row input { position: absolute; opacity: 0; }
+.maintenance-row input:checked + .pill-label { color: #111827; }
+
+/* Discount row and apply button */
+.discount-row input { padding:0.6rem; border-radius:8px; }
+#apply-discount { padding:0.55rem 0.9rem; border-radius:8px; background: linear-gradient(90deg,#ffd700,#ffde59); border:none; color:#111827; font-weight:800; }
+#apply-discount:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(35,35,74,0.06); }
+
+/* Send button prominence and subtle loading state */
+#send-quote-btn { padding:0.85rem 1.05rem; border-radius: 10px; background: linear-gradient(90deg,#23234a,#1a2233); color:#ffd700; font-weight:900; box-shadow: 0 14px 40px rgba(35,35,74,0.12); }
+#send-quote-btn.loading { pointer-events:none; opacity:0.85; }
+#send-quote-btn .spinner { display:inline-block; width:16px; height:16px; margin-right:8px; vertical-align:middle; border-radius:50%; border:2px solid rgba(255,255,255,0.18); border-top-color: rgba(255,255,255,0.9); animation: spin .9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Monthly amount box */
+.monthly-wrapper { display:flex; justify-content:flex-end; align-items:center; gap:0.6rem; }
+.monthly-amount { background:#eef6ff; padding:0.45rem 0.65rem; border-radius:8px; color:var(--primary-color); font-weight:800; }
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .calculator-body { grid-template-columns: 1fr; }
+    .calculator-body .cost-result-container { position: relative; top: 0; }
+    .calculator-header { flex-direction: column; align-items:flex-start; gap:0.2rem; }
+}
+
+
+/* Micro-interactions: send button and pill icons */
+#send-quote-btn, .quote-actions .btn {
+    transition: transform .14s cubic-bezier(.2,.9,.2,1), box-shadow .14s ease, opacity .12s ease;
+    will-change: transform;
+    border-radius: 10px;
+}
+#send-quote-btn:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 18px 40px rgba(35,35,74,0.14); }
+#send-quote-btn:active { transform: translateY(-1px) scale(0.995); }
+#send-quote-btn:focus { outline: 3px solid rgba(35,35,74,0.08); outline-offset: 3px; }
+#send-quote-btn[disabled] { opacity: 0.6; transform: none; box-shadow: none; cursor: not-allowed; }
+
+/* Feature pill icons via pseudo elements (emoji for simplicity & wide compatibility) */
+.feature-pill .pill-label::before {
+    content: "";
+    display:inline-block;
+    width:22px;
+    height:22px;
+    margin-right:8px;
+    vertical-align:middle;
+    font-size:14px;
+    line-height:22px;
+    border-radius:6px;
+    text-align:center;
+    transition: transform .12s ease, background .12s ease, color .12s ease;
+}
+.feature-pill:hover .pill-label::before { transform: translateY(-3px); }
+.feature-pill input:checked + .pill-label::before { background: linear-gradient(90deg,#ffd700,#ffde59); color:#111827; box-shadow: 0 6px 18px rgba(35,35,74,0.08); }
+
+/* Icons mapped to input values */
+.feature-pill input[value="seo"] + .pill-label::before { content: "🔍"; }
+.feature-pill input[value="responsive"] + .pill-label::before { content: "📱"; }
+.feature-pill input[value="cms"] + .pill-label::before { content: "📝"; }
+.feature-pill input[value="ecommerce"] + .pill-label::before { content: "🛒"; }
+.feature-pill input[value="analytics"] + .pill-label::before { content: "📊"; }
+.feature-pill input[value="membership"] + .pill-label::before { content: "👥"; }
+.feature-pill input[value="performance"] + .pill-label::before { content: "⚡"; }
+.feature-pill input[value="accessibility"] + .pill-label::before { content: "♿"; }
+.feature-pill input[value="multilanguage"] + .pill-label::before { content: "🌐"; }
+
+
+/* Polished calculator layout & controls */
+.modal .modal-content.calculator-modern { max-width: 980px; width: 96%; margin: 1.6rem auto; padding: 1.25rem; border-radius: 14px; box-shadow: 0 14px 48px rgba(11,21,60,0.14); }
+.calculator-header { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:0.6rem; }
+.calculator-header h2 { margin:0; font-size:1.5rem; color: #17203b; }
+.calculator-header .muted { margin:0; color:#6b7280; font-size:0.95rem; }
+.calculator-body { display:grid; grid-template-columns: 1fr 360px; gap: 1rem; align-items:start; }
+.calculator-body form#calculator-form { padding: 0.2rem; }
+.cost-result-container { background: linear-gradient(90deg,#f6fbff,#ffffff); border-radius: 10px; padding:16px; min-height:140px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); display:flex; flex-direction:column; justify-content:center; gap:8px; }
+.cost-result-container .big-amount { font-size:1.6rem; font-weight:900; color: var(--primary-color); letter-spacing: -0.5px; }
+.cost-result-container .small-note { font-size:0.92rem; color:#475569; }
+.feature-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:0.6rem; }
+.feature-pill { display:flex; gap:0.6rem; align-items:flex-start; padding:0.75rem; border-radius:12px; background: #fff; border:1px solid rgba(20,26,55,0.06); transition: transform .12s ease, box-shadow .12s ease; cursor:pointer; }
+.feature-pill input { margin-top:4px; }
+.feature-pill .pill-label { font-weight:700; color:#0f1724; }
+.feature-pill .feature-desc { font-size:0.85rem; color:#64748b; display:block; }
+.feature-pill:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(11,21,60,0.08); }
+.feature-pill.small { padding:0.45rem 0.6rem; }
+.range-row { display:flex; gap:0.75rem; align-items:center; }
+.range-row output { min-width:36px; text-align:center; font-weight:700; color:#0b1220; }
+select, input[type="text"], input[type="number"], .discount-row input { width:100%; padding:0.55rem 0.6rem; border-radius:8px; border:1px solid rgba(20,26,55,0.08); background:#fff; }
+.btn { padding:0.55rem 0.8rem; border-radius:10px; border:none; cursor:pointer; font-weight:700; }
+.btn-primary { background: var(--primary-color); color:white; box-shadow: 0 6px 18px rgba(16,24,40,0.08); }
+.btn-secondary { background: #f3f4f6; color:#111827; }
+.calculator-navigation { display:flex; justify-content:space-between; gap:0.5rem; margin-top:0.4rem; }
+.quote-actions { display:flex; gap:0.5rem; margin-top:0.8rem; justify-content:flex-end; }
+
+@media (max-width: 900px) {
+    .calculator-body { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: repeat(1,1fr); }
+    .cost-result-container { order: -1; }
+}
+
+/* subtle entry animation */
+.modal .modal-content.calculator-modern { transform-origin: top center; animation: calc-enter .18s ease both; }
+@keyframes calc-enter { from { opacity: 0; transform: translateY(-8px) scale(0.995); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* ======= Creative polish: glass panels, neon accents, and micro interactions ======= */
+.calculator-modern { background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,252,255,0.96)); border: 1px solid rgba(20,26,55,0.04); backdrop-filter: blur(6px); }
+.calculator-header h2 { letter-spacing: -0.4px; }
+.calculator-body { gap: 1.5rem; }
+
+/* glass card look for form sections */
+.calculator-body form#calculator-form .form-group { background: linear-gradient(180deg,#fff,#fbfdff); padding:0.9rem; border-radius:12px; border:1px solid rgba(15,23,36,0.03); box-shadow: 0 8px 30px rgba(12,18,40,0.04); }
+
+/* input focus glow */
+input:focus, select:focus, .discount-row input:focus { outline: none; box-shadow: 0 6px 20px rgba(35,35,74,0.06), 0 0 0 6px rgba(255,215,0,0.05); border-color: rgba(35,35,74,0.12); }
+
+/* Larger, more tactile pills */
+.feature-grid { grid-template-columns: repeat(2,1fr); }
+.feature-pill { padding: 1rem; gap: 0.85rem; border-radius: 14px; }
+.feature-pill .pill-label { font-size: 1rem; }
+.feature-pill .feature-desc { font-size: 0.9rem; color:#556274; }
+
+/* Hover ripple (subtle) */
+.feature-pill::after { content: ''; position: absolute; inset: 0; border-radius: 14px; transition: box-shadow .25s ease, opacity .25s ease; z-index: 0; }
+.feature-pill:hover::after { box-shadow: 0 18px 50px rgba(16,24,40,0.06); }
+.feature-pill * { position: relative; z-index: 2; }
+
+/* Emphasize checked pills */
+.feature-pill input:checked ~ .pill-label { color: #08102a; }
+.feature-pill input:checked ~ .feature-desc { color: #24324a; }
+
+/* Cost result creative header */
+.cost-result-container h4 { font-size: 1.15rem; color:#07102a; margin-bottom:0.3rem; }
+.cost-result-container { border-left: 6px solid rgba(255,215,0,0.9); padding-left: 1rem; }
+
+/* Smooth micro-animations on totals */
+.animated-total { transition: transform .22s cubic-bezier(.2,.9,.2,1); display:inline-block; }
+.animated-total:active { transform: scale(0.995); }
+
+/* subtle background ornament */
+.calculator-modern::before { content: ''; position: absolute; right: -80px; top: -60px; width: 240px; height: 240px; background: radial-gradient(circle at 30% 30%, rgba(255,215,0,0.06), transparent 30%), radial-gradient(circle at 70% 70%, rgba(35,35,74,0.03), transparent 30%); transform: rotate(12deg); pointer-events:none; }
+
+/* small-screen optimizations */
+@media (max-width: 700px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .calculator-body { grid-template-columns: 1fr; }
+    .calculator-body form#calculator-form .form-group { padding:0.7rem; }
+    .cost-result-container { margin-top: 0.6rem; }
+}
+
+/* ======= Strong overrides for calculator modal layout (improves centering & visibility) ======= */
+/* Use a more subtle overlay and center modal with flex so it doesn't appear flush-left */
+.modal { background: rgba(10,12,30,0.5) !important; display: none; align-items: center; justify-content: center; padding: 2rem; }
+.modal.show { display: flex !important; }
+
+/* Ensure modal content is centered, scrollable, and constrained */
+.modal .modal-content.calculator-modern {
+    max-width: 1100px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 1.25rem !important;
+    border-radius: 14px !important;
+    box-shadow: 0 30px 80px rgba(7,12,30,0.45) !important;
+    position: relative !important;
+    max-height: 86vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Make sure the calculator body shows two columns on wide screens and the right column (result) is visible */
+.calculator-body { display: grid !important; grid-template-columns: 1fr 380px !important; grid-auto-rows: minmax(0, auto) !important; gap: 1.25rem !important; align-items: start; }
+/* Place children explicitly: form on left, result + actions on right */
+.calculator-body > form#calculator-form { grid-column: 1 / 2; grid-row: 1 / 3; }
+.calculator-body > #cost-result { grid-column: 2 / 3; grid-row: 1 / 2; align-self: start; }
+.calculator-body > .quote-actions { grid-column: 2 / 3; grid-row: 2 / 3; justify-self: end; align-self: start; margin-top: 0.6rem; }
+.calculator-body .cost-result-container { display: flex !important; flex-direction: column !important; min-width: 300px !important; align-self: start !important; }
+
+/* Make actions sticky within the right column so they're always visible */
+.calculator-body > .quote-actions { position: sticky; top: 28px; z-index: 30; }
+
+/* Ensure the right column doesn't collapse when result is empty */
+.calculator-body > #cost-result:empty { min-height: 160px; }
+/* Right panel: use sticky/flow layout on wide screens so it remains visible and doesn't get clipped
+   by page scrollbars — keeps elements in the modal's scroll context and avoids absolute overflow. */
+@media (min-width: 980px) {
+    .modal .modal-content.calculator-modern {
+        padding-right: 28px !important;
+        max-height: calc(100vh - 96px) !important;
+        overflow: auto !important;
+        position: relative !important;
+    }
+
+    .calculator-body {
+        display: grid !important;
+        grid-template-columns: 1fr 380px !important;
+        gap: 1.25rem !important;
+        align-items: start !important;
+    }
+
+    /* Keep the cost result inside normal flow so grid sizing works; allow inner scrolling */
+    .calculator-body > #cost-result {
+        position: relative !important;
+        width: 380px !important;
+        align-self: start !important;
+        max-height: calc(86vh - 160px) !important;
+        overflow: auto !important;
+        box-shadow: 0 18px 40px rgba(11,21,60,0.06) !important;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,252,255,0.95)) !important;
+        padding: 1rem !important;
+        border-radius: 12px !important;
+        z-index: 20 !important;
+    }
+
+    /* Keep action buttons pinned near the top of the right column, inside the modal flow */
+    .calculator-body > .quote-actions {
+        position: sticky !important;
+        top: 20px !important;
+        justify-self: end !important;
+        z-index: 21 !important;
+        width: 380px !important;
+        display: flex !important;
+        gap: .75rem !important;
+        background: transparent !important;
+        padding: 0 !important;
+    }
+}
+
+/* Modern result panel layout */
+.cost-result-container {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    color: #0f1724;
+}
+.cost-result-container .result-top { display:flex; align-items:center; justify-content:space-between; gap: .75rem; }
+.cost-result-container .result-title h4 { margin:0 0 .15rem 0; font-size:1.05rem; letter-spacing: -0.02em; }
+.cost-result-container .result-title .muted { margin:0; font-size:.82rem; color:#6b7280; }
+.cost-result-container .estimate-badge { background: linear-gradient(90deg,#ffecb3,#fff3e0); padding:.25rem .65rem; border-radius:999px; font-weight:700; color:#7a5000; box-shadow:0 6px 18px rgba(124,58,237,0.06); }
+
+.cost-result-container .result-body { margin-top: .8rem; }
+.cost-result-container .result-empty { padding: .85rem .5rem; border-radius:8px; background: linear-gradient(180deg,#fbfdff,#ffffff); border:1px solid rgba(15,23,36,0.04); }
+
+.cost-breakdown { margin-top: .8rem; display:flex; flex-direction:column; gap:.6rem; }
+.cost-breakdown .line { display:flex; justify-content:space-between; gap: .5rem; font-size:.95rem; }
+.cost-breakdown .line .label { color:#475569; }
+.cost-breakdown .line .value { font-weight:600; }
+
+.total-row { margin-top: .9rem; padding: .9rem; border-radius:10px; background: linear-gradient(180deg,#fff,#f8fbff); border:1px solid rgba(15,23,36,0.06); display:flex; align-items:center; justify-content:space-between; }
+.total-row .total-label { color:#475569; font-size:.95rem; }
+.total-row .total-amount { font-size:1.35rem; font-weight:800; color:#0f1724; }
+
+/* Buttons in the result panel */
+.cost-result-container .quote-actions { display:flex; gap:.6rem; margin-top: .9rem; }
+.btn { border: none; cursor: pointer; font-weight:600; padding: .6rem .9rem; border-radius:8px; }
+.btn-primary { background: linear-gradient(90deg,#0ea5a4,#0f766e); color:white; box-shadow: 0 8px 24px rgba(15,118,110,0.12); }
+.btn-primary[disabled], .btn-primary[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+.btn-secondary { background: transparent; border:1px solid rgba(15,23,36,0.06); color:#0f1724; }
+
+/* Feature pills refinement */
+.feature-pill { display:block; background:linear-gradient(180deg,#fff,#fbfdff); border-radius:12px; padding: .9rem; border:1px solid rgba(15,23,36,0.04); cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; }
+.feature-pill:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(11,21,60,0.04); }
+.feature-pill input { position:absolute; opacity:0; pointer-events:none; }
+.feature-pill .pill-label { display:block; font-weight:700; margin-bottom: .35rem; }
+.feature-pill .feature-desc { color:#64748b; font-size:.9rem; }
+
+/* Small pills for maintenance and payment rows */
+.feature-pill.small { display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .7rem; border-radius:999px; }
+.feature-pill.small input { position:absolute; opacity:0; }
+.feature-pill.small input:checked + .pill-label { color: #0f766e; }
+
+/* Responsive fallback */
+@media (max-width: 979px) {
+    .calculator-body { grid-template-columns: 1fr !important; }
+    .calculator-body > #cost-result { width: 100% !important; }
+    .calculator-body > .quote-actions { position: relative !important; top: auto !important; width: 100% !important; }
+}
+.cost-result-container { border-left: 6px solid rgba(255,215,0,0.95) !important; }
+
+/* Ensure action buttons are anchored to the right column and visible */
+.quote-actions { grid-column: 2 / 3; display: flex; gap: 0.6rem; justify-content: flex-end; align-items: center; margin-top: 0.8rem; z-index: 12; }
+.quote-actions .btn { display: inline-flex; }
+
+/* If the result panel is active, make sure the buttons appear; fallback for inline-style misses */
+.cost-result-container.active + .quote-actions .btn { display: inline-flex !important; }
+
+/* Keep modal content comfortably spaced on small screens */
+@media (max-width: 900px) {
+    .modal .modal-content.calculator-modern { padding: 0.9rem !important; margin: 0.6rem !important; }
+    .calculator-body { grid-template-columns: 1fr !important; }
+    .calculator-body .cost-result-container { order: -1 !important; position: relative !important; top: 0 !important; min-width: auto !important; }
+}
+
+/* Improve close button contrast and hit area */
+.modal .close { background: #ffd700 !important; color: #111 !important; width: 40px; height: 40px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(35,35,74,0.12); }
+.modal .close:hover { transform: translateY(-2px); }
+
+/* Reduce large empty whitespace on the right by ensuring container uses max-width and centered layout */
+body.modal-open { overflow: hidden; }
+
+/* Tighter paddings on feature pills so they don't feel oversized */
+.feature-pill { padding: 0.8rem !important; min-height: 78px; }
+.feature-pill .feature-desc { display: block; opacity: 0.95; }
+
+/* Ensure the range output is visible and aligned */
+.range-row output { font-size: 1rem; color: #0b1220; }
+
+
+

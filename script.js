@@ -59,17 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         await loadHTML('calculator-placeholder', 'calculator.html');
                         calcModal = document.getElementById('calculatorModal');
                         // wire new controls
-                        const closeBtn = document.getElementById('calculator-close') || calcModal.querySelector('.close');
+                        const closeBtn = document.getElementById('calculator-close') || (calcModal && calcModal.querySelector('.close'));
                         if (closeBtn) closeBtn.addEventListener('click', () => window.closeCalculator());
                         const cancelBtn = document.getElementById('calculator-cancel');
                         if (cancelBtn) cancelBtn.addEventListener('click', () => window.closeCalculator());
                         const calcBtn = document.getElementById('calculator-calc');
                         if (calcBtn) calcBtn.addEventListener('click', () => calculateCost());
-                            const sendQuoteBtn = document.getElementById('send-quote-btn');
-                            if (sendQuoteBtn) {
-                                // attach click handler after on-demand load; visibility is managed after calculation
-                                sendQuoteBtn.addEventListener('click', () => { if (typeof window.sendCalculatorQuote === 'function') window.sendCalculatorQuote(); });
-                            }
+                        const sendQuoteBtn = document.getElementById('send-quote-btn');
+                        if (sendQuoteBtn) {
+                            // attach click handler after on-demand load; visibility is managed after calculation
+                            sendQuoteBtn.addEventListener('click', () => { if (typeof window.sendCalculatorQuote === 'function') window.sendCalculatorQuote(); });
+                        }
                     } catch (err) {
                         console.error('Failed to load calculator on demand:', err);
                         return;
@@ -375,24 +375,37 @@ function calculateAndDisplayCost() {
     let estimate = computeEstimate(form);
     estimate = localizeEstimateOutput(estimate);
     const resultContainer = document.getElementById('cost-result');
-    const summaryHtml = estimate.summary.map(line => `<li><span class="summary-item">${line.item}:</span><span class="summary-value">${line.value}</span><span class="summary-cost">${line.formattedCost || ''}</span></li>`).join('');
+    const summaryHtml = estimate.summary.map(line => {
+        const costText = line.cost ? `<span class="summary-cost">${line.formattedCost || ''}</span>` : '';
+        return `<li class="summary-row"><div class="summary-left"><strong>${line.item}</strong><div class="summary-sub">${line.value || ''}</div></div><div class="summary-right">${costText}</div></li>`;
+    }).join('');
+    const monthlyHtml = (document.getElementById('show-monthly')?.checked && estimate.monthly) ? `<div class="monthly-wrapper"><p>Estimated monthly (12 months)</p><div class="monthly-amount">${formatCurrency(estimate.monthly, detectCurrency())}</div></div>` : '';
+    const maintenanceHtml = estimate.maintenanceMonthly ? `<div class="maintenance-note">Maintenance: <strong>$${estimate.maintenanceMonthly}/mo</strong> (billed separately)</div>` : '';
+
     resultContainer.innerHTML = `
         <h4>Quote Summary</h4>
         <ul id="cost-summary">${summaryHtml}</ul>
         <div class="total-cost-wrapper">
             <p>Estimated Total</p>
-            <div class="total-cost">${estimate.formattedTotal}</div>
+            <div class="total-cost animated-total" data-amount="${estimate.total}">${estimate.formattedTotal}</div>
         </div>
+        ${monthlyHtml}
+        ${maintenanceHtml}
         <p style="font-size: 0.8rem; text-align: center; margin-top: 1rem; color: #6c757d;">This is an estimate. A final quote will be provided after a detailed consultation.</p>
     `;
     resultContainer.classList.add('active');
+    // animate the total value for better visual feedback
+    try {
+        const totEl = resultContainer.querySelector('.animated-total');
+        if (totEl) animateCurrency(totEl, parseFloat(totEl.getAttribute('data-amount') || '0'), detectCurrency());
+    } catch (e) { /* ignore animation errors */ }
     // Save preferences after calculating
     saveCalculatorPreferences();
     // Show contact/send buttons
-    const sendBtn = document.getElementById('send-quote-btn');
-    if (sendBtn) sendBtn.style.display = 'inline-block';
-    const contactBtn = document.getElementById('contact-us');
-    if (contactBtn) contactBtn.style.display = 'inline-block';
+        const sendBtn = document.getElementById('send-quote-btn');
+        if (sendBtn) { sendBtn.disabled = false; sendBtn.removeAttribute('aria-disabled'); sendBtn.style.display = 'inline-flex'; }
+        const contactBtn = document.getElementById('contact-us');
+        if (contactBtn) { contactBtn.disabled = false; contactBtn.style.display = 'inline-flex'; }
     // populate hidden fields on the contact form (if present)
     try {
         const qsField = document.getElementById('quote_summary');
@@ -424,20 +437,15 @@ function calculateCost() {
 function getEmailJsConfig() {
     const serviceEl = document.querySelector('[data-emailjs-service]');
     const templateEl = document.querySelector('[data-emailjs-template]');
-    const keyEl = document.querySelector('[data-emailjs-key]');
     const serviceID = serviceEl?.getAttribute('data-emailjs-service') || '';
     const templateID = templateEl?.getAttribute('data-emailjs-template') || '';
-    const publicKey = keyEl?.getAttribute('data-emailjs-key') || '';
-    return { serviceID: serviceID || EMAILJS_FALLBACK.serviceID, templateID: templateID || EMAILJS_FALLBACK.templateID, publicKey: publicKey || EMAILJS_FALLBACK.publicKey };
+    // publicKey may be provided via a small inline script which sets window.EMAILJS_PUBLIC_KEY
+    const publicKey = (window.EMAILJS_PUBLIC_KEY || '').toString();
+    return { serviceID, templateID, publicKey };
 }
 
-// Fallback/default EmailJS config (use only if page attributes are missing)
-// These values were provided during setup; keep them here as a last-resort fallback.
-const EMAILJS_FALLBACK = {
-    serviceID: 'service_xl3wr8l',
-    templateID: 'template_z587bo4',
-    publicKey: 'm5cA-okHHGdZuWJoh'
-};
+// Note: EmailJS credentials should not be stored in the repo. Provide them via data attributes on the
+// contact form or configure a server-side send endpoint. This script will read attributes at runtime.
 
 function setupContactForm() {
     const contactForm = document.getElementById('contactForm');
@@ -445,7 +453,8 @@ function setupContactForm() {
 
     const serviceID = contactForm.getAttribute('data-emailjs-service') || '';
     const templateID = contactForm.getAttribute('data-emailjs-template') || '';
-    const publicKey = contactForm.getAttribute('data-emailjs-key') || '';
+    // publicKey should not be stored in DOM attributes in the repo.
+    const publicKey = '';
 
     // Lazy-load EmailJS SDK only if keys are provided and not placeholder
     async function ensureEmailJs() {
@@ -461,11 +470,11 @@ function setupContactForm() {
             if (!tpl) missing.push('templateID');
             if (!key) missing.push('publicKey');
             const msg = `EmailJS not configured. Missing: ${missing.join(', ')}.`;
-            console.warn(msg, { svc, tpl, key });
-            alert(msg + '\nPlease add data-emailjs-service, data-emailjs-template and data-emailjs-key to your contact form or page.');
+            console.warn(msg, { svc, tpl });
+            alert(msg + '\nPlease add data-emailjs-service and data-emailjs-template to your contact form or page, and initialize EmailJS with your public key in an inline header script.');
             return false;
         }
-        if (svc.includes('YOUR_') || tpl.includes('YOUR_') || key.includes('YOUR_')) {
+        if (svc.includes('YOUR_') || tpl.includes('YOUR_')) {
             console.warn('EmailJS config appears to contain placeholder values. Please replace with real values.');
             return false;
         }
@@ -519,6 +528,29 @@ function setupContactForm() {
 
 // --- Email calculator quote integration ---
 // Expose a reusable send function so it can be wired after fragment injection.
+// Helper to toggle send button loading state and spinner
+function setSendBtnLoading(isLoading) {
+    const btn = document.getElementById('send-quote-btn');
+    if (!btn) return;
+    if (isLoading) {
+        btn.classList.add('loading');
+        btn.disabled = true;
+        btn.setAttribute('aria-busy', 'true');
+        // add spinner if missing
+        if (!btn.querySelector('.spinner')) {
+            const s = document.createElement('span');
+            s.className = 'spinner';
+            btn.prepend(s);
+        }
+    } else {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        const s = btn.querySelector('.spinner');
+        if (s) s.remove();
+    }
+}
+
 window.sendCalculatorQuote = async function sendCalculatorQuote() {
     // gather current estimate from DOM or recompute
     const form = document.getElementById('calculator-form');
@@ -535,11 +567,11 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
 
     // reuse contact form attributes for EmailJS config, but be robust: look for any element with the attributes
     let contactForm = document.getElementById('contactForm');
-    if (!contactForm) contactForm = document.querySelector('[data-emailjs-service], [data-emailjs-template], [data-emailjs-key]');
+    if (!contactForm) contactForm = document.querySelector('[data-emailjs-service], [data-emailjs-template]');
     const pageCfg = getEmailJsConfig();
     const serviceID = (contactForm?.getAttribute('data-emailjs-service') || pageCfg.serviceID || '');
     const templateID = (contactForm?.getAttribute('data-emailjs-template') || pageCfg.templateID || '');
-    const publicKey = (contactForm?.getAttribute('data-emailjs-key') || pageCfg.publicKey || '');
+    const publicKey = pageCfg.publicKey || '';
 
     // helper to lazy-load EmailJS if needed (reuse logic from setupContactForm)
     async function ensureEmailJsForCalc() {
@@ -547,14 +579,14 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
         const missing = [];
         if (!serviceID) missing.push('serviceID');
         if (!templateID) missing.push('templateID');
-        if (!publicKey) missing.push('publicKey');
+        // publicKey may be missing; if so we'll still attempt REST fallback which requires a public key
         if (missing.length) {
             const msg = `EmailJS not configured for calculator. Missing: ${missing.join(', ')}.`;
             console.warn(msg, { serviceID, templateID, publicKey });
             alert(msg + '\nPlease ensure EmailJS data attributes exist on the contact form or page.');
             return false;
         }
-        if (serviceID.includes('YOUR_') || templateID.includes('YOUR_') || publicKey.includes('YOUR_')) {
+        if (serviceID.includes('YOUR_') || templateID.includes('YOUR_')) {
             console.warn('EmailJS config appears to contain placeholder values. Please replace with real values.');
             alert('EmailJS appears to be using placeholder values. Please update the data attributes with your real keys.');
             return false;
@@ -577,8 +609,8 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
     }
 
     // send via EmailJS using a lightweight template params object
-    const btn = document.getElementById('send-quote-btn');
-    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    // show loading spinner and disable
+    setSendBtnLoading(true);
     const templateParams = Object.assign({}, payload);
     // If user has contact fields filled in the contact form, include them
     if (contactForm) {
@@ -599,11 +631,11 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
             // send via sendForm so EmailJS receives all form inputs
             await emailjs.sendForm(serviceID, templateID, contactForm);
             alert('Quote emailed successfully. We will follow up soon.');
-        } catch (err) {
+            } catch (err) {
             console.error('EmailJS sendForm error (calculator):', err);
             alert('Failed to email quote via contact form.');
         } finally {
-            if (btn) { btn.disabled = false; btn.textContent = 'Email this Quote'; }
+            setSendBtnLoading(false);
         }
     } else if (canSend) {
         // SDK available but no contact form — send via SDK send
@@ -618,10 +650,16 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
         // SDK not available — fallback to EmailJS REST API
         try {
             const apiUrl = 'https://api.emailjs.com/api/v1.0/email/send';
+            const effectiveKey = publicKey || (window.EMAILJS_PUBLIC_KEY || '');
+            if (!effectiveKey) {
+                alert('Cannot send via REST fallback: public key is missing. Please initialize window.EMAILJS_PUBLIC_KEY or provide the public key in the page.');
+                if (btn) { btn.disabled = false; btn.textContent = 'Email this Quote'; }
+                return;
+            }
             const body = {
                 service_id: serviceID,
                 template_id: templateID,
-                user_id: publicKey,
+                user_id: effectiveKey,
                 template_params: templateParams
             };
             const resp = await fetch(apiUrl, {
@@ -636,11 +674,11 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
                 console.error('EmailJS REST API error', resp.status, text);
                 alert('Failed to send quote via REST API. See console for details.');
             }
-        } catch (err) {
+            } catch (err) {
             console.error('EmailJS REST API send failed', err);
             alert('Failed to send quote via REST API. See console for details.');
         } finally {
-            if (btn) { btn.disabled = false; btn.textContent = 'Email this Quote'; }
+            setSendBtnLoading(false);
         }
     }
 };
@@ -775,15 +813,37 @@ function computeEstimate(form) {
     let featuresCost = 0;
     selectedFeatures.forEach(f => { featuresCost += featureCosts[f] || 0; });
     total += featuresCost;
+    // timeline multiplier
+    const timeline = formData.get('timeline') || 'standard';
+    let timelineMultiplier = 1;
+    if (timeline === 'express') timelineMultiplier = 1.2;
+    if (timeline === 'rush') timelineMultiplier = 1.5;
+    total = Math.round(total * timelineMultiplier);
+    // maintenance monthly (not added to total but returned as monthly option)
+    const maintenance = formData.get('maintenance') || 'none';
+    const maintenanceMonthly = maintenance === 'basic' ? 50 : maintenance === 'pro' ? 150 : 0;
+    // discount codes (simple map)
+    const code = (formData.get('discount_code') || '').toString().trim().toUpperCase();
+    const discounts = { 'SAVE10': 0.10, 'WELCOME15': 0.15 };
+    const discountRate = discounts[code] || 0;
+    const discountAmount = Math.round(total * discountRate);
+    const totalAfterDiscount = Math.max(0, total - discountAmount);
+    // monthly payment (optional) — 12 months
+    const monthly = Math.round((totalAfterDiscount / 12) + maintenanceMonthly);
     // complexity multiplier: more features => small multiplier
     const complexityMultiplier = 1 + Math.min(0.25, (selectedFeatures.length * 0.08));
-    total = Math.round(total * complexityMultiplier);
+    const totalRounded = Math.round(total * complexityMultiplier);
+    // final total after complexity and discount
+    const finalTotal = Math.max(0, Math.round(totalRounded - discountAmount));
     const summary = [];
     summary.push({ item: 'Base (type)', value: type, cost: base[type] || 0 });
     if (pages > 1) summary.push({ item: 'Pages', value: `${pages} pages`, cost: Math.max(0, pages - 1) * perPage });
     if (selectedFeatures.length) summary.push({ item: 'Features', value: selectedFeatures.join(', '), cost: featuresCost });
     if (complexityMultiplier > 1) summary.push({ item: 'Complexity multiplier', value: `${(complexityMultiplier * 100).toFixed(0)}%`, cost: Math.round((total / complexityMultiplier) * (complexityMultiplier - 1)) });
-    return { total, summary };
+    if (timeline && timeline !== 'standard') summary.push({ item: 'Timeline', value: timeline, cost: Math.round((totalRounded - (totalRounded / timelineMultiplier))) });
+    if (discountRate > 0) summary.push({ item: 'Discount', value: `${Math.round(discountRate * 100)}%`, cost: -discountAmount });
+    if (maintenanceMonthly > 0) summary.push({ item: 'Maintenance (monthly)', value: `$${maintenanceMonthly}/mo`, cost: 0 });
+    return { total: finalTotal, summary, monthly, maintenanceMonthly, discountAmount };
 }
 
 /* ========== Currency localization helpers ========== */
@@ -828,6 +888,21 @@ function localizeEstimateOutput(estimate) {
     return estimate;
 }
 
+// Small animated counter for the total amount (improves perceived polish)
+function animateCurrency(element, amountUSD, currency) {
+    const duration = 700; // ms
+    const start = performance.now();
+    const startVal = 0;
+    function step(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t; // easeInOutQuad-ish
+        const current = Math.round(startVal + (amountUSD - startVal) * eased);
+        element.textContent = formatCurrency(current, currency);
+        if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+
 // Hook up preferences and inputs after loading fragment
 function wireCalculatorForm() {
     const form = document.getElementById('calculator-form');
@@ -838,5 +913,22 @@ function wireCalculatorForm() {
     form.querySelectorAll('select, input').forEach(el => {
         el.addEventListener('change', saveCalculatorPreferences);
     });
+
+    // wire discount apply button
+    const applyBtn = document.getElementById('apply-discount');
+    if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+            // re-run calculation and show feedback
+            try { calculateAndDisplayCost();
+                const code = (document.getElementById('discount-code')?.value || '').trim();
+                if (!code) alert('No discount code entered.');
+                else alert('Discount code applied (if valid).');
+            } catch (e) { console.warn(e); }
+        });
+    }
+
+    // toggle monthly display re-calculation
+    const monthlyCheckbox = document.getElementById('show-monthly');
+    if (monthlyCheckbox) monthlyCheckbox.addEventListener('change', () => calculateAndDisplayCost());
 }
 

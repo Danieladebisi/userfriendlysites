@@ -36,7 +36,7 @@
         <link rel="stylesheet" href="styles.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
 
-        <!-- Structured Data: Organization & LocalBusiness -->
+    <!-- Structured Data: Organization & LocalBusiness -->
         <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -79,15 +79,29 @@
             }
         }
         </script>
+        <!-- EmailJS SDK and inline initialization (public key) -->
+        <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
+        <script>
+            /* Initialize EmailJS with your public key so client-side sends work.
+               NOTE: this exposes the public key in the page; consider server-side sending for production. */
+            (function(){
+                if (typeof emailjs !== 'undefined' && emailjs.init) {
+                    try { emailjs.init('m5cA-okHHGdZuWJoh'); } catch(e) { console.warn('EmailJS init failed', e); }
+                }
+            })();
+        </script>
+        <script>
+            // Make the public key available to the site's JS so REST fallback can include it.
+            window.EMAILJS_PUBLIC_KEY = 'm5cA-okHHGdZuWJoh';
+        </script>
 </head>
 <body lang="en">
     <div id="header-placeholder"></div>
     <!-- Dynamic Header -->
 
     <main>
-        <!-- Hero Section (modern, two-column) -->
-        <section id="home" class="enhanced-hero creative-hero">
-    <script src="script.js"></script>
+    <!-- Hero Section (modern, two-column) -->
+    <section id="home" class="enhanced-hero creative-hero">
             <div class="hero-bg" aria-hidden="true"></div>
             <div id="hero-animation-container" aria-hidden="true"></div>
 
@@ -99,7 +113,12 @@
 
                     <div class="hero-ctas">
                         <button class="hero-btn" id="openCalculatorHome"><i class="fas fa-calculator" aria-hidden="true"></i><span>Get Instant Website Quote</span></button>
-                        <a class="btn btn-secondary hero-ghost" href="#contact">Schedule a Call</a>
+                        <a class="btn btn-secondary hero-ghost" href="#contact">
+                            <svg class="cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.09 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.9.37 1.77.74 2.59a2 2 0 0 1-.45 2.11L8.91 9.91a16 16 0 0 0 6 6l1.49-1.49a2 2 0 0 1 2.11-.45c.82.37 1.69.62 2.59.74A2 2 0 0 1 22 16.92z" fill="#0f1724"/>
+                            </svg>
+                            <span>Schedule a Call</span>
+                        </a>
                     </div>
 
                     <ul class="hero-badges" aria-hidden="true">
@@ -112,9 +131,9 @@
                 <div class="hero-column hero-visual" aria-hidden="true">
                     <div class="hero-gallery">
                         <div class="gallery-stack">
-                            <img src="images/successful online business.JPG" class="gallery-img img-1" alt="Successful online business" loading="lazy">
-                            <img src="images/woman-presenting-business-plan-during-office-meeti-2025-03-16-01-45-13-utc.jpg" class="gallery-img img-2" alt="Woman presenting business plan" loading="lazy">
-                            <img src="images/modern business team meeting.jpg" class="gallery-img img-3" alt="Business team meeting" loading="lazy">
+                            <img src="images/business-team-standing-around-computer-for-present-2024-09-16-22-11-46-utc.jpg" class="gallery-img img-1" alt="Business team standing around computer" loading="lazy">
+                            <img src="images/successful online business.JPG" class="gallery-img img-2" alt="Successful online business" loading="lazy">
+                            <img src="images/modern business team meeting.jpg" class="gallery-img img-3" alt="Modern business team meeting" loading="lazy">
                             <div class="mock-overlay">
                                 <div class="price-pill" id="hero-price" data-base-price="500">From <strong><span class="currency-value">$500</span></strong></div>
                             </div>
@@ -276,7 +295,7 @@
             <p class="section-subtitle">Have a question or ready to start your project? We're here to help.</p>
             <div class="contact-container">
                 <div class="contact-form-wrapper">
-                    <form id="contactForm" data-emailjs-service="service_xl3wr8l" data-emailjs-template="template_z587bo4" data-emailjs-key="m5cA-okHHGdZuWJoh">
+                    <form id="contactForm" data-emailjs-service="service_xl3wr8l" data-emailjs-template="template_z587bo4">
                         <div class="form-group">
                             <label for="contact-name">Name</label>
                             <input type="text" id="contact-name" name="full_name" required>
