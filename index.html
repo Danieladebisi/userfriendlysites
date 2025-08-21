@@ -85,17 +85,46 @@
     <!-- Dynamic Header -->
 
     <main>
-        <!-- Hero Section -->
-        <section id="home" class="enhanced-hero parallax">
-            <div class="hero-bg"></div>
-            <div class="hero-content">
-                <h1 class="hero-title animated-headline">Grow Your Business Online</h1>
-                <div class="hero-accent creative-accent"></div>
-                <p class="hero-subtitle">Stunning, fast, and user-friendly websites that convert visitors into customers.</p>
-                <a href="#portfolio" class="hero-btn">See Our Work</a>
-                <button class="hero-btn" id="openCalculatorHome"><i class="fas fa-calculator" style="margin-right:0.5rem;"></i>Get Instant Website Quote</button>
-                <div class="hero-tagline">Trusted by businesses and organizations worldwide.</div>
+        <!-- Hero Section (modern, two-column) -->
+        <section id="home" class="enhanced-hero creative-hero">
+    <script src="script.js"></script>
+            <div class="hero-bg" aria-hidden="true"></div>
+            <div id="hero-animation-container" aria-hidden="true"></div>
+
+            <div class="hero-inner container">
+                <div class="hero-column hero-text">
+                    <div class="eyebrow">Professional Web Design &amp; Growth</div>
+                    <h1 class="hero-title">We build beautiful, high-converting websites for<br/><span class="accented">ambitious small businesses</span></h1>
+                    <p class="hero-subtitle">Fast, accessible, and optimised for search — launched on time and on budget. Get a free instant estimate or talk to our team.</p>
+
+                    <div class="hero-ctas">
+                        <button class="hero-btn" id="openCalculatorHome"><i class="fas fa-calculator" aria-hidden="true"></i><span>Get Instant Website Quote</span></button>
+                        <a class="btn btn-secondary hero-ghost" href="#contact">Schedule a Call</a>
+                    </div>
+
+                    <ul class="hero-badges" aria-hidden="true">
+                        <li class="badge">SEO Friendly</li>
+                        <li class="badge">Lightning Fast</li>
+                        <li class="badge">Accessible</li>
+                    </ul>
+                </div>
+
+                <div class="hero-column hero-visual" aria-hidden="true">
+                    <div class="hero-gallery">
+                        <div class="gallery-stack">
+                            <img src="images/successful online business.JPG" class="gallery-img img-1" alt="Successful online business" loading="lazy">
+                            <img src="images/woman-presenting-business-plan-during-office-meeti-2025-03-16-01-45-13-utc.jpg" class="gallery-img img-2" alt="Woman presenting business plan" loading="lazy">
+                            <img src="images/modern business team meeting.jpg" class="gallery-img img-3" alt="Business team meeting" loading="lazy">
+                            <div class="mock-overlay">
+                                <div class="price-pill" id="hero-price" data-base-price="500">From <strong><span class="currency-value">$500</span></strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Decorative wave divider -->
+            <svg class="hero-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#ffffff"></path></svg>
         </section>
 
     <!-- Shared Calculator Placeholder (loaded dynamically) -->
@@ -247,10 +276,10 @@
             <p class="section-subtitle">Have a question or ready to start your project? We're here to help.</p>
             <div class="contact-container">
                 <div class="contact-form-wrapper">
-                    <form id="contactForm">
+                    <form id="contactForm" data-emailjs-service="service_xl3wr8l" data-emailjs-template="template_z587bo4" data-emailjs-key="m5cA-okHHGdZuWJoh">
                         <div class="form-group">
                             <label for="contact-name">Name</label>
-                            <input type="text" id="contact-name" name="name" required>
+                            <input type="text" id="contact-name" name="full_name" required>
                         </div>
                         <div class="form-group">
                             <label for="contact-email">Email</label>
@@ -271,6 +300,9 @@
                             <textarea id="contact-message" name="message" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
+                        <!-- Hidden fields: populated when sending a quote from the calculator -->
+                        <input type="hidden" id="quote_summary" name="quote_summary" value="">
+                        <input type="hidden" id="quote_total" name="quote_total" value="">
                     </form>
                 </div>
                 <div class="contact-info">
@@ -286,9 +318,12 @@
             </div>
         </section>
 
-        <!-- Footer -->
+    <!-- Footer -->
     <!-- Dynamic Footer -->
     <div id="footer-placeholder"></div>
-            </main>
+        </main>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
 
     <!-- ...existing code... -->

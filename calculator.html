@@ -1,48 +1,96 @@
-<div id="calculatorModal" class="modal">
-    <div class="modal-content calculator-modern">
-        <span class="close" id="calculator-close">&times;</span>
+<div id="calculatorModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="calculator-title">
+    <div class="modal-content calculator-modern" role="document">
+        <button class="close" id="calculator-close" aria-label="Close calculator">&times;</button>
         <div class="calculator-header">
-            <h2>Website Cost Calculator</h2>
-            <p>Get a quick estimate. This is not a final quote.</p>
+            <h2 id="calculator-title">Website Cost Calculator</h2>
+            <p class="muted">Quick estimate — not a final quote. Final pricing follows a consultation.</p>
         </div>
 
-        <form id="calculator-form">
-            <div class="form-group">
-                <label for="website-type">Type of Website:</label>
-                <select id="website-type" name="website-type">
-                    <option value="basic">Basic</option>
-                    <option value="ecommerce">E-commerce</option>
-                    <option value="blog">Blog</option>
-                    <option value="portfolio">Portfolio</option>
-                    <option value="custom">Custom</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="pages">Number of Pages:</label>
-                <input type="range" id="pages" name="pages" min="1" max="100" value="1" oninput="this.nextElementSibling.value = this.value">
-                <output>1</output>
-            </div>
-
-            <div class="form-group">
-                <label for="features">Features:</label>
-                <div class="options">
-                    <label><input type="checkbox" name="features" value="seo"> SEO</label>
-                    <label><input type="checkbox" name="features" value="responsive"> Responsive Design</label>
-                    <label><input type="checkbox" name="features" value="cms"> CMS Integration</label>
-                    <label><input type="checkbox" name="features" value="ecommerce"> E-commerce Functionality</label>
+        <div class="calculator-body">
+            <form id="calculator-form">
+                <div class="form-group">
+                    <label for="website-type">Type of Website</label>
+                    <select id="website-type" name="website-type" aria-label="Type of website">
+                        <option value="basic">Basic — small brochure</option>
+                        <option value="ecommerce">E-commerce — online store</option>
+                        <option value="blog">Blog — content-first</option>
+                        <option value="portfolio">Portfolio — showcase</option>
+                        <option value="custom">Custom — bespoke solution</option>
+                    </select>
                 </div>
-            </div>
 
-            <div class="form-group calculator-navigation">
-                <button type="button" class="btn btn-secondary" id="calculator-cancel">Close</button>
-                <button type="button" class="btn btn-primary" id="calculator-calc">Calculate Cost</button>
-            </div>
-        </form>
+                <div class="form-group range-group">
+                    <label for="pages">Estimated number of pages</label>
+                    <div class="range-row">
+                        <input type="range" id="pages" name="pages" min="1" max="100" value="1" oninput="this.nextElementSibling.value = this.value">
+                        <output aria-live="polite">1</output>
+                    </div>
+                    <small class="muted">More pages typically increase cost — the slider adjusts the estimate.</small>
+                </div>
 
-        <div id="cost-result"></div>
-        <div class="quote-actions">
-            <button id="contact-us" class="btn btn-secondary" style="display:none;" onclick="scrollToSection('contact')">Contact Us</button>
+                <div class="form-group">
+                    <label>Additional features</label>
+                    <div class="feature-grid">
+                        <label class="feature-pill">
+                            <input type="checkbox" name="features" value="seo">
+                            <span class="pill-label">SEO</span>
+                            <span class="feature-desc">On-page SEO setup and basic keyword optimization.</span>
+                        </label>
+                        <label class="feature-pill">
+                            <input type="checkbox" name="features" value="responsive">
+                            <span class="pill-label">Responsive Design</span>
+                            <span class="feature-desc">Mobile-friendly layout and breakpoints for all devices.</span>
+                        </label>
+                        <label class="feature-pill">
+                            <input type="checkbox" name="features" value="cms">
+                            <span class="pill-label">CMS Integration</span>
+                            <span class="feature-desc">Content management (WordPress/Headless) setup and training.</span>
+                        </label>
+                        <label class="feature-pill">
+                            <input type="checkbox" name="features" value="ecommerce">
+                            <span class="pill-label">E-commerce</span>
+                            <span class="feature-desc">Shopping cart, product pages and payment gateway.</span>
+                        </label>
+                        <label class="feature-pill">
+                            <input type="checkbox" name="features" value="analytics">
+                            <span class="pill-label">Analytics</span>
+                            <span class="feature-desc">Analytics setup (GA4) and conversion tracking.</span>
+                        </label>
+                        <label class="feature-pill">
+                            <input type="checkbox" name="features" value="membership">
+                            <span class="pill-label">Membership</span>
+                            <span class="feature-desc">User accounts, gated content and subscription billing.</span>
+                        </label>
+                        <label class="feature-pill">
+                            <input type="checkbox" name="features" value="performance">
+                            <span class="pill-label">Performance Opt.</span>
+                            <span class="feature-desc">Performance tuning, image optimization, caching.</span>
+                        </label>
+                        <label class="feature-pill">
+                            <input type="checkbox" name="features" value="accessibility">
+                            <span class="pill-label">Accessibility</span>
+                            <span class="feature-desc">A11y improvements and ARIA where required.</span>
+                        </label>
+                        <label class="feature-pill">
+                            <input type="checkbox" name="features" value="multilanguage">
+                            <span class="pill-label">Multi-language</span>
+                            <span class="feature-desc">Support for multiple languages and locale routing.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group calculator-navigation">
+                    <button type="button" class="btn btn-secondary" id="calculator-cancel">Close</button>
+                    <button type="button" class="btn btn-primary" id="calculator-calc">Calculate Cost</button>
+                </div>
+            </form>
+
+            <div id="cost-result" class="cost-result-container" aria-live="polite"></div>
+
+            <div class="quote-actions">
+                <button id="send-quote-btn" class="btn btn-primary" style="display:none;">Email this Quote</button>
+                <button id="contact-us" class="btn btn-secondary" style="display:none;" onclick="scrollToSection('contact')">Contact Us</button>
+            </div>
         </div>
     </div>
 </div>
