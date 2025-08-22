@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study Template | User Friendly Sites</title>
+  <meta name="description" content="Reusable case study template for showcasing client challenges, strategy, execution, and results.">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <section class="cs-hero" style="padding: 4rem 0; background: linear-gradient(180deg,#f8fafc,#fff);">
+      <div class="container">
+        <a href="index.html#portfolio" class="breadcrumb" style="color: var(--muted-color); font-size: .9rem;">← Back to Portfolio</a>
+        <h1 style="margin: .5rem 0 0;">Project Title</h1>
+        <p class="section-subtitle">Short punchy value statement about the project and business outcome.</p>
+        <div class="cs-meta" style="display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:1rem;">
+          <div><strong>Client:</strong> Client Name</div>
+          <div><strong>Industry:</strong> Industry</div>
+          <div><strong>Services:</strong> Web Design, Development, SEO</div>
+          <div><strong>Timeline:</strong> 4 weeks</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 2rem 0 0;">
+      <img src="images/creative web design workspace.jpg" alt="Project preview" style="width:100%; border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+    </section>
+
+    <section class="container" style="padding: 2.5rem 0; display:grid; grid-template-columns: 1.2fr .8fr; gap:2rem;">
+      <article>
+        <h2>Overview</h2>
+        <p>Use this template to tell a compelling story: the client's business context, their goals, and why now. Keep it concise and outcome-oriented.</p>
+
+        <h2>The Challenge</h2>
+        <ul>
+          <li>What wasn’t working and why it mattered for the business.</li>
+          <li>Constraints such as timeline, budget, compliance, or team bandwidth.</li>
+          <li>Specific UX/SEO/performance issues observed.</li>
+        </ul>
+
+        <h2>Strategy</h2>
+        <ul>
+          <li>Positioning and information architecture decisions.</li>
+          <li>Design system and component strategy.</li>
+          <li>Technical approach and platform/tooling.</li>
+        </ul>
+
+        <h2>Execution</h2>
+        <p>Summarize how you delivered—research, wireframes, content model, build, QA, launch, and iteration.</p>
+      </article>
+      <aside>
+        <div class="card" style="padding:1.25rem; border:1px solid #eaeef2; border-radius:12px;">
+          <h3 style="margin-top:0;">Highlights</h3>
+          <ul style="margin:0; padding-left:1rem;">
+            <li>Modern, accessible UX</li>
+            <li>Performance-first build</li>
+            <li>SEO foundations baked in</li>
+          </ul>
+          <hr style="border:none; border-top:1px solid #eaeef2; margin:1rem 0;">
+          <a class="btn btn-primary" href="#contact">Start your project</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="metrics" aria-label="Results">
+      <div class="metrics-grid container">
+        <div class="metric"><div class="metric-value" data-count="30">0</div><div class="metric-label">Increase in engagement</div></div>
+        <div class="metric"><div class="metric-value" data-count="22">0</div><div class="metric-label">Lower bounce rate</div></div>
+        <div class="metric"><div class="metric-value" data-count="40">0</div><div class="metric-label">Faster page speed</div></div>
+        <div class="metric"><div class="metric-value" data-count="35">0</div><div class="metric-label">Lift in conversions</div></div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 2.5rem 0;">
+      <blockquote class="testimonial" style="margin:0; padding:1.25rem 1.5rem; border-left:4px solid var(--primary-color); background:#f9fbfd; border-radius:8px;">
+        <p style="margin:0 0 .5rem;">“Short client quote about the impact and collaboration.”</p>
+        <cite style="opacity:.8;">— Name, Title, Company</cite>
+      </blockquote>
+    </section>
+
+    <section class="container" style="padding: 2rem 0 3rem;">
+      <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <img src="images/creative web design workspace 2.jpg" alt="Screen 1" style="width:32%; min-width:240px; border-radius:12px;">
+        <img src="images/modern business team meeting.jpg" alt="Screen 2" style="width:32%; min-width:240px; border-radius:12px;">
+        <img src="images/business-team-standing-around-computer-for-present-2024-09-16-22-11-46-utc.jpg" alt="Screen 3" style="width:32%; min-width:240px; border-radius:12px;">
+      </div>
+    </section>
+
+    <div id="calculator-placeholder"></div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="script.js"></script>
+</body>
+<style>
+  /* Minimal case study niceties without touching global CSS */
+  .cs-hero .breadcrumb:hover { text-decoration: underline; }
+  .cs-hero h1 { font-size: clamp(2rem, 5vw, 3rem); }
+  .cs-hero .section-subtitle { max-width: 62ch; }
+  @media (max-width: 900px) {
+    section.container[style*="grid"] { grid-template-columns: 1fr; }
+  }
+</style>
+</html>

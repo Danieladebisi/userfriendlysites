@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: Lifehouse Church | User Friendly Sites</title>
+  <meta name="description" content="How we modernized Lifehouse Church's website to inform, engage, and grow their community with clear navigation, events, sermons, and giving.">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="images/user%20friendly%20sites%20logo.png">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <div class="reading-progress" id="readingProgress"></div>
+    <section class="cs-hero">
+      <div class="container">
+        <a href="index.html#portfolio" class="breadcrumb" style="color: var(--muted-color); font-size: .9rem;">← Back to Portfolio</a>
+        <h1 style="margin:.5rem 0 0;">Lifehouse Church — Engage, inform, and grow</h1>
+        <p class="section-subtitle">We rebuilt the website to help congregants quickly find service times, sermons, events, and giving — optimized for mobile.</p>
+        <div class="cs-meta">
+          <span class="cs-chip">Client: Lifehouse Church</span>
+          <span class="cs-chip">Industry: Nonprofit / Community</span>
+          <span class="cs-chip">Services: UX, Web Design, Development, CMS, SEO</span>
+          <span class="cs-chip">Timeline: 3 weeks</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 2rem 0 0;">
+      <img src="images/lifehouseChurch.png" alt="Lifehouse Church website preview" style="width:100%; border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+    </section>
+
+    <section class="cs-layout">
+      <article class="cs-article" id="overview">
+        <h2>Overview</h2>
+        <p>Lifehouse Church needed a modern, clear site to serve visitors and members. The old site buried key details like service times and events, making it harder to get involved.</p>
+
+        <h2 id="challenge">The Challenge</h2>
+        <ul>
+          <li>Hidden essentials: service times, directions, and giving were hard to find on mobile.</li>
+          <li>Events and sermons lacked structure and searchability.</li>
+          <li>Editors needed a simpler CMS to keep content current.</li>
+        </ul>
+
+        <h2 id="strategy">Strategy</h2>
+        <ul>
+          <li>Redesigned IA with prominent service times and clear next steps for newcomers.</li>
+          <li>Structured events and sermons for quick browsing and sharing.</li>
+          <li>Performance-first build with accessible patterns and easy-to-manage content.</li>
+        </ul>
+
+        <h2 id="execution">Execution</h2>
+        <p>We delivered a clean, inviting design with a concise header, sticky CTAs, and clear sectioning. We improved mobile navigation, added a streamlined giving entry point, and optimized media for speed. Editors now update content in minutes.</p>
+        <div class="cs-gallery" id="gallery">
+          <img src="images/woman-presenting-business-plan-during-office-meeti-2025-03-16-01-45-13-utc.jpg" alt="Homepage hero and service times">
+          <img src="images/indian-office-worker-and-his-coworkers-having-good-2025-02-11-15-30-12-utc.jpg" alt="Events calendar and details">
+          <img src="images/business-team-standing-around-computer-for-present-2024-09-16-22-11-46-utc.jpg" alt="Sermons listing and player">
+        </div>
+        <div class="cs-nav">
+          <a href="case-study-jes-loves-interior.html">← Prev: Jes Loves Interior</a>
+          <a href="case-study-savings-target.html">Next: Savings Target →</a>
+        </div>
+      </article>
+      <aside>
+        <nav class="cs-toc" aria-label="On this page">
+          <h3>On this page</h3>
+          <ul>
+            <li><a class="toc-link" href="#overview">Overview</a></li>
+            <li><a class="toc-link" href="#challenge">The Challenge</a></li>
+            <li><a class="toc-link" href="#strategy">Strategy</a></li>
+            <li><a class="toc-link" href="#execution">Execution</a></li>
+            <li><a class="toc-link" href="#results">Results</a></li>
+            <li><a class="toc-link" href="#gallery">Gallery</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </section>
+
+    <section class="metrics" aria-label="Results" id="results">
+      <div class="metrics-grid container">
+        <div class="metric"><div class="metric-value" data-count="40">0</div><div class="metric-label">More online giving</div></div>
+        <div class="metric"><div class="metric-value" data-count="55">0</div><div class="metric-label">Increase in event RSVPs</div></div>
+        <div class="metric"><div class="metric-value" data-count="48">0</div><div class="metric-label">Faster load times</div></div>
+        <div class="metric"><div class="metric-value" data-count="35">0</div><div class="metric-label">Mobile engagement lift</div></div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 2.5rem 0;">
+      <blockquote class="testimonial" style="margin:0; padding:1.25rem 1.5rem; border-left:4px solid var(--primary-color); background:#f9fbfd; border-radius:8px;">
+        <p style="margin:0 0 .5rem;">“The new site makes it easy for newcomers and members alike. Updates are simple and the site feels alive.”</p>
+        <cite style="opacity:.8;">— Jonathan Santos, Media Director</cite>
+      </blockquote>
+      <div class="cs-nav" style="margin-top:1rem;">
+        <a href="https://lifehousegroton.com/" target="_blank" rel="noopener">View Live Site</a>
+      </div>
+    </section>
+
+    <div id="calculator-placeholder"></div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="script.js"></script>
+  <script>
+  // Reading progress + TOC active state
+  (function(){
+    const bar = document.getElementById('readingProgress');
+    const onScroll = () => {
+      const h = document.documentElement; const st = h.scrollTop || document.body.scrollTop; const sh = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight; const p = sh > 0 ? (st / sh) * 100 : 0; if (bar) bar.style.width = p + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+    const sections = tocLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting){ const id = '#' + entry.target.id; tocLinks.forEach(l=> l.classList.toggle('active', l.getAttribute('href')===id)); }});
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+    sections.forEach(s=> io.observe(s));
+  })();
+  </script>
+</body>
+</html>

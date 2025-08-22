@@ -1,167 +1,213 @@
 <div id="calculatorModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="calculator-title">
     <div class="modal-content calculator-modern" role="document">
-        <button class="close" id="calculator-close" aria-label="Close calculator">&times;</button>
-        <div class="calculator-header">
-            <h2 id="calculator-title">Website Cost Calculator</h2>
-            <p class="muted">Quick estimate — not a final quote. Final pricing follows a consultation.</p>
+        <button id="calculator-close" class="close" aria-label="Close">&times;</button>
+
+        <header class="calculator-header">
+            <div>
+                <h2 id="calculator-title">Website Cost Calculator</h2>
+                <p class="muted">Quick estimate — not a final quote. Final pricing follows a consultation.</p>
+            </div>
+            <div class="calc-toolbar">
+                <label class="live-toggle" title="Toggle live updates">
+                    <input type="checkbox" id="calc-live" checked>
+                    <span class="switch" aria-hidden="true"></span>
+                    <span class="label">Live update</span>
+                </label>
+                <button type="button" id="calculator-reset" class="btn btn-secondary btn-reset">Reset</button>
+            </div>
+        </header>
+
+            <!-- Step progress -->
+        <div class="progress-bar" aria-hidden="false">
+            <div class="progress-bar-line" aria-hidden="true"><div class="progress-fill" aria-hidden="true"></div></div>
+            <div class="progress-bar-step"><span>1</span><p>Type</p></div>
+            <div class="progress-bar-step"><span>2</span><p>Pages</p></div>
+            <div class="progress-bar-step"><span>3</span><p>Features</p></div>
+            <div class="progress-bar-step"><span>4</span><p>Options</p></div>
+            <div class="progress-bar-step"><span>5</span><p>Quote</p></div>
         </div>
 
+            <!-- Always-visible summary badges (sticky on desktop) -->
+            <div class="result-badges sticky-badges" aria-live="polite">
+                <span id="rb-type" class="rb-chip">Type: —</span>
+                <span id="rb-pages" class="rb-chip">Pages: —</span>
+                <span id="rb-features" class="rb-chip">Features: 0</span>
+                <span id="rb-maint" class="rb-chip">Maint.: none</span>
+                <span id="rb-discount" class="rb-chip rb-accent" hidden>Discount applied</span>
+                <span id="rb-total" class="rb-chip" title="Estimated total">Total: —</span>
+            </div>
+
         <div class="calculator-body">
-            <form id="calculator-form">
-                <div class="form-group">
-                    <label for="website-type">Type of Website</label>
-                    <select id="website-type" name="website-type" aria-label="Type of website">
-                        <option value="basic">Basic — small brochure</option>
-                        <option value="ecommerce">E-commerce — online store</option>
-                        <option value="blog">Blog — content-first</option>
-                        <option value="portfolio">Portfolio — showcase</option>
-                        <option value="custom">Custom — bespoke solution</option>
-                    </select>
-                </div>
-
-                <div class="form-group range-group">
-                    <label for="pages">Estimated number of pages</label>
-                    <div class="range-row">
-                        <input type="range" id="pages" name="pages" min="1" max="100" value="1" oninput="this.nextElementSibling.value = this.value">
-                        <output aria-live="polite">1</output>
+            <form id="calculator-form" autocomplete="on">
+                <!-- STEP 1: Type -->
+                <section class="calculator-step active" id="step-type" aria-labelledby="lbl-type">
+                    <div class="form-group" id="sec-type">
+                        <label id="lbl-type" for="website-type">Type of Website</label>
+                        <select id="website-type" name="website-type">
+                            <option value="basic" selected>Basic — small brochure</option>
+                            <option value="portfolio">Portfolio</option>
+                            <option value="blog">Blog / Content site</option>
+                            <option value="ecommerce">E‑commerce</option>
+                            <option value="custom">Fully custom</option>
+                        </select>
                     </div>
-                    <small class="muted">More pages typically increase cost — the slider adjusts the estimate.</small>
-                </div>
+                </section>
 
-                <div class="form-group">
-                    <label>Additional features</label>
-                    <div class="feature-grid">
-                        <label class="feature-pill">
-                            <input type="checkbox" name="features" value="seo">
-                            <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f1724" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zM10 14a4 4 0 110-8 4 4 0 010 8z"/></svg></span>
-                            <span class="pill-label">SEO</span>
-                            <span class="feature-desc">On-page SEO setup and basic keyword optimization.</span>
-                        </label>
-                        <label class="feature-pill">
-                            <input type="checkbox" name="features" value="responsive">
-                            <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f1724" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v2H7V7zm0 6h7v2H7v-2zM4 4h16v12H4V4zm2 2v8h12V6H6z"/></svg></span>
-                            <span class="pill-label">Responsive Design</span>
-                            <span class="feature-desc">Mobile-friendly layout and breakpoints for all devices.</span>
-                        </label>
-                        <label class="feature-pill">
-                            <input type="checkbox" name="features" value="cms">
-                            <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f1724" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v12H3z"/></svg></span>
-                            <span class="pill-label">CMS Integration</span>
-                            <span class="feature-desc">Content management (WordPress/Headless) setup and training.</span>
-                        </label>
-                        <label class="feature-pill">
-                            <input type="checkbox" name="features" value="ecommerce">
-                            <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f1724" xmlns="http://www.w3.org/2000/svg"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 14l.84-2h8.5c.67 0 1.25-.42 1.45-1.03L20.9 6H5.21L4.27 3H1v2h2l3.6 7.59-1.35 2.45C5.08 15.37 5 15.68 5 16c0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25 0-.03.01-.06.02-.09L7.16 14z"/></svg></span>
-                            <span class="pill-label">E-commerce</span>
-                            <span class="feature-desc">Shopping cart, product pages and payment gateway.</span>
-                        </label>
-                        <label class="feature-pill">
-                            <input type="checkbox" name="features" value="analytics">
-                            <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f1724" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h2v8H3zM7 9h2v12H7zM11 3h2v18h-2zM15 6h2v15h-2zM19 11h2v10h-2z"/></svg></span>
-                            <span class="pill-label">Analytics</span>
-                            <span class="feature-desc">Analytics setup (GA4) and conversion tracking.</span>
-                        </label>
-                        <label class="feature-pill">
-                            <input type="checkbox" name="features" value="membership">
-                            <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f1724" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/></svg></span>
-                            <span class="pill-label">Membership</span>
-                            <span class="feature-desc">User accounts, gated content and subscription billing.</span>
-                        </label>
-                        <label class="feature-pill">
-                            <input type="checkbox" name="features" value="performance">
-                            <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f1724" xmlns="http://www.w3.org/2000/svg"><path d="M13 2v8h8v2h-8v8h-2v-8H3v-2h8V2h2z"/></svg></span>
-                            <span class="pill-label">Performance Opt.</span>
-                            <span class="feature-desc">Performance tuning, image optimization, caching.</span>
-                        </label>
-                        <label class="feature-pill">
-                            <input type="checkbox" name="features" value="accessibility">
-                            <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f1724" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a2 2 0 012 2v6h3v2h-5V4a2 2 0 00-2-2zM6 14v6h12v-6h-2v4H8v-4H6z"/></svg></span>
-                            <span class="pill-label">Accessibility</span>
-                            <span class="feature-desc">A11y improvements and ARIA where required.</span>
-                        </label>
-                        <label class="feature-pill">
-                            <input type="checkbox" name="features" value="multilanguage">
-                            <span class="icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f1724" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V19h-2v.93A8.001 8.001 0 014.07 13H6v-2H4.07A8.002 8.002 0 0111 4.07V6h2V4.07A8.001 8.001 0 0119.93 11H18v2h1.93A8.002 8.002 0 0113 19.93z"/></svg></span>
-                            <span class="pill-label">Multi-language</span>
-                            <span class="feature-desc">Support for multiple languages and locale routing.</span>
-                        </label>
+                <!-- STEP 2: Pages -->
+                <section class="calculator-step" id="step-pages" aria-labelledby="lbl-pages">
+                    <div class="form-group" id="sec-pages">
+                        <label id="lbl-pages" for="pages">Estimated number of pages</label>
+                        <div class="range-row">
+                            <input type="range" id="pages" name="pages" min="1" max="50" value="1" aria-describedby="pages-help" oninput="this.nextElementSibling.value = this.value">
+                            <output>1</output>
+                        </div>
+                        <p class="muted" id="pages-help">More pages typically increase cost — the slider adjusts the estimate.</p>
                     </div>
-                </div>
+                </section>
 
-                <div class="form-group">
-                    <label for="timeline">Delivery timeline</label>
-                    <select id="timeline" name="timeline">
-                        <option value="standard">Standard — normal turnaround</option>
-                        <option value="express">Express — 20% faster (adds 20% cost)</option>
-                        <option value="rush">Rush — fastest turnaround (adds 50% cost)</option>
-                    </select>
-                    <small class="muted">Pick a timeline to reflect faster delivery costs.</small>
-                </div>
-
-                <div class="form-group">
-                    <label>Maintenance & Support</label>
-                    <div class="maintenance-row">
-                        <label class="feature-pill small">
-                            <input type="radio" name="maintenance" value="none" checked>
-                            <span class="pill-label">No maintenance</span>
-                        </label>
-                        <label class="feature-pill small">
-                            <input type="radio" name="maintenance" value="basic">
-                            <span class="pill-label">Basic — $50/month</span>
-                        </label>
-                        <label class="feature-pill small">
-                            <input type="radio" name="maintenance" value="pro">
-                            <span class="pill-label">Pro — $150/month</span>
-                        </label>
+                <!-- STEP 3: Features -->
+                <section class="calculator-step" id="step-features" aria-labelledby="lbl-features">
+                    <div class="form-group" id="sec-features">
+                        <label id="lbl-features">Additional features</label>
+                        <div class="feature-grid">
+                            <label class="feature-pill">
+                                <input type="checkbox" name="features" value="seo">
+                                <span class="pill-label">SEO</span>
+                                <span class="feature-desc">On‑page SEO setup and basic keyword optimization.</span>
+                            </label>
+                            <label class="feature-pill">
+                                <input type="checkbox" name="features" value="responsive" checked>
+                                <span class="pill-label">Responsive Design</span>
+                                <span class="feature-desc">Mobile‑friendly layout and breakpoints for all devices.</span>
+                            </label>
+                            <label class="feature-pill">
+                                <input type="checkbox" name="features" value="cms">
+                                <span class="pill-label">CMS Integration</span>
+                                <span class="feature-desc">Update content yourself via WordPress or a headless CMS.</span>
+                            </label>
+                            <label class="feature-pill">
+                                <input type="checkbox" name="features" value="ecommerce">
+                                <span class="pill-label">E‑commerce</span>
+                                <span class="feature-desc">Product catalog, cart, and checkout.</span>
+                            </label>
+                            <label class="feature-pill">
+                                <input type="checkbox" name="features" value="analytics">
+                                <span class="pill-label">Analytics</span>
+                                <span class="feature-desc">GA4 setup and basic event tracking.</span>
+                            </label>
+                            <label class="feature-pill">
+                                <input type="checkbox" name="features" value="performance">
+                                <span class="pill-label">Performance</span>
+                                <span class="feature-desc">Core Web Vitals tuning.</span>
+                            </label>
+                            <label class="feature-pill">
+                                <input type="checkbox" name="features" value="accessibility">
+                                <span class="pill-label">Accessibility</span>
+                                <span class="feature-desc">WCAG‑friendly patterns and checks.</span>
+                            </label>
+                            <label class="feature-pill">
+                                <input type="checkbox" name="features" value="multilanguage">
+                                <span class="pill-label">Multi‑language</span>
+                                <span class="feature-desc">Localized content and language switcher.</span>
+                            </label>
+                        </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="form-group">
-                    <label for="discount-code">Discount code</label>
-                    <div class="discount-row">
-                        <input type="text" id="discount-code" name="discount_code" placeholder="Enter code (e.g. SAVE10)">
-                        <button type="button" id="apply-discount" class="btn btn-secondary">Apply</button>
+                <!-- STEP 4: Options (timeline, maintenance, discount, payment) -->
+                <section class="calculator-step" id="step-options" aria-labelledby="lbl-options">
+                    <div class="form-group" id="sec-timeline">
+                        <label id="lbl-options">Timeline</label>
+                        <div class="maintenance-row">
+                            <label class="feature-pill small">
+                                <input type="radio" name="timeline" value="standard" checked>
+                                <span class="pill-label">Standard</span>
+                            </label>
+                            <label class="feature-pill small">
+                                <input type="radio" name="timeline" value="express">
+                                <span class="pill-label">Express (+20%)</span>
+                            </label>
+                            <label class="feature-pill small">
+                                <input type="radio" name="timeline" value="rush">
+                                <span class="pill-label">Rush (+50%)</span>
+                            </label>
+                        </div>
                     </div>
-                    <small class="muted">Enter a promo code to apply a discount.</small>
-                </div>
-
-                <div class="form-group">
-                    <label for="show-monthly">Payment options</label>
-                    <div class="payment-row">
-                        <label class="feature-pill small">
+                    <div class="form-group" id="sec-maintenance">
+                        <label>Maintenance</label>
+                        <div class="maintenance-row">
+                            <label class="feature-pill small">
+                                <input type="radio" name="maintenance" value="none" checked>
+                                <span class="pill-label">None</span>
+                            </label>
+                            <label class="feature-pill small">
+                                <input type="radio" name="maintenance" value="basic">
+                                <span class="pill-label">Basic ($30/mo)</span>
+                            </label>
+                            <label class="feature-pill small">
+                                <input type="radio" name="maintenance" value="pro">
+                                <span class="pill-label">Managed ($120/mo)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group" id="sec-discount">
+                        <label for="discount-code">Discount code</label>
+                        <div class="discount-row">
+                            <input type="text" id="discount-code" name="discount_code" placeholder="Enter code (e.g., SAVE10)">
+                            <button type="button" id="apply-discount" class="btn btn-secondary">Apply</button>
+                        </div>
+                    </div>
+                    <div class="form-group" id="sec-payment">
+                        <div class="payment-row">
                             <input type="checkbox" id="show-monthly" name="show_monthly">
-                            <span class="pill-label">Show monthly payments (12 months)</span>
-                        </label>
+                            <label for="show-monthly">Show estimated monthly (12 months)</label>
+                        </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="form-group calculator-navigation">
-                    <button type="button" class="btn btn-secondary" id="calculator-cancel">Close</button>
-                    <button type="button" class="btn btn-primary" id="calculator-calc">Calculate Cost</button>
+                <!-- STEP 5: Quote -->
+                        <section class="calculator-step" id="step-quote" aria-live="polite">
+                            <aside id="cost-result" class="cost-result-container">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                    </aside>
+                    <div class="quote-actions">
+                        <button type="button" id="send-quote-btn" class="btn btn-primary" disabled aria-disabled="true">Email this Quote</button>
+                        <button type="button" id="contact-us" class="btn btn-secondary" onclick="scrollToSection('contact')">Contact Us</button>
+                    </div>
+
+                    <!-- ROI after estimate -->
+                    <section id="roi-section" class="roi-section" hidden>
+                        <div class="roi-header">
+                            <h4>Potential ROI</h4>
+                            <p class="muted">Estimate how many new customers it takes to break even.</p>
+                        </div>
+                        <div class="roi-body">
+                            <p class="compact">Average profit per new customer</p>
+                            <div class="roi-input-row">
+                                <span class="currency-prefix">$</span>
+                                <input type="number" id="roi-customer-value" min="1" step="1" placeholder="e.g., 200">
+                                <button type="button" id="roi-calc" class="btn btn-secondary">Calculate ROI</button>
+                            </div>
+                            <div id="roi-output" class="roi-output" aria-live="polite"></div>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- Wizard navigation -->
+            <div class="calculator-navigation">
+                    <button type="button" id="prev-step-btn" class="btn btn-secondary">Back</button>
+                    <button type="button" id="next-step-btn" class="btn btn-primary">Next Step</button>
                 </div>
             </form>
+        </div>
 
-            <div id="cost-result" class="cost-result-container" aria-live="polite">
-                <div class="result-top">
-                    <div class="result-title">
-                        <h4>Quote Summary</h4>
-                        <p class="muted">This is an instant estimate. Final pricing follows a consultation.</p>
-                    </div>
-                    <div class="estimate-badge" aria-hidden="true">—</div>
-                </div>
-
-                <div class="result-body">
-                    <div class="result-empty">
-                        <p class="muted">Use the controls on the left to build your project—your estimate will appear here.</p>
-                    </div>
-
-                    <!-- JS will inject breakdown and totals into #cost-result; the static placeholder above remains until calculation -->
-                </div>
-
-                <div class="quote-actions">
-                    <button id="send-quote-btn" class="btn btn-primary" disabled aria-disabled="true">Email this Quote</button>
-                    <button id="contact-us" class="btn btn-secondary" onclick="scrollToSection('contact')">Contact Us</button>
-                </div>
+        <!-- Sticky bottom action bar -->
+        <div class="calc-bottom-bar">
+            <span class="bar-hint">Your estimate updates as you go.</span>
+            <div class="bar-actions">
+                <button type="button" id="calculator-close-bottom" class="btn btn-secondary">Close</button>
+                <button type="button" id="calculator-calc-bottom" class="btn btn-primary btn-lg">Calculate</button>
             </div>
         </div>
     </div>

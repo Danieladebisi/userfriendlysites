@@ -27,14 +27,14 @@
         <meta name="twitter:image" content="https://userfriendlysites.com/images/user-friendly-sites-og-image.png">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./images/copy-of-user-friendly-sites.png">
+    <link rel="icon" type="image/png" href="images/user%20friendly%20sites%20logo.png">
 
         <!-- Fonts and Stylesheets -->
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="stylesheet" href="styles.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+        
 
     <!-- Structured Data: Organization & LocalBusiness -->
         <script type="application/ld+json">
@@ -102,8 +102,8 @@
                     <p class="hero-subtitle">Fast, accessible, and optimised for search. Predictable pricing, clear timelines, and measurable results.</p>
 
                     <div class="hero-ctas" role="group" aria-label="Primary calls to action">
-                        <button class="hero-btn" id="openCalculatorHome" aria-haspopup="dialog" aria-controls="calculatorModal"><svg class="cta-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h6v6h-6z" fill="currentColor"/></svg><span>Get Instant Website Quote</span></button>
-                        <a class="btn btn-secondary hero-ghost" href="#contact" role="button"><svg class="cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.09 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.9.37 1.77.74 2.59a2 2 0 0 1-.45 2.11L8.91 9.91a16 16 0 0 0 6 6l1.49-1.49a2 2 0 0 1 2.11-.45c.82.37 1.69.62 2.59.74A2 2 0 0 1 22 16.92z" fill="currentColor"/></svg><span>Schedule a Call</span></a>
+                        <button class="hero-btn" id="openCalculatorHome" data-cta="quote" aria-haspopup="dialog" aria-controls="calculatorModal"><svg class="cta-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h6v6h-6z" fill="currentColor"/></svg><span>Get Instant Website Quote</span></button>
+                        <a class="btn btn-secondary hero-ghost" href="#contact" data-cta="contact" role="button"><svg class="cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.09 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.9.37 1.77.74 2.59a2 2 0 0 1-.45 2.11L8.91 9.91a16 16 0 0 0 6 6l1.49-1.49a2 2 0 0 1 2.11-.45c.82.37 1.69.62 2.59.74A2 2 0 0 1 22 16.92z" fill="currentColor"/></svg><span>Schedule a Call</span></a>
                     </div>
 
                     <ul class="hero-badges" aria-hidden="true">
@@ -133,12 +133,12 @@
              data-depth="26">
 
         <div class="mock-overlay">
-            <div class="price-pill"
-                 id="hero-price"
-                 data-base-price="500"
+          <div class="price-pill"
+              id="hero-price"
+              data-base-price="800"
                  role="status"
                  aria-live="polite">
-                From <strong><span class="currency-value">$500</span></strong>
+                From <strong><span class="currency-value">$800</span></strong>
             </div>
         </div>
     </div>
@@ -155,6 +155,20 @@
 
             <!-- Decorative wave divider -->
             <svg class="hero-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#ffffff"></path></svg>
+        </section>
+
+        <!-- Trust Bar: Brands/Clients -->
+        <section id="clients" class="trust-bar" aria-label="Trusted by">
+            <div class="trust-inner">
+                <span class="trust-eyebrow">Trusted by teams like</span>
+                <ul class="trust-logos" role="list">
+                    <li class="logo-chip" aria-label="Client logo">ServiceTitan</li>
+                    <li class="logo-chip" aria-label="Client logo">Calendly</li>
+                    <li class="logo-chip" aria-label="Client logo">Braze</li>
+                    <li class="logo-chip" aria-label="Client logo">Circle</li>
+                    <li class="logo-chip" aria-label="Client logo">Justworks</li>
+                </ul>
+            </div>
         </section>
 
     <!-- Shared Calculator Placeholder (loaded dynamically) -->
@@ -180,6 +194,44 @@
                     <h3>Website Maintenance</h3>
                     <p>Providing ongoing support, security, and updates to ensure your website runs smoothly and securely.</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- Industries Section -->
+        <section id="industries" class="industries">
+            <h2>Industries We Serve</h2>
+            <p class="section-subtitle">Specialized expertise where performance and reliability matter.</p>
+            <div class="industries-grid">
+                <article class="industry-card">
+                    <div class="industry-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>SaaS</h3>
+                    <p>Marketing sites that convert demos with scalable CMS and fast iteration.</p>
+                </article>
+                <article class="industry-card">
+                    <div class="industry-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI/ML</h3>
+                    <p>Explain complex products with clear storytelling and performance.</p>
+                </article>
+                <article class="industry-card">
+                    <div class="industry-icon"><i class="fas fa-credit-card"></i></div>
+                    <h3>Fintech</h3>
+                    <p>Trust-first design, compliance-friendly, and measurable funnels.</p>
+                </article>
+                <article class="industry-card">
+                    <div class="industry-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Education</h3>
+                    <p>Accessible, content-rich sites with intuitive navigation.</p>
+                </article>
+                <article class="industry-card">
+                    <div class="industry-icon"><i class="fas fa-stethoscope"></i></div>
+                    <h3>Healthcare</h3>
+                    <p>HIPAA-aware forms, clarity, and mobile-first experiences.</p>
+                </article>
+                <article class="industry-card">
+                    <div class="industry-icon"><i class="fas fa-store"></i></div>
+                    <h3>E‑commerce</h3>
+                    <p>Conversion-focused storefronts with fast product discovery.</p>
+                </article>
             </div>
         </section>
 
@@ -241,10 +293,24 @@
                     </ul>
 
                     <div class="why-choose-cta">
-                        <a class="btn btn-primary" href="#contact">Get Started</a>
-                        <a class="btn btn-secondary" href="#portfolio">See Our Work</a>
+                        <a class="btn btn-primary" href="#contact" data-cta="contact">Get Started</a>
+                        <a class="btn btn-secondary" href="#portfolio" data-cta="portfolio">See Our Work</a>
                     </div>
                 </aside>
+            </div>
+        </section>
+
+        <!-- Technology Expertise -->
+        <section id="technologies" class="technologies">
+            <h2>Technology Expertise</h2>
+            <p class="section-subtitle">We build with modern, composable tools for speed and scale.</p>
+            <div class="tech-grid">
+                <div class="tech-item"><i class="fab fa-react" aria-hidden="true"></i><span>React</span></div>
+                <div class="tech-item"><i class="fab fa-js-square" aria-hidden="true"></i><span>JavaScript</span></div>
+                <div class="tech-item"><i class="fab fa-node" aria-hidden="true"></i><span>Node.js</span></div>
+                <div class="tech-item"><i class="fab fa-wordpress" aria-hidden="true"></i><span>WordPress</span></div>
+                <div class="tech-item"><i class="fas fa-database" aria-hidden="true"></i><span>Headless CMS</span></div>
+                <div class="tech-item"><i class="fas fa-rocket" aria-hidden="true"></i><span>Vite</span></div>
             </div>
         </section>
 
@@ -252,42 +318,122 @@
         <section id="portfolio" class="portfolio creative-entrance">
             <h2>Our Work</h2>
             <p class="section-subtitle">We're proud of the results we've delivered for our clients.</p>
+            <div class="portfolio-filters" role="group" aria-label="Filter portfolio">
+                <button class="filter-chip active" data-filter="all" aria-pressed="true">All</button>
+                <button class="filter-chip" data-filter="education">Education</button>
+                <button class="filter-chip" data-filter="ecommerce">E‑commerce</button>
+                <button class="filter-chip" data-filter="nonprofit">Nonprofit</button>
+                <button class="filter-chip" data-filter="fintech">Fintech</button>
+                <button class="filter-chip" data-filter="technology">Technology</button>
+            </div>
             <div class="portfolio-grid">
-                <a class="portfolio-item" href="https://anikeolaschools.com/" target="_blank" rel="noopener">
+        <a class="portfolio-item" href="case-study-anikeola-schools.html" data-cat="education">
+                    <span class="portfolio-badge">Case Study</span>
                     <img src="./images/anikeolaschools.png" alt="Anikeola Schools - Educational Website Project in Groton CT" loading="lazy">
                     <div class="portfolio-overlay">
-                        <h3>Anikeola Schools</h3>
-                        <p>Educational Website</p>
+            <h3>Anikeola Schools</h3>
+            <p>Read Case Study</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Education</span>
+                            <span class="portfolio-tag"><i class="fas fa-tachometer-alt" aria-hidden="true"></i> Performance</span>
+                        </div>
+                        <button class="quick-view" data-qv-title="Anikeola Schools" data-qv-img="./images/anikeolaschools.png" data-qv-url="case-study-anikeola-schools.html"><i class="fas fa-eye" aria-hidden="true"></i> Quick View</button>
                     </div>
                 </a>
-                <a class="portfolio-item" href="https://jeslovesinterior.com/" target="_blank" rel="noopener">
+        <a class="portfolio-item" href="case-study-jes-loves-interior.html" data-cat="ecommerce">
+                    <span class="portfolio-badge">Case Study</span>
                     <img src="./images/jeslovesinterior.png" alt="Jes Loves Interior - E-commerce Website Project" loading="lazy">
                     <div class="portfolio-overlay">
-                        <h3>Jes Loves Interior</h3>
-                        <p>E-commerce Store</p>
+            <h3>Jes Loves Interior</h3>
+            <p>Read Case Study</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag"><i class="fas fa-store" aria-hidden="true"></i> E‑commerce</span>
+                            <span class="portfolio-tag"><i class="fas fa-mobile-alt" aria-hidden="true"></i> Mobile</span>
+                        </div>
+                        <button class="quick-view" data-qv-title="Jes Loves Interior" data-qv-img="./images/jeslovesinterior.png" data-qv-url="case-study-jes-loves-interior.html"><i class="fas fa-eye" aria-hidden="true"></i> Quick View</button>
                     </div>
                 </a>
-                <a class="portfolio-item" href="https://lifehousegroton.com/" target="_blank" rel="noopener">
+                <a class="portfolio-item" href="case-study-lifehouse-church.html" data-cat="nonprofit">
+                    <span class="portfolio-badge">Case Study</span>
                     <img src="./images/lifehouseChurch.png" alt="Lifehouse Church - Community Website Project" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>Lifehouse Church</h3>
-                        <p>Community Website</p>
+                        <p>Read Case Study</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag"><i class="fas fa-hands-helping" aria-hidden="true"></i> Nonprofit</span>
+                            <span class="portfolio-tag"><i class="fas fa-route" aria-hidden="true"></i> UX</span>
+                        </div>
+                        <button class="quick-view" data-qv-title="Lifehouse Church" data-qv-img="./images/lifehouseChurch.png" data-qv-url="case-study-lifehouse-church.html"><i class="fas fa-eye" aria-hidden="true"></i> Quick View</button>
                     </div>
                 </a>
-                <a class="portfolio-item" href="https://savingstarget.com/" target="_blank" rel="noopener">
+                <a class="portfolio-item" href="case-study-savings-target.html" data-cat="fintech">
+                    <span class="portfolio-badge">Case Study</span>
                     <img src="./images/savingstarget.png" alt="Savings Target - Financial App Landing Page Project" loading="lazy">
                     <div class="portfolio-overlay">
                         <h3>Savings Target</h3>
-                        <p>Financial App Landing Page</p>
+                        <p>Read Case Study</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag"><i class="fas fa-credit-card" aria-hidden="true"></i> Fintech</span>
+                            <span class="portfolio-tag"><i class="fas fa-rocket" aria-hidden="true"></i> Launch</span>
+                        </div>
+                        <button class="quick-view" data-qv-title="Savings Target" data-qv-img="./images/savingstarget.png" data-qv-url="case-study-savings-target.html"><i class="fas fa-eye" aria-hidden="true"></i> Quick View</button>
+                    </div>
+                </a>
+                <a class="portfolio-item" href="case-study-tech-mansion.html" data-cat="technology">
+                    <span class="portfolio-badge">Case Study</span>
+                    <img src="./images/techmansion.png" alt="Tech Mansion - Technology Services Website Project" loading="lazy">
+                    <div class="portfolio-overlay">
+                        <h3>Tech Mansion</h3>
+                        <p>Read Case Study</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag"><i class="fas fa-microchip" aria-hidden="true"></i> Technology</span>
+                            <span class="portfolio-tag"><i class="fas fa-bolt" aria-hidden="true"></i> Performance</span>
+                        </div>
+                                                <button class="quick-view" data-qv-title="Tech Mansion" data-qv-img="./images/techmansion.png" data-qv-url="case-study-tech-mansion.html"><i class="fas fa-eye" aria-hidden="true"></i> Quick View</button>
                     </div>
                 </a>
             </div>
             <button id="show-more" class="show-more-btn">Show More Projects</button>
-            <!-- Lightbox Modal -->
-            <div id="lightbox-modal" class="lightbox-modal">
-                <span class="lightbox-close">&times;</span>
-                <img id="lightbox-img" src="" alt="Project Preview">
-                <div id="lightbox-caption"></div>
+                        <!-- Lightbox Modal (Quick View) -->
+                        <div id="lightbox-modal" class="lightbox-modal" aria-hidden="true" role="dialog" aria-modal="true">
+                            <div class="lightbox-inner" role="document">
+                                <div class="lightbox-header">
+                                    <strong id="lightbox-title">Project</strong>
+                                    <button class="lightbox-close" aria-label="Close">&times;</button>
+                                </div>
+                                <div class="lightbox-body">
+                                    <div class="lightbox-media"><img id="lightbox-img" src="" alt="Project Preview"></div>
+                                    <div class="lightbox-info">
+                                        <p id="lightbox-caption">Explore this project’s case study for the full story, results, and gallery.</p>
+                                        <div class="lightbox-actions">
+                                            <a id="lightbox-view" href="#" data-cta="case-study">Read Full Case Study</a>
+                                            <a class="secondary" href="#contact" data-cta="contact">Start Your Project</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </section>
+
+        <!-- KPI Metrics -->
+        <section id="metrics" class="metrics" aria-label="Company metrics">
+            <div class="metrics-grid">
+                <div class="metric">
+                    <div class="metric-value" data-count="50">0</div>
+                    <div class="metric-label">Projects Delivered</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value" data-count="95">0</div>
+                    <div class="metric-label">Client Satisfaction (%)</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value" data-count="10">0</div>
+                    <div class="metric-label">Years Experience</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value" data-count="3">0</div>
+                    <div class="metric-label">Week Avg. Turnaround</div>
+                </div>
             </div>
         </section>
 
@@ -304,9 +450,9 @@
                 </div>
             </div>
             <div class="testimonial-carousel-wrapper">
-                <div class="testimonial-carousel">
+                    <div class="testimonial-carousel">
                     <div class="testimonial-box">
-                        <img src="./images/client1-placeholder.jpg" alt="John Doe - CEO of Anikeola Schools" class="client-image" loading="lazy">
+                        <img src="./images/Alexis.jpg" alt="John Doe - CEO of Anikeola Schools" class="client-image" loading="lazy">
                         <div class="testimonial-content">
                             <p>"User Friendly Sites transformed our online presence! The team was professional and attentive to our needs."</p>
                             <h4>- John Doe, CEO of Anikeola Schools</h4>
@@ -319,8 +465,8 @@
                             <h4>- Jes, Owner of Jes Loves Interior</h4>
                         </div>
                     </div>
-                     <div class="testimonial-box">
-                        <img src="./images/client3-placeholder.jpg" alt="Jonathan Santos - Media Director, Lifehouse Church" class="client-image" loading="lazy">
+                            <div class="testimonial-box">
+                                <img src="./images/olabisi.jpg" alt="Jonathan Santos - Media Director, Lifehouse Church" class="client-image" loading="lazy">
                         <div class="testimonial-content">
                             <p>"The redesign of our website was seamless and the results were outstanding. Highly recommend!"</p>
                             <h4>- Jonathan Santos, Media Director, Lifehouse Church</h4>
@@ -331,6 +477,37 @@
             <div class="carousel-controls">
                 <button id="prevBtn" aria-label="Previous Testimonial"><i class="fas fa-chevron-left"></i></button>
                 <button id="nextBtn" aria-label="Next Testimonial"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list" role="list">
+                <article class="faq-item">
+                    <button class="faq-q" aria-expanded="false" aria-controls="faq1">How long does a typical website take?</button>
+                    <div id="faq1" class="faq-a" hidden>
+                        Most small business sites launch in 2–4 weeks depending on scope and content readiness.
+                    </div>
+                </article>
+                <article class="faq-item">
+                    <button class="faq-q" aria-expanded="false" aria-controls="faq2">Do you offer ongoing maintenance?</button>
+                    <div id="faq2" class="faq-a" hidden>
+                        Yes. We provide flexible maintenance plans to keep your site secure, fast, and up-to-date.
+                    </div>
+                </article>
+                <article class="faq-item">
+                    <button class="faq-q" aria-expanded="false" aria-controls="faq3">Can you help with SEO and content?</button>
+                    <div id="faq3" class="faq-a" hidden>
+                        Absolutely. Every build includes technical SEO, and we can assist with content and keyword strategy.
+                    </div>
+                </article>
+                <article class="faq-item">
+                    <button class="faq-q" aria-expanded="false" aria-controls="faq4">Do you work with existing sites?</button>
+                    <div id="faq4" class="faq-a" hidden>
+                        We can redesign, optimize, or migrate your current site to a modern stack or CMS.
+                    </div>
+                </article>
             </div>
         </section>
 
@@ -389,6 +566,12 @@
 
     <!-- Scripts -->
     <script src="script.js"></script>
+
+    <!-- Floating CTA: opens calculator -->
+    <button id="floating-cta" class="floating-cta" data-cta="quote" aria-haspopup="dialog" aria-controls="calculatorModal" title="Get an instant quote">
+        <i class="fas fa-calculator" aria-hidden="true"></i>
+        <span>Get Quote</span>
+    </button>
 
 </body>
 </html>

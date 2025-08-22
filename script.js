@@ -120,12 +120,20 @@ async function loadHTML(elementId, url) {
 function initUI() {
     setupScrollToTop();
     setupScrollAnimations();
+    setupStickyHeader();
+    setupActiveNav();
+    setupCounters();
+    setupFAQ();
+    setupFloatingCTA();
+    setupGlobalCTADelegation();
 }
 
 function initInteractiveComponents() {
     setupTestimonialCarousel();
     setupShowMore();
     initWhyChooseInteractions();
+    setupPortfolioFilters();
+    setupPortfolioLightbox();
 }
 
 /* Why Choose Us: parallax on scroll + tilt on hover (motion-safe) */
@@ -226,7 +234,20 @@ function setupMobileNav() {
         const menuToggle = e.target.closest('#menuToggle');
         if (menuToggle) {
             const navLinks = document.getElementById('navLinks');
-            if(navLinks) navLinks.classList.toggle('active');
+            if (navLinks) {
+                const isActive = navLinks.classList.toggle('active');
+                menuToggle.setAttribute('aria-expanded', String(isActive));
+            }
+        }
+        // Close mobile menu after selecting a nav link (UX)
+        const navLink = e.target.closest('header .nav-links a');
+        if (navLink) {
+            const nav = document.getElementById('navLinks');
+            const toggle = document.getElementById('menuToggle');
+            if (nav && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                toggle?.setAttribute('aria-expanded', 'false');
+            }
         }
     });
 }
@@ -264,6 +285,24 @@ function setupScrollAnimations() {
    4. Interactive Components
    ========================================================================== */
 function setupTestimonialCarousel() {
+    const wrapper = document.querySelector('.testimonial-carousel-wrapper');
+    const carousel = document.querySelector('.testimonial-carousel');
+    if (carousel) {
+        let currentIndex = 0;
+        let intervalId = null;
+        const autoplay = () => {
+            const items = carousel.querySelectorAll('.testimonial-box');
+            if (!items.length) return;
+            currentIndex = (currentIndex + 1) % items.length;
+            carousel.dataset.currentIndex = currentIndex;
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        };
+        intervalId = setInterval(autoplay, 5000);
+        if (wrapper) {
+            wrapper.addEventListener('mouseenter', () => intervalId && clearInterval(intervalId));
+            wrapper.addEventListener('mouseleave', () => intervalId = setInterval(autoplay, 5000));
+        }
+    }
     document.body.addEventListener('click', e => {
         const prevBtn = e.target.closest('#prevBtn');
         const nextBtn = e.target.closest('#nextBtn');
@@ -285,6 +324,212 @@ function setupTestimonialCarousel() {
     });
 }
 
+// Sticky header: add class on scroll
+function setupStickyHeader() {
+    const onScroll = () => {
+        if (window.scrollY > 10) document.body.classList.add('scrolled');
+        else document.body.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+}
+
+// Active nav link highlighting based on section in view
+function setupActiveNav() {
+    const links = Array.from(document.querySelectorAll('header .nav-links a[href*="#"]'));
+    if (!links.length) return;
+    const getHash = (href) => {
+        try {
+            const u = new URL(href, window.location.href);
+            return u.hash || '';
+        } catch (_) {
+            return href.startsWith('#') ? href : '';
+        }
+    };
+    const sections = links.map(a => document.querySelector(getHash(a.getAttribute('href')))).filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const id = '#' + entry.target.id;
+            const link = links.find(a => getHash(a.getAttribute('href')) === id);
+            if (!link) return;
+            if (entry.isIntersecting) {
+                links.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0.01 });
+    sections.forEach(s => observer.observe(s));
+}
+
+// Metric counters animation
+function setupCounters() {
+    const counters = document.querySelectorAll('.metric-value[data-count]');
+    if (!counters.length) return;
+    const animate = (el) => {
+        const target = parseInt(el.getAttribute('data-count') || '0', 10);
+        const duration = 1200;
+        const start = performance.now();
+        const step = (now) => {
+            const t = Math.min(1, (now - start) / duration);
+            const eased = t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
+            el.textContent = Math.round(target * eased).toLocaleString();
+            if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    };
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animate(entry.target);
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    counters.forEach(c => io.observe(c));
+}
+
+// FAQ accordion
+function setupFAQ() {
+    document.body.addEventListener('click', (e) => {
+        // Index/homepage FAQ pattern: button.faq-q + panel#id.faq-a
+        const btn = e.target.closest('.faq-q');
+        if (btn) {
+            const panel = document.getElementById(btn.getAttribute('aria-controls'));
+            if (!panel) return;
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', String(!expanded));
+            if (expanded) panel.setAttribute('hidden', ''); else panel.removeAttribute('hidden');
+            return;
+        }
+
+        // Services page FAQ pattern: .faq-item > .faq-question + .faq-answer (animated height)
+        const q2 = e.target.closest('.faq-question');
+        if (!q2) return;
+        const faqItem = q2.closest('.faq-item');
+        if (!faqItem) return;
+        const container = faqItem.parentElement?.classList.contains('faq-container') ? faqItem.parentElement : faqItem.parentElement?.closest('.faq-container');
+        const answer = faqItem.querySelector('.faq-answer');
+        const isExpanded = q2.getAttribute('aria-expanded') === 'true';
+        // Close other items for cleanliness
+        if (container) {
+            container.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    const qb = item.querySelector('.faq-question');
+                    const ans = item.querySelector('.faq-answer');
+                    if (qb) qb.setAttribute('aria-expanded', 'false');
+                    if (ans) { ans.style.maxHeight = '0'; ans.style.padding = '0 1.5rem'; }
+                }
+            });
+        }
+        // Toggle current
+        q2.setAttribute('aria-expanded', String(!isExpanded));
+        if (answer) {
+            if (!isExpanded) { answer.style.maxHeight = answer.scrollHeight + 'px'; answer.style.padding = '0 1.5rem 1.5rem 1.5rem'; }
+            else { answer.style.maxHeight = '0'; answer.style.padding = '0 1.5rem'; }
+        }
+    });
+}
+
+// Floating CTA wiring
+function setupFloatingCTA() {
+    const cta = document.getElementById('floating-cta');
+    if (!cta) return;
+    cta.addEventListener('click', (e) => {
+        e.preventDefault();
+        const trigger = document.getElementById('openCalculatorHome');
+        if (trigger) trigger.click(); else window.openCalculator?.();
+    });
+}
+
+// Centralized CTA routing: unify multiple pathways to single destinations
+function setupGlobalCTADelegation() {
+    // Helper to ensure calculator fragment is present and wired before opening
+    async function ensureCalculatorLoaded() {
+        let calcModal = document.getElementById('calculatorModal');
+        if (calcModal) return true;
+        try {
+            await loadHTML('calculator-placeholder', 'calculator.html');
+            calcModal = document.getElementById('calculatorModal');
+            if (!calcModal) return false;
+            // Wire core controls (mirror initial load wiring)
+            const closeBtn = document.getElementById('calculator-close') || (calcModal && calcModal.querySelector('.close'));
+            if (closeBtn) closeBtn.addEventListener('click', () => window.closeCalculator());
+            const cancelBtn = document.getElementById('calculator-cancel');
+            if (cancelBtn) cancelBtn.addEventListener('click', () => window.closeCalculator());
+            const calcBtn = document.getElementById('calculator-calc');
+            if (calcBtn) calcBtn.addEventListener('click', () => calculateCost());
+            const sendQuoteBtn = document.getElementById('send-quote-btn');
+            if (sendQuoteBtn) {
+                sendQuoteBtn.addEventListener('click', () => { if (typeof window.sendCalculatorQuote === 'function') window.sendCalculatorQuote(); });
+            }
+            // Initialize wizard and form if not already
+            try { wireCalculatorForm(); initCalculatorWizard(); } catch(_) {}
+            return true;
+        } catch (err) {
+            console.error('Failed to load calculator on demand:', err);
+            return false;
+        }
+    }
+
+    document.body.addEventListener('click', async (e) => {
+        const el = e.target.closest('[data-cta]');
+        if (!el) return;
+        const action = (el.getAttribute('data-cta') || '').toLowerCase();
+        if (!action) return;
+        switch (action) {
+            case 'quote': {
+                // Let legacy handlers handle legacy triggers to avoid double-binding
+                if (el.matches('#openCalculator, #openCalculatorHome')) return;
+                e.preventDefault();
+                e.stopPropagation();
+                const ready = await ensureCalculatorLoaded();
+                if (ready) window.openCalculator?.();
+                break;
+            }
+            case 'contact': {
+                const target = document.getElementById('contact');
+                if (target) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    try { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(_) {}
+                } else {
+                    // Fallback to homepage contact anchor
+                    const href = el.getAttribute('href') || '';
+                    if (!/index\.html#contact/i.test(href)) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.location.href = 'index.html#contact';
+                    }
+                }
+                break;
+            }
+            case 'portfolio': {
+                const target = document.getElementById('portfolio');
+                if (target) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    try { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(_) {}
+                } else {
+                    const href = el.getAttribute('href') || '';
+                    if (!/index\.html#portfolio/i.test(href)) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.location.href = 'index.html#portfolio';
+                    }
+                }
+                break;
+            }
+            case 'case-study': {
+                // Allow default navigation/behavior
+                break;
+            }
+            default: {
+                // no-op for unknown actions
+            }
+        }
+    });
+}
+
 function setupShowMore() {
     const showMoreBtn = document.getElementById('show-more');
     if (showMoreBtn) {
@@ -295,6 +540,108 @@ function setupShowMore() {
             this.style.display = 'none';
         });
     }
+}
+
+// Portfolio category filters (client-side)
+function setupPortfolioFilters() {
+    const container = document.querySelector('#portfolio');
+    if (!container) return;
+    const chips = Array.from(container.querySelectorAll('.portfolio-filters .filter-chip'));
+    const items = Array.from(container.querySelectorAll('.portfolio-grid .portfolio-item'));
+    if (!chips.length || !items.length) return;
+    const applyFilter = (cat) => {
+        items.forEach(it => {
+            const c = (it.getAttribute('data-cat') || '').toLowerCase();
+            const show = cat === 'all' || c.split(',').map(s => s.trim()).includes(cat);
+            if (!show) {
+                it.classList.add('filter-hiding');
+                setTimeout(() => { it.classList.add('filtered-out'); it.classList.remove('filter-hiding','filter-show','filter-show-active'); }, 180);
+            } else {
+                it.classList.remove('filtered-out');
+                it.classList.add('filter-show');
+                requestAnimationFrame(() => requestAnimationFrame(() => it.classList.add('filter-show-active')));
+                setTimeout(() => it.classList.remove('filter-show','filter-show-active'), 350);
+            }
+        });
+    };
+    chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const cat = (chip.getAttribute('data-filter') || 'all').toLowerCase();
+            chips.forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); });
+            chip.classList.add('active'); chip.setAttribute('aria-pressed', 'true');
+            applyFilter(cat);
+        });
+    });
+    // init
+    applyFilter('all');
+
+    // Pointer spotlight effect on cards
+    items.forEach(item => {
+        item.addEventListener('pointermove', e => {
+            const rect = item.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            item.style.setProperty('--mx', x + '%');
+            item.style.setProperty('--my', y + '%');
+        });
+    });
+}
+
+// Portfolio Quick View Lightbox
+function setupPortfolioLightbox() {
+    const modal = document.getElementById('lightbox-modal');
+    if (!modal) return;
+    const titleEl = modal.querySelector('#lightbox-title');
+    const imgEl = modal.querySelector('#lightbox-img');
+    const viewBtn = modal.querySelector('#lightbox-view');
+    const closeBtn = modal.querySelector('.lightbox-close');
+    let lastFocus = null;
+
+    function open(data) {
+        lastFocus = document.activeElement;
+        titleEl.textContent = data.title || 'Project';
+        imgEl.src = data.img || '';
+        imgEl.alt = (data.title || 'Project') + ' preview';
+        viewBtn.href = data.url || '#';
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        // focus close for a11y
+        requestAnimationFrame(() => closeBtn?.focus());
+        addLBFocusTrap();
+    }
+    function close() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        removeLBFocusTrap();
+        try { lastFocus && lastFocus.focus(); } catch(_){}
+    }
+    closeBtn?.addEventListener('click', close);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
+
+    document.body.addEventListener('click', (e) => {
+        const btn = e.target.closest('.quick-view');
+        if (!btn) return;
+        e.preventDefault();
+        open({ title: btn.dataset.qvTitle, img: btn.dataset.qvImg, url: btn.dataset.qvUrl });
+    });
+
+    // Minimal focus trap for lightbox
+    let trapHandler = null;
+    function addLBFocusTrap() {
+        removeLBFocusTrap();
+        trapHandler = function(e) {
+            if (e.key !== 'Tab') return;
+            const focusable = Array.from(modal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+            else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
+        };
+        document.addEventListener('keydown', trapHandler);
+    }
+    function removeLBFocusTrap() { if (trapHandler) document.removeEventListener('keydown', trapHandler); trapHandler = null; }
 }
 
 
@@ -437,6 +784,13 @@ function initCalculatorWizard() {
         nextBtn.textContent = currentStep === steps.length - 1 ? 'Calculate Quote' : 'Next Step';
         nextBtn.style.display = currentStep === steps.length ? 'none' : 'inline-block';
         costResultContainer.classList.remove('active');
+
+        // Update progress fill width (0% at start, 100% on last step)
+        const fill = modal.querySelector('.progress-bar-line .progress-fill');
+        if (fill) {
+            const percent = Math.max(0, Math.min(100, ((currentStep - 1) / (steps.length - 1)) * 100));
+            fill.style.width = percent + '%';
+        }
     }
 
     nextBtn.addEventListener('click', () => {
@@ -508,6 +862,11 @@ function calculateAndDisplayCost() {
         const totEl = resultContainer.querySelector('.animated-total');
         if (totEl) animateCurrency(totEl, parseFloat(totEl.getAttribute('data-amount') || '0'), detectCurrency());
     } catch (e) { /* ignore animation errors */ }
+    // Update mini total badge (if present)
+    try {
+        const rbTotal = document.getElementById('rb-total');
+        if (rbTotal && estimate.formattedTotal) rbTotal.textContent = `Total: ${estimate.formattedTotal}`;
+    } catch(_) {}
     // Save preferences after calculating
     saveCalculatorPreferences();
     // Show contact/send buttons
@@ -522,6 +881,32 @@ function calculateAndDisplayCost() {
         if (qsField) qsField.value = estimate.summary.map(s => `${s.item}: ${s.value} ${s.formattedCost || ''}`).join('\n');
         if (qtField) qtField.value = estimate.formattedTotal;
     } catch (e) { /* ignore */ }
+
+    // Reveal and prep ROI section after we have an estimate
+    try {
+        const roiSection = document.getElementById('roi-section');
+        if (roiSection) {
+            roiSection.hidden = false;
+            // update currency prefix to localized symbol
+            const prefix = roiSection.querySelector('.currency-prefix');
+            if (prefix) {
+                // Map currency codes to common symbols; fallback to code
+                const c = detectCurrency();
+                const sym = c === 'USD' ? '$' : c === 'EUR' ? '€' : c === 'GBP' ? '£' : c;
+                prefix.textContent = sym;
+            }
+            // Store latest total for ROI computations
+            roiSection.dataset.totalUsd = String(estimate.total || 0);
+            // If user already typed a value, auto-compute a suggestion
+            const inEl = document.getElementById('roi-customer-value');
+            if (inEl && inEl.value) {
+                computeAndRenderRoi();
+            } else {
+                const out = document.getElementById('roi-output');
+                if (out) out.textContent = '';
+            }
+        }
+    } catch(_) { /* non-blocking */ }
 }
 
 // Backwards-compatible function used by index.html's inline onclick
@@ -909,48 +1294,67 @@ function saveCalculatorPreferences() {
 // Improved pricing algorithm
 function computeEstimate(form) {
     const formData = new FormData(form);
-    const base = { basic: 1500, ecommerce: 7000, blog: 1800, portfolio: 1200, custom: 10000 };
-    const featureCosts = { seo: 500, responsive: 400, cms: 800, ecommerce: 1500 };
-    const type = formData.get('website-type') || 'basic';
-    let total = base[type] || 1500;
+    // Global pricing adjustment: 40% off (multiply by 0.6)
+    const PRICE_FACTOR = 0.60;
+    // Baselines
+    const baseUSD = { basic: 1200, portfolio: 1200, blog: 2500, ecommerce: 7000, custom: 12000 };
+    // Price all features present in the UI
+    const featureCostsUSD = {
+        seo: 500,
+        responsive: 400,
+        cms: 800,
+        ecommerce: 1500,
+        analytics: 300,
+        performance: 600,
+        accessibility: 400,
+        multilanguage: 700
+    };
+
+    const type = (formData.get('website-type') || 'basic').toString();
     const pages = parseInt(formData.get('pages') || '1', 10);
-    // charge per additional page
-    const perPage = 75;
-    total += Math.max(0, pages - 1) * perPage;
+    const perPageUSD = 75; // cost per additional page beyond the first
     const selectedFeatures = formData.getAll('features');
-    let featuresCost = 0;
-    selectedFeatures.forEach(f => { featuresCost += featureCosts[f] || 0; });
-    total += featuresCost;
-    // timeline multiplier
-    const timeline = formData.get('timeline') || 'standard';
-    let timelineMultiplier = 1;
-    if (timeline === 'express') timelineMultiplier = 1.2;
-    if (timeline === 'rush') timelineMultiplier = 1.5;
-    total = Math.round(total * timelineMultiplier);
-    // maintenance monthly (not added to total but returned as monthly option)
-    const maintenance = formData.get('maintenance') || 'none';
-    const maintenanceMonthly = maintenance === 'basic' ? 50 : maintenance === 'pro' ? 150 : 0;
-    // discount codes (simple map)
+
+    // Apply price factor to base, per-page, and features
+    const baseCost = Math.round(((baseUSD[type] || 1500) * PRICE_FACTOR));
+    const pagesCost = Math.max(0, pages - 1) * Math.round(perPageUSD * PRICE_FACTOR);
+    const featuresCost = selectedFeatures.reduce((sum, f) => sum + Math.round(((featureCostsUSD[f] || 0) * PRICE_FACTOR)), 0);
+    const subtotal = baseCost + pagesCost + featuresCost;
+
+    // Timeline surcharge
+    const timeline = (formData.get('timeline') || 'standard').toString();
+    const timelineMultiplier = timeline === 'express' ? 1.2 : timeline === 'rush' ? 1.5 : 1;
+    const timelineCost = Math.round(subtotal * (timelineMultiplier - 1));
+    const preComplexTotal = subtotal + timelineCost;
+
+    // Complexity surcharge based on number of features selected
+    const complexityMultiplier = 1 + Math.min(0.25, selectedFeatures.length * 0.08);
+    const complexityCost = Math.round(preComplexTotal * (complexityMultiplier - 1));
+    const preDiscountTotal = preComplexTotal + complexityCost;
+
+    // Discount
     const code = (formData.get('discount_code') || '').toString().trim().toUpperCase();
     const discounts = { 'SAVE10': 0.10, 'WELCOME15': 0.15 };
     const discountRate = discounts[code] || 0;
-    const discountAmount = Math.round(total * discountRate);
-    const totalAfterDiscount = Math.max(0, total - discountAmount);
-    // monthly payment (optional) — 12 months
-    const monthly = Math.round((totalAfterDiscount / 12) + maintenanceMonthly);
-    // complexity multiplier: more features => small multiplier
-    const complexityMultiplier = 1 + Math.min(0.25, (selectedFeatures.length * 0.08));
-    const totalRounded = Math.round(total * complexityMultiplier);
-    // final total after complexity and discount
-    const finalTotal = Math.max(0, Math.round(totalRounded - discountAmount));
+    const discountAmount = Math.round(preDiscountTotal * discountRate);
+    const finalTotal = Math.max(0, Math.round(preDiscountTotal - discountAmount));
+
+    // Maintenance monthly (not part of finalTotal)
+    const maintenance = (formData.get('maintenance') || 'none').toString();
+    const maintenanceMonthly = maintenance === 'basic' ? 30 : maintenance === 'pro' ? 120 : 0;
+
+    // Monthly option uses the final total after all adjustments
+    const monthly = Math.round((finalTotal / 12) + maintenanceMonthly);
+
     const summary = [];
-    summary.push({ item: 'Base (type)', value: type, cost: base[type] || 0 });
-    if (pages > 1) summary.push({ item: 'Pages', value: `${pages} pages`, cost: Math.max(0, pages - 1) * perPage });
+    summary.push({ item: 'Base (type)', value: type, cost: baseCost });
+    if (pagesCost > 0) summary.push({ item: 'Pages', value: `${pages} pages`, cost: pagesCost });
     if (selectedFeatures.length) summary.push({ item: 'Features', value: selectedFeatures.join(', '), cost: featuresCost });
-    if (complexityMultiplier > 1) summary.push({ item: 'Complexity multiplier', value: `${(complexityMultiplier * 100).toFixed(0)}%`, cost: Math.round((total / complexityMultiplier) * (complexityMultiplier - 1)) });
-    if (timeline && timeline !== 'standard') summary.push({ item: 'Timeline', value: timeline, cost: Math.round((totalRounded - (totalRounded / timelineMultiplier))) });
-    if (discountRate > 0) summary.push({ item: 'Discount', value: `${Math.round(discountRate * 100)}%`, cost: -discountAmount });
+    if (timelineMultiplier > 1) summary.push({ item: 'Timeline', value: timeline, cost: timelineCost });
+    if (complexityMultiplier > 1) summary.push({ item: 'Complexity', value: `${Math.round((complexityMultiplier - 1) * 100)}%`, cost: complexityCost });
+    if (discountAmount > 0) summary.push({ item: 'Discount', value: `${Math.round(discountRate * 100)}%`, cost: -discountAmount });
     if (maintenanceMonthly > 0) summary.push({ item: 'Maintenance (monthly)', value: `$${maintenanceMonthly}/mo`, cost: 0 });
+
     return { total: finalTotal, summary, monthly, maintenanceMonthly, discountAmount };
 }
 
@@ -1022,6 +1426,27 @@ function wireCalculatorForm() {
         el.addEventListener('change', saveCalculatorPreferences);
     });
 
+    // Live update toggle, reset, and debounced re-calc
+    const liveToggle = document.getElementById('calc-live');
+    const resetBtn = document.getElementById('calculator-reset');
+    const calc = () => { try { calculateAndDisplayCost(); updateResultBadges(); } catch(_){} };
+    let t = null;
+    const debouncedCalc = () => { if (liveToggle && !liveToggle.checked) return; clearTimeout(t); t = setTimeout(calc, 150); };
+    // watch form inputs for immediate feedback
+    form.querySelectorAll('select, input').forEach(el => {
+        el.addEventListener('input', debouncedCalc);
+        el.addEventListener('change', debouncedCalc);
+    });
+    // reset clears inputs and local storage
+    resetBtn?.addEventListener('click', () => {
+        try { localStorage.removeItem('calculatorPrefs'); } catch(_){}
+        form.reset();
+        // ensure range output reflects default
+        const pages = form.querySelector('#pages');
+        if (pages) pages.nextElementSibling.value = pages.value;
+        calc();
+    });
+
     // wire discount apply button
     const applyBtn = document.getElementById('apply-discount');
     if (applyBtn) {
@@ -1038,5 +1463,136 @@ function wireCalculatorForm() {
     // toggle monthly display re-calculation
     const monthlyCheckbox = document.getElementById('show-monthly');
     if (monthlyCheckbox) monthlyCheckbox.addEventListener('change', () => calculateAndDisplayCost());
+
+    // ROI handlers
+    const roiBtn = document.getElementById('roi-calc');
+    if (roiBtn) roiBtn.addEventListener('click', computeAndRenderRoi);
+    const roiInput = document.getElementById('roi-customer-value');
+    if (roiInput) roiInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); computeAndRenderRoi(); } });
+
+    // Initial badges render
+    updateResultBadges();
+    // Make badges clickable to jump to steps
+    const badgeToStep = new Map([
+        ['rb-type', '#step-type'],
+        ['rb-pages', '#step-pages'],
+        ['rb-features', '#step-features'],
+        ['rb-maint', '#step-options'],
+        ['rb-discount', '#step-options'],
+        ['rb-total', '#step-quote']
+    ]);
+    document.querySelectorAll('.result-badges .rb-chip').forEach(chip => {
+        const sel = badgeToStep.get(chip.id);
+        if (!sel) return;
+        chip.style.cursor = 'pointer';
+        chip.addEventListener('click', () => {
+            const section = document.querySelector(sel);
+            if (!section) return;
+            try { section.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(_) {}
+            // If wizard is present, set the active step to the target
+            const modal = document.getElementById('calculatorModal');
+            if (!modal) return;
+            const steps = Array.from(modal.querySelectorAll('.calculator-step'));
+            const idx = steps.findIndex(s => s.matches(sel));
+            const nextBtn = modal.querySelector('#next-step-btn');
+            const prevBtn = modal.querySelector('#prev-step-btn');
+            if (idx >= 0 && nextBtn && prevBtn) {
+                // emulate wizard update by toggling classes
+                steps.forEach((step, i) => step.classList.toggle('active', i === idx));
+                modal.querySelectorAll('.progress-bar-step').forEach((p, i) => {
+                    p.classList.remove('active','completed');
+                    if (i < idx) p.classList.add('completed'); else if (i === idx) p.classList.add('active');
+                });
+                prevBtn.style.display = idx === 0 ? 'none' : 'inline-block';
+                nextBtn.textContent = idx === (steps.length - 2) ? 'Calculate Quote' : 'Next Step';
+                nextBtn.style.display = idx === (steps.length - 1) ? 'none' : 'inline-block';
+                // also update progress fill width
+                const fill = modal.querySelector('.progress-bar-line .progress-fill');
+                if (fill && steps.length > 1) {
+                    const percent = Math.max(0, Math.min(100, (idx / (steps.length - 1)) * 100));
+                    fill.style.width = percent + '%';
+                }
+            }
+        });
+    });
+
+    // Tab chip navigation
+    document.querySelectorAll('.calc-tabs .tab-chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetSel = btn.getAttribute('data-target');
+            const el = targetSel ? document.querySelector(targetSel) : null;
+            if (!el) return;
+            try { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(_) {}
+        });
+    });
+
+    // Bottom bar buttons
+    document.getElementById('calculator-close-bottom')?.addEventListener('click', () => window.closeCalculator());
+    document.getElementById('calculator-calc-bottom')?.addEventListener('click', () => calculateAndDisplayCost());
+    // Removed duplicate bottom Email button; no sync needed
+}
+
+// Compute break-even customers needed for ROI based on last estimate and user input
+function computeAndRenderRoi() {
+    const roiSection = document.getElementById('roi-section');
+    const out = document.getElementById('roi-output');
+    const input = document.getElementById('roi-customer-value');
+    if (!roiSection || !out || !input) return;
+    const totalUsd = parseFloat(roiSection.dataset.totalUsd || '0');
+    const valuePerCustomer = parseFloat(input.value || '0');
+    if (!totalUsd || !valuePerCustomer || valuePerCustomer <= 0) {
+        out.classList.add('error');
+        out.innerHTML = 'Enter a valid average customer value to see ROI.';
+        return;
+    }
+    out.classList.remove('error');
+    const currency = detectCurrency();
+    // Convert USD total into localized number for display text only
+    const totalLocalized = formatCurrency(totalUsd, currency);
+    // Compute customers needed (ceil)
+    const customersNeeded = Math.ceil(totalUsd / valuePerCustomer);
+
+    // If monthly view is active, show monthly break-even too
+    const monthly = document.getElementById('show-monthly')?.checked;
+    let monthlyLine = '';
+    if (monthly) {
+        const perMonth = Math.ceil(customersNeeded / 12);
+        monthlyLine = `<p class="muted">Roughly ${perMonth.toLocaleString()} new customers per month over 12 months.</p>`;
+    }
+
+    out.innerHTML = `
+        <p>You’d need about <strong>${customersNeeded.toLocaleString()}</strong> new customer${customersNeeded === 1 ? '' : 's'} to break even on <strong>${totalLocalized}</strong>.</p>
+        ${monthlyLine}
+    `;
+}
+
+// Small summary badges reflecting key selections
+function updateResultBadges() {
+    const form = document.getElementById('calculator-form');
+    if (!form) return;
+    const typeSel = form.querySelector('#website-type');
+    const pages = form.querySelector('#pages');
+    const feats = Array.from(form.querySelectorAll('input[name="features"]:checked')).map(i=>i.value);
+    const maint = form.querySelector('input[name="maintenance"]:checked');
+    const code = (form.querySelector('#discount-code')?.value || '').trim();
+    const typeTxt = typeSel ? typeSel.options[typeSel.selectedIndex]?.textContent || typeSel.value : '—';
+    const maintTxt = maint ? maint.value : 'none';
+    const rbType = document.getElementById('rb-type');
+    const rbPages = document.getElementById('rb-pages');
+    const rbFeats = document.getElementById('rb-features');
+    const rbMaint = document.getElementById('rb-maint');
+    const rbDisc = document.getElementById('rb-discount');
+    const rbTotal = document.getElementById('rb-total');
+    if (rbType) rbType.textContent = `Type: ${typeTxt}`;
+    if (rbPages) rbPages.textContent = `Pages: ${pages?.value || '—'}`;
+    if (rbFeats) rbFeats.textContent = `Features: ${feats.length}`;
+    if (rbMaint) rbMaint.textContent = `Maint.: ${maintTxt === 'pro' ? 'Managed' : maintTxt === 'basic' ? 'Basic' : 'None'}`;
+    if (rbDisc) rbDisc.hidden = code.length === 0;
+    // When possible, compute a quick total to show in the badge without affecting main result
+    try {
+        const est = computeEstimate(form);
+        const loc = localizeEstimateOutput({ ...est });
+        if (rbTotal) rbTotal.textContent = `Total: ${loc.formattedTotal}`;
+    } catch(_) {}
 }
 

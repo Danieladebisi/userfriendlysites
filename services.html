@@ -31,6 +31,8 @@
     <div id="header-placeholder"></div>
 
     <main>
+        <!-- Shared Calculator Placeholder (loaded dynamically) -->
+        <div id="calculator-placeholder"></div>
 
         <section class="services-hero">
             <div class="services-hero-content">
@@ -81,49 +83,69 @@
         </section>
 
         <section id="pricing" class="pricing">
-            <h2>Transparent Pricing Plans</h2>
-            <p class="section-subtitle">Choose a plan that fits your needs and budget. No hidden fees.</p>
+            <h2>Transparent Pricing & Packages</h2>
+            <p class="section-subtitle">Clear tiers, flexible add‑ons, and monthly retainers for growth.</p>
             <div class="pricing-tables">
                 <div class="pricing-table">
-                    <h3>Basic Website</h3>
-                    <div class="price"><sup>$</sup>2,500<span>+</span></div>
-                    <p>Perfect for new businesses or portfolios.</p>
+                    <h3>Template Website</h3>
+                    <div class="price"><sup>$</sup>800<span>–</span>1,500</div>
+                    <p>Lightweight builds using proven templates.</p>
                     <ul>
-                        <li>Up to 5 Pages</li>
-                        <li>Custom Design</li>
-                        <li>Mobile-Friendly</li>
-                        <li>Basic SEO Setup</li>
-                        <li>Contact Form</li>
+                        <li>1–5 pages</li>
+                        <li>Mobile‑friendly</li>
+                        <li>Basic on‑page SEO</li>
+                        <li>Contact form</li>
                     </ul>
-                    <a href="index.html#contact?plan=Basic%20Website" class="btn btn-secondary">Get Started</a>
+                    <a href="index.html#contact?plan=Template%20Website" class="btn btn-secondary" data-cta="contact">Get Started</a>
                 </div>
 
                 <div class="pricing-table featured">
-                    <h3>Business Pro</h3>
-                    <div class="price"><sup>$</sup>5,000<span>+</span></div>
-                    <p>The most popular choice for growing businesses.</p>
+                    <h3>Semi‑Custom Website</h3>
+                    <div class="price"><sup>$</sup>3,500<span>–</span>7,000</div>
+                    <p>Template base + brand‑specific customizations.</p>
                     <ul>
-                        <li>Up to 15 Pages</li>
-                        <li>Custom Design &amp; UI/UX</li>
-                        <li>E-commerce Ready</li>
-                        <li>Advanced SEO &amp; Analytics</li>
-                        <li>Blog Integration</li>
+                        <li>Up to ~15 pages</li>
+                        <li>Custom UI elements</li>
+                        <li>Advanced SEO setup</li>
+                        <li>Blog or basic e‑commerce</li>
                     </ul>
-                    <a href="index.html#contact?plan=Business%20Pro" class="btn btn-primary">Choose Plan</a>
+                    <a href="index.html#contact?plan=Semi-Custom%20Website" class="btn btn-primary" data-cta="contact">Choose Plan</a>
                 </div>
 
                 <div class="pricing-table">
-                    <h3>Enterprise</h3>
-                    <div class="price">Custom</div>
-                    <p>For custom applications and unique requirements.</p>
+                    <h3>Fully Custom</h3>
+                    <div class="price"><sup>$</sup>12,000<span>–</span>25,000+</div>
+                    <p>Bespoke UX/UI and code, built around outcomes.</p>
                     <ul>
-                        <li>Unlimited Pages</li>
-                        <li>Custom Web Application</li>
-                        <li>API Integrations</li>
-                        <li>Dedicated Support</li>
-                        <li>Advanced Security</li>
+                        <li>Custom design system</li>
+                        <li>Complex integrations</li>
+                        <li>Performance & accessibility targets</li>
+                        <li>Conversion strategy</li>
                     </ul>
-                    <a href="index.html#contact?plan=Enterprise" class="btn btn-secondary">Contact Us</a>
+                    <a href="index.html#contact?plan=Fully%20Custom" class="btn btn-secondary" data-cta="contact">Contact Us</a>
+                </div>
+            </div>
+
+            <div class="pricing-addons">
+                <div class="addon">
+                    <h4>SEO Retainer</h4>
+                    <p><strong>$300–$600/mo</strong> for ongoing optimization, content briefs, and reporting.</p>
+                </div>
+                <div class="addon">
+                    <h4>Social & Reputation</h4>
+                    <p><strong>$500–$900/mo</strong> social management; <strong>$99–$199/mo</strong> reviews.</p>
+                </div>
+                <div class="addon">
+                    <h4>Hosting & Maintenance</h4>
+                    <p><strong>$30–$120/mo</strong> or <strong>$600–$1,200/yr</strong> managed care.</p>
+                </div>
+                <div class="addon">
+                    <h4>Content Writing</h4>
+                    <p><strong>$800–$4,000</strong> depending on depth and pages.</p>
+                </div>
+                <div class="addon">
+                    <h4>Hourly Rates</h4>
+                    <p>Junior <strong>$35–$55</strong> · Mid <strong>$60–$100</strong> · Senior <strong>$110–$160</strong></p>
                 </div>
             </div>
         </section>
@@ -165,7 +187,7 @@
             <div class="cta-content">
                 <h2>Have a Project in Mind?</h2>
                 <p>Let's discuss your ideas and how we can help you achieve your business goals.</p>
-                <a href="index.html#contact" class="btn btn-primary cta-btn">Let's Talk</a>
+                <a href="index.html#contact" class="btn btn-primary cta-btn" data-cta="contact">Let's Talk</a>
             </div>
         </section>
 
@@ -174,9 +196,7 @@
     <!-- Placeholder for footer.html -->
     <div id="footer-placeholder"></div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Scripts -->
     <script src="script.js"></script>
-    <script src="services.js"></script>
 </body>
 </html>

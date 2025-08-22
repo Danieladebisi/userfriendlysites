@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: Tech Mansion | User Friendly Sites</title>
+  <meta name="description" content="How we refreshed Tech Mansion's website to build credibility and capture more qualified leads with clear structure, performance, and trust.">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="images/user%20friendly%20sites%20logo.png">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <div class="reading-progress" id="readingProgress"></div>
+    <section class="cs-hero">
+      <div class="container">
+        <a href="index.html#portfolio" class="breadcrumb" style="color: var(--muted-color); font-size: .9rem;">← Back to Portfolio</a>
+        <h1 style="margin:.5rem 0 0;">Tech Mansion — Credibility, clarity, and conversions</h1>
+        <p class="section-subtitle">We redesigned Tech Mansion's site to clearly articulate value, showcase services, and drive more qualified inquiries.</p>
+        <div class="cs-meta">
+          <span class="cs-chip">Client: Tech Mansion</span>
+          <span class="cs-chip">Industry: Technology / Services</span>
+          <span class="cs-chip">Services: UX, Web Design, Development, SEO</span>
+          <span class="cs-chip">Timeline: 3 weeks</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 2rem 0 0;">
+      <img src="images/techmansion.png" alt="Tech Mansion website preview" style="width:100%; border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+    </section>
+
+    <section class="cs-layout">
+      <article class="cs-article" id="overview">
+        <h2>Overview</h2>
+        <p>Tech Mansion wanted a website that reflected their expertise and converted visitors into leads. The old layout buried key proof and made it hard to contact the team.</p>
+
+        <h2 id="challenge">The Challenge</h2>
+        <ul>
+          <li>Unclear information hierarchy and weak visual credibility.</li>
+          <li>Slow pages and unoptimized media affected SEO and engagement.</li>
+          <li>Contact and booking actions were inconsistent across pages.</li>
+        </ul>
+
+        <h2 id="strategy">Strategy</h2>
+        <ul>
+          <li>Refocus the message around outcomes and priority services.</li>
+          <li>Introduce social proof, case highlights, and trust indicators.</li>
+          <li>Streamline CTAs and forms for a consistent lead flow.</li>
+        </ul>
+
+        <h2 id="execution">Execution</h2>
+        <p>We delivered a fast, polished site with strong typography, modular blocks, and clear CTAs. We optimized images, improved semantics and accessibility, and tuned performance for core web vitals.</p>
+        <div class="cs-gallery" id="gallery">
+          <img src="images/creative web design workspace 2.jpg" alt="Homepage with clear value prop">
+          <img src="images/modern business team meeting.jpg" alt="Services overview and trust">
+          <img src="images/business-people-sitting-at-meeting-2025-03-09-11-11-32-utc.jpg" alt="Contact and conversion paths">
+        </div>
+        <div class="cs-nav">
+          <a href="case-study-savings-target.html">← Prev: Savings Target</a>
+          <a href="index.html#portfolio">Back to Portfolio</a>
+        </div>
+      </article>
+      <aside>
+        <nav class="cs-toc" aria-label="On this page">
+          <h3>On this page</h3>
+          <ul>
+            <li><a class="toc-link" href="#overview">Overview</a></li>
+            <li><a class="toc-link" href="#challenge">The Challenge</a></li>
+            <li><a class="toc-link" href="#strategy">Strategy</a></li>
+            <li><a class="toc-link" href="#execution">Execution</a></li>
+            <li><a class="toc-link" href="#results">Results</a></li>
+            <li><a class="toc-link" href="#gallery">Gallery</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </section>
+
+    <section class="metrics" aria-label="Results" id="results">
+      <div class="metrics-grid container">
+        <div class="metric"><div class="metric-value" data-count="36">0</div><div class="metric-label">Lift in qualified inquiries</div></div>
+        <div class="metric"><div class="metric-value" data-count="44">0</div><div class="metric-label">Faster load times</div></div>
+        <div class="metric"><div class="metric-value" data-count="25">0</div><div class="metric-label">Improved organic traffic</div></div>
+        <div class="metric"><div class="metric-value" data-count="18">0</div><div class="metric-label">Lower bounce rate</div></div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 2.5rem 0;">
+      <blockquote class="testimonial" style="margin:0; padding:1.25rem 1.5rem; border-left:4px solid var(--primary-color); background:#f9fbfd; border-radius:8px;">
+        <p style="margin:0 0 .5rem;">“The site finally matches our quality. Inquiries are up and the experience is smooth on mobile.”</p>
+        <cite style="opacity:.8;">— Team, Tech Mansion</cite>
+      </blockquote>
+    </section>
+
+    <div id="calculator-placeholder"></div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="script.js"></script>
+  <script>
+  // Reading progress + TOC active state
+  (function(){
+    const bar = document.getElementById('readingProgress');
+    const onScroll = () => {
+      const h = document.documentElement; const st = h.scrollTop || document.body.scrollTop; const sh = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight; const p = sh > 0 ? (st / sh) * 100 : 0; if (bar) bar.style.width = p + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+    const sections = tocLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting){ const id = '#' + entry.target.id; tocLinks.forEach(l=> l.classList.toggle('active', l.getAttribute('href')===id)); }});
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+    sections.forEach(s=> io.observe(s));
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: Jes Loves Interior | User Friendly Sites</title>
+  <meta name="description" content="How we built a conversion-focused e‑commerce experience for Jes Loves Interior that boosted sales and improved UX.">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <div class="reading-progress" id="readingProgress"></div>
+    <section class="cs-hero">
+      <div class="container">
+        <a href="index.html#portfolio" class="breadcrumb" style="color: var(--muted-color); font-size: .9rem;">← Back to Portfolio</a>
+        <h1 style="margin:.5rem 0 0;">Jes Loves Interior — From browsing to buying</h1>
+        <p class="section-subtitle">We redesigned the store to simplify discovery, reduce friction, and drive conversions across mobile and desktop.</p>
+        <div class="cs-meta">
+          <span class="cs-chip">Client: Jes Loves Interior</span>
+          <span class="cs-chip">Industry: E‑commerce</span>
+          <span class="cs-chip">Services: UX, Web Design, Development, SEO</span>
+          <span class="cs-chip">Timeline: 5 weeks</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 2rem 0 0;">
+      <img src="images/jeslovesinterior.png" alt="Jes Loves Interior website preview" style="width:100%; border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+    </section>
+
+    <section class="cs-layout">
+      <article class="cs-article" id="overview">
+        <h2>Overview</h2>
+        <p>Jes Loves Interior needed an e‑commerce site that balanced visual inspiration with effortless purchasing. The old site was pretty but slow, and key buying actions were hidden behind too many steps.</p>
+
+        <h2 id="challenge">The Challenge</h2>
+        <ul>
+          <li>Product discovery friction on mobile; filtering and search were underutilized.</li>
+          <li>Unclear shipping and returns created hesitation at checkout.</li>
+          <li>Slow image-heavy templates hurt performance and SEO.</li>
+        </ul>
+
+  <h2 id="strategy">Strategy</h2>
+        <ul>
+          <li>Design a clear product taxonomy and faceted filters surfaced on mobile.</li>
+          <li>Optimize PDP and cart with visible trust signals, shipping estimates, and clear CTAs.</li>
+          <li>Performance-first build with image optimization, lazy-loading, and semantic structure.</li>
+        </ul>
+
+        <h2 id="execution">Execution</h2>
+        <p>We shipped a modern storefront with reusable components, fast image delivery, and streamlined cart. We clarified copy, added helpful micro‑UX, and ensured Lighthouse green across core pages.</p>
+        <div class="cs-gallery" id="gallery">
+          <img src="images/creative web design workspace 2.jpg" alt="Collection page">
+          <img src="images/modern business team meeting.jpg" alt="Product page">
+          <img src="images/business-team-standing-around-computer-for-present-2024-09-16-22-11-46-utc.jpg" alt="Checkout flow">
+        </div>
+        <div class="cs-nav">
+          <a href="index.html#portfolio">Back to Portfolio</a>
+          <a href="case-study-anikeola-schools.html">Next: Anikeola Schools →</a>
+        </div>
+      </article>
+      <aside>
+        <nav class="cs-toc" aria-label="On this page">
+          <h3>On this page</h3>
+          <ul>
+            <li><a class="toc-link" href="#overview">Overview</a></li>
+            <li><a class="toc-link" href="#challenge">The Challenge</a></li>
+            <li><a class="toc-link" href="#strategy">Strategy</a></li>
+            <li><a class="toc-link" href="#execution">Execution</a></li>
+            <li><a class="toc-link" href="#results">Results</a></li>
+            <li><a class="toc-link" href="#gallery">Gallery</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </section>
+
+  <section class="metrics" aria-label="Results" id="results">
+      <div class="metrics-grid container">
+        <div class="metric"><div class="metric-value" data-count="32">0</div><div class="metric-label">Increase in conversion rate</div></div>
+        <div class="metric"><div class="metric-value" data-count="27">0</div><div class="metric-label">More product discovery (search/filter)</div></div>
+        <div class="metric"><div class="metric-value" data-count="38">0</div><div class="metric-label">Faster page load</div></div>
+        <div class="metric"><div class="metric-value" data-count="20">0</div><div class="metric-label">Lower cart abandonment</div></div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 2.5rem 0;">
+      <blockquote class="testimonial" style="margin:0; padding:1.25rem 1.5rem; border-left:4px solid var(--primary-color); background:#f9fbfd; border-radius:8px;">
+        <p style="margin:0 0 .5rem;">“Sales are up and customers love how easy it is to find and buy products. The site is fast and beautiful.”</p>
+        <cite style="opacity:.8;">— Jes, Founder</cite>
+      </blockquote>
+    </section>
+
+    
+
+    <div id="calculator-placeholder"></div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="script.js"></script>
+  <script>
+  // Reading progress + TOC active state
+  (function(){
+    const bar = document.getElementById('readingProgress');
+    const onScroll = () => {
+      const h = document.documentElement; const st = h.scrollTop || document.body.scrollTop; const sh = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight; const p = sh > 0 ? (st / sh) * 100 : 0; if (bar) bar.style.width = p + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+    const sections = tocLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting){ const id = '#' + entry.target.id; tocLinks.forEach(l=> l.classList.toggle('active', l.getAttribute('href')===id)); }});
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+    sections.forEach(s=> io.observe(s));
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study: Savings Target | User Friendly Sites</title>
+  <meta name="description" content="How we launched a conversion-first landing site for Savings Target with clear value props, feature hierarchy, and fast performance.">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="images/user%20friendly%20sites%20logo.png">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <div class="reading-progress" id="readingProgress"></div>
+    <section class="cs-hero">
+      <div class="container">
+        <a href="index.html#portfolio" class="breadcrumb" style="color: var(--muted-color); font-size: .9rem;">← Back to Portfolio</a>
+        <h1 style="margin:.5rem 0 0;">Savings Target — Launching a clear, high‑converting landing</h1>
+        <p class="section-subtitle">We crafted a focused, fast landing site with crisp messaging, trust, and multiple CTA paths to drive signups.</p>
+        <div class="cs-meta">
+          <span class="cs-chip">Client: Savings Target</span>
+          <span class="cs-chip">Industry: Fintech</span>
+          <span class="cs-chip">Services: UX, Web Design, Development, Copy, SEO</span>
+          <span class="cs-chip">Timeline: 2 weeks</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 2rem 0 0;">
+      <img src="images/savingstarget.png" alt="Savings Target landing preview" style="width:100%; border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,.08);">
+    </section>
+
+    <section class="cs-layout">
+      <article class="cs-article" id="overview">
+        <h2>Overview</h2>
+        <p>Savings Target needed a clear and compelling landing site to validate demand and capture leads. The initial draft mixed too many messages and lacked visual hierarchy.</p>
+
+        <h2 id="challenge">The Challenge</h2>
+        <ul>
+          <li>Unclear value proposition and scattered content reduced conversion.</li>
+          <li>Trust signals and social proof were minimal.</li>
+          <li>Performance and mobile layout needed work.</li>
+        </ul>
+
+        <h2 id="strategy">Strategy</h2>
+        <ul>
+          <li>Clarify the core value prop and map features to user jobs‑to‑be‑done.</li>
+          <li>Introduce trust (security, testimonials), concise FAQs, and strong CTA placement.</li>
+          <li>Lean build with optimized assets and semantic structure for speed and SEO.</li>
+        </ul>
+
+        <h2 id="execution">Execution</h2>
+        <p>We delivered a sharp hero with clear CTA, modular feature blocks, and a focused page flow. We added social proof, FAQ, and a sticky CTA strip for mobile. Assets were optimized for a swift load.</p>
+        <div class="cs-gallery" id="gallery">
+          <img src="images/creative web design workspace 2.jpg" alt="Hero and value prop">
+          <img src="images/modern business team meeting.jpg" alt="Features and trust">
+          <img src="images/business-people-sitting-at-meeting-2025-03-09-11-11-32-utc.jpg" alt="FAQ and footer CTA">
+        </div>
+        <div class="cs-nav">
+          <a href="case-study-lifehouse-church.html">← Prev: Lifehouse Church</a>
+          <a href="case-study-tech-mansion.html">Next: Tech Mansion →</a>
+        </div>
+      </article>
+      <aside>
+        <nav class="cs-toc" aria-label="On this page">
+          <h3>On this page</h3>
+          <ul>
+            <li><a class="toc-link" href="#overview">Overview</a></li>
+            <li><a class="toc-link" href="#challenge">The Challenge</a></li>
+            <li><a class="toc-link" href="#strategy">Strategy</a></li>
+            <li><a class="toc-link" href="#execution">Execution</a></li>
+            <li><a class="toc-link" href="#results">Results</a></li>
+            <li><a class="toc-link" href="#gallery">Gallery</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </section>
+
+    <section class="metrics" aria-label="Results" id="results">
+      <div class="metrics-grid container">
+        <div class="metric"><div class="metric-value" data-count="28">0</div><div class="metric-label">Lift in signup conversion</div></div>
+        <div class="metric"><div class="metric-value" data-count="42">0</div><div class="metric-label">Faster first contentful paint</div></div>
+        <div class="metric"><div class="metric-value" data-count="60">0</div><div class="metric-label">More time on page</div></div>
+        <div class="metric"><div class="metric-value" data-count="22">0</div><div class="metric-label">Lower bounce rate</div></div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 2.5rem 0;">
+      <blockquote class="testimonial" style="margin:0; padding:1.25rem 1.5rem; border-left:4px solid var(--primary-color); background:#f9fbfd; border-radius:8px;">
+        <p style="margin:0 0 .5rem;">“The landing feels focused and fast. We saw immediate gains in signups and clearer user feedback.”</p>
+        <cite style="opacity:.8;">— Founder, Savings Target</cite>
+      </blockquote>
+      <div class="cs-nav" style="margin-top:1rem;">
+        <a href="https://savingstarget.com/" target="_blank" rel="noopener">View Live Site</a>
+      </div>
+    </section>
+
+    <div id="calculator-placeholder"></div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="script.js"></script>
+  <script>
+  // Reading progress + TOC active state
+  (function(){
+    const bar = document.getElementById('readingProgress');
+    const onScroll = () => {
+      const h = document.documentElement; const st = h.scrollTop || document.body.scrollTop; const sh = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight; const p = sh > 0 ? (st / sh) * 100 : 0; if (bar) bar.style.width = p + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+    const sections = tocLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting){ const id = '#' + entry.target.id; tocLinks.forEach(l=> l.classList.toggle('active', l.getAttribute('href')===id)); }});
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+    sections.forEach(s=> io.observe(s));
+  })();
+  </script>
+</body>
+</html>
