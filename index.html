@@ -26,8 +26,8 @@
         <meta name="twitter:description" content="Expert web design, development, and SEO services for businesses in Groton, CT. Get a free quote from User Friendly Sites.">
         <meta name="twitter:image" content="https://userfriendlysites.com/images/user-friendly-sites-og-image.png">
 
-        <!-- Favicon -->
-        <link rel="icon" type="image/png" href="./images/Copy of User Friendly Sites.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./images/copy-of-user-friendly-sites.png">
 
         <!-- Fonts and Stylesheets -->
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -79,17 +79,7 @@
             }
         }
         </script>
-        <!-- EmailJS SDK and inline initialization (public key) -->
-        <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
-        <script>
-            /* Initialize EmailJS with your public key so client-side sends work.
-               NOTE: this exposes the public key in the page; consider server-side sending for production. */
-            (function(){
-                if (typeof emailjs !== 'undefined' && emailjs.init) {
-                    try { emailjs.init('m5cA-okHHGdZuWJoh'); } catch(e) { console.warn('EmailJS init failed', e); }
-                }
-            })();
-        </script>
+        <!-- EmailJS public key (SDK is lazy-loaded by script.js when needed) -->
         <script>
             // Make the public key available to the site's JS so REST fallback can include it.
             window.EMAILJS_PUBLIC_KEY = 'm5cA-okHHGdZuWJoh';
@@ -101,24 +91,19 @@
 
     <main>
     <!-- Hero Section (modern, two-column) -->
-    <section id="home" class="enhanced-hero creative-hero">
+    <section id="home" class="enhanced-hero creative-hero" aria-label="Hero — User Friendly Sites">
             <div class="hero-bg" aria-hidden="true"></div>
             <div id="hero-animation-container" aria-hidden="true"></div>
 
             <div class="hero-inner container">
                 <div class="hero-column hero-text">
                     <div class="eyebrow">Professional Web Design &amp; Growth</div>
-                    <h1 class="hero-title">We build beautiful, high-converting websites for<br/><span class="accented">ambitious small businesses</span></h1>
-                    <p class="hero-subtitle">Fast, accessible, and optimised for search — launched on time and on budget. Get a free instant estimate or talk to our team.</p>
+                    <h1 class="hero-title">Beautiful websites that convert —<br/><span class="accented">designed for ambitious businesses</span></h1>
+                    <p class="hero-subtitle">Fast, accessible, and optimised for search. Predictable pricing, clear timelines, and measurable results.</p>
 
-                    <div class="hero-ctas">
-                        <button class="hero-btn" id="openCalculatorHome"><i class="fas fa-calculator" aria-hidden="true"></i><span>Get Instant Website Quote</span></button>
-                        <a class="btn btn-secondary hero-ghost" href="#contact">
-                            <svg class="cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.09 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.9.37 1.77.74 2.59a2 2 0 0 1-.45 2.11L8.91 9.91a16 16 0 0 0 6 6l1.49-1.49a2 2 0 0 1 2.11-.45c.82.37 1.69.62 2.59.74A2 2 0 0 1 22 16.92z" fill="#0f1724"/>
-                            </svg>
-                            <span>Schedule a Call</span>
-                        </a>
+                    <div class="hero-ctas" role="group" aria-label="Primary calls to action">
+                        <button class="hero-btn" id="openCalculatorHome" aria-haspopup="dialog" aria-controls="calculatorModal"><svg class="cta-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h6v6h-6z" fill="currentColor"/></svg><span>Get Instant Website Quote</span></button>
+                        <a class="btn btn-secondary hero-ghost" href="#contact" role="button"><svg class="cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.09 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.9.37 1.77.74 2.59a2 2 0 0 1-.45 2.11L8.91 9.91a16 16 0 0 0 6 6l1.49-1.49a2 2 0 0 1 2.11-.45c.82.37 1.69.62 2.59.74A2 2 0 0 1 22 16.92z" fill="currentColor"/></svg><span>Schedule a Call</span></a>
                     </div>
 
                     <ul class="hero-badges" aria-hidden="true">
@@ -128,18 +113,44 @@
                     </ul>
                 </div>
 
-                <div class="hero-column hero-visual" aria-hidden="true">
-                    <div class="hero-gallery">
-                        <div class="gallery-stack">
-                            <img src="images/business-team-standing-around-computer-for-present-2024-09-16-22-11-46-utc.jpg" class="gallery-img img-1" alt="Business team standing around computer" loading="lazy">
-                            <img src="images/successful online business.JPG" class="gallery-img img-2" alt="Successful online business" loading="lazy">
-                            <img src="images/modern business team meeting.jpg" class="gallery-img img-3" alt="Modern business team meeting" loading="lazy">
-                            <div class="mock-overlay">
-                                <div class="price-pill" id="hero-price" data-base-price="500">From <strong><span class="currency-value">$500</span></strong></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="hero-column hero-visual">
+                <div class="hero-gallery" aria-label="Examples of our work">
+    <div class="gallery-stack" id="hero-gallery">
+        <img src="https://www.dropbox.com/scl/fi/7h4fm87ul7d3mjeod55jf/creative-web-design-workspace-2.jpg?rlkey=tm33tti21imgg84a93c3d66e1&raw=1"
+             class="gallery-img img-1"
+             alt="Team around computer"
+             loading="lazy"
+             data-depth="10">
+
+        <img src="https://www.dropbox.com/scl/fi/6nyqvirmcc2h74e9pl5nk/business-team-standing-around-computer-for-present-2024-09-16-22-11-46-utc.jpg?rlkey=vhza6ctotsqrwqldx6gomqeac&raw=1"
+             alt="Successful online business"
+             loading="lazy"
+             data-depth="18">
+
+        <img src="https://www.dropbox.com/scl/fi/yqja4hrmctfm4gb50ojlh/successful-online-business.JPG?rlkey=mlp9ae768ax7qke1ky14iepq4&raw=1"
+             alt="Modern business team meeting"
+             loading="lazy"
+             data-depth="26">
+
+        <div class="mock-overlay">
+            <div class="price-pill"
+                 id="hero-price"
+                 data-base-price="500"
+                 role="status"
+                 aria-live="polite">
+                From <strong><span class="currency-value">$500</span></strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-ornaments" aria-hidden="true">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+    </div>
+</div>
+
+            </div>
+
             </div>
 
             <!-- Decorative wave divider -->
@@ -174,32 +185,66 @@
 
         <!-- Why Choose Us Section -->
         <section id="why-choose-us" class="why-choose-us creative-grid-section creative-entrance">
-            <div class="why-choose-grid">
-                <div class="why-choose-images-grid">
-                    <div class="img-tile">
-                        <img src="images/business-people-sitting-at-meeting-2025-03-09-11-11-32-utc.jpg" alt="Business Meeting">
-                        <div class="img-overlay">Collaboration</div>
-                    </div>
-                    <div class="img-tile">
-                        <img src="images/indian-office-worker-and-his-coworkers-having-good-2025-02-11-15-30-12-utc.jpg" alt="Office Workers">
-                        <div class="img-overlay">Teamwork</div>
-                    </div>
-                    <div class="img-tile">
-                        <img src="images/woman-presenting-business-plan-during-office-meeti-2025-03-16-01-45-13-utc.jpg" alt="Business Presentation">
-                        <div class="img-overlay">Strategy</div>
-                    </div>
+            <div class="why-choose-us-container">
+                <div class="why-choose-images-grid" role="list" aria-label="Our work examples">
+                <div class="img-tile" role="group" tabindex="0" aria-label="Collaboration — Business meeting" data-depth="18">
+                    <img src="images/business-people-sitting-at-meeting-2025-03-09-11-11-32-utc.jpg" alt="Business Meeting">
+                    <div class="img-caption">Collaboration</div>
                 </div>
-                <div class="why-choose-card">
-                    <h2>Why Choose Us?</h2>
-                    <p class="why-choose-intro">We build websites that are beautiful, fast, and designed to help your business grow.</p>
+                <div class="img-tile" role="group" tabindex="0" aria-label="Teamwork — Office workers" data-depth="12">
+                    <img src="images/indian-office-worker-and-his-coworkers-having-good-2025-02-11-15-30-12-utc.jpg" alt="Office Workers">
+                    <div class="img-caption">Teamwork</div>
+                </div>
+                <div class="img-tile" role="group" tabindex="0" aria-label="Strategy — Presentation" data-depth="8">
+                    <img src="images/woman-presenting-business-plan-during-office-meeti-2025-03-16-01-45-13-utc.jpg" alt="Business Presentation">
+                    <div class="img-caption">Strategy</div>
+                </div>
+                <div class="img-tile" role="group" tabindex="0" aria-label="Design craft — creative workspace" data-depth="22">
+                    <img src="images/creative web design workspace.jpg" alt="Creative Workspace">
+                    <div class="img-caption">Design Craft</div>
+                </div>
+            </div>
+
+                <aside class="why-choose-card" aria-labelledby="why-choose-title">
+                    <h2 id="why-choose-title">Why Choose Us?</h2>
+                    <p class="why-choose-intro">We design beautiful, fast, and conversion-focused websites that help small businesses grow — with clear timelines and predictable pricing.</p>
+
                     <ul class="why-features">
-                        <li><span class="feature-icon">🎨</span> Creative Web Design</li>
-                        <li><span class="feature-icon">⚡</span> Lightning Fast & Responsive</li>
-                        <li><span class="feature-icon">💸</span> Affordable Packages</li>
-                        <li><span class="feature-icon">⏱️</span> Quick Turnaround</li>
+                        <li>
+                            <div class="feature-icon">🎨</div>
+                            <div>
+                                <div class="feature-text">Creative Web Design</div>
+                                <div class="feature-sub">Custom layouts focused on conversions</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">⚡</div>
+                            <div>
+                                <div class="feature-text">Performance & SEO</div>
+                                <div class="feature-sub">Fast, accessible, and search-friendly</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">�</div>
+                            <div>
+                                <div class="feature-text">Reliable Maintenance</div>
+                                <div class="feature-sub">Security updates and ongoing support</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">🤝</div>
+                            <div>
+                                <div class="feature-text">Collaborative Process</div>
+                                <div class="feature-sub">Transparent milestones and clear communication</div>
+                            </div>
+                        </li>
                     </ul>
-                    <a href="#contact" class="why-choose-btn">Get Started</a>
-                </div>
+
+                    <div class="why-choose-cta">
+                        <a class="btn btn-primary" href="#contact">Get Started</a>
+                        <a class="btn btn-secondary" href="#portfolio">See Our Work</a>
+                    </div>
+                </aside>
             </div>
         </section>
 
@@ -345,4 +390,5 @@
     <!-- Scripts -->
     <script src="script.js"></script>
 
-    <!-- ...existing code... -->
+</body>
+</html>

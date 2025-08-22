@@ -44,5 +44,9 @@
     </div>
 </footer>
 <script>
-    // Set the current year in the footer
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+    // Set the current year in the footer (guarded)
+    try {
+        const yEl = document.getElementById('current-year');
+        if (yEl) yEl.textContent = new Date().getFullYear();
+    } catch (e) { console.warn('Failed to set footer year', e); }
+</script>

@@ -2,6 +2,10 @@
 :root {
     --primary-color: #23234a;
     --accent-color: #ffd700;
+    /* Brand tuning variables (overrideable) */
+    --brand-1: #7c3aed; /* purple accent */
+    --brand-2: #06b6d4; /* aqua accent */
+    --brand-contrast: #0f1724;
     --text-color-dark: #1a2233;
     --text-color-light: #fff;
     --background-light: #ffffff;
@@ -257,41 +261,39 @@ header .menu-toggle { display: none; }
 
 /* Gallery stack for hero visual */
 .hero-gallery .gallery-stack { position: relative; width: 100%; max-width: 480px; height: 320px; border-radius: 16px; overflow: visible; z-index: 30; }
-.hero-gallery .gallery-stack { /* fallback background in case <img> fails to render */
-    background-color: transparent;
-    background-image: url('./images/business-team-standing-around-computer-for-present-2024-09-16-22-11-46-utc.jpg');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+.gallery-img { position: absolute; width: calc(100% - 40px); right: 0; border-radius: 12px; box-shadow: 0 18px 40px rgba(6,8,20,0.5); transition: transform 420ms cubic-bezier(.2,.9,.25,1), box-shadow 420ms ease, opacity 320ms ease; opacity: 1; display: block; backface-visibility: hidden; }
+.gallery-img.img-1 { top: 0; transform: translateY(12px) rotate(-4deg) scale(0.98); z-index: 1; filter: saturate(0.96) contrast(0.98); }
+.gallery-img.img-2 { top: 18px; transform: translateY(8px) rotate(-2deg) scale(1); z-index: 2; }
+.gallery-img.img-3 { top: 36px; transform: translateY(0px) rotate(1deg) scale(1.02); z-index: 3; }
+.gallery-stack:hover .gallery-img { box-shadow: 0 40px 90px rgba(6,8,20,0.6); opacity: 1; }
+.gallery-stack .mock-overlay { position: absolute; right: 12px; bottom: 12px; z-index: 6; }
+
+/* Pointer-based subtle parallax for hero gallery */
+@media (prefers-reduced-motion: no-preference) {
+    #hero-gallery { perspective: 1000px; }
+    #hero-gallery .gallery-img { transform-origin: center right; }
+    #hero-gallery.tilt-active .img-1 { transform: translateY(6px) rotate(-4deg) translateZ(-20px) scale(.98); }
+    #hero-gallery.tilt-active .img-2 { transform: translateY(2px) rotate(-2deg) translateZ(10px) scale(1.005); }
+    #hero-gallery.tilt-active .img-3 { transform: translateY(0px) rotate(1deg) translateZ(30px) scale(1.04); }
 }
-.gallery-img { position: absolute; width: calc(100% - 40px); right: 0; border-radius: 12px; box-shadow: 0 18px 40px rgba(6,8,20,0.5); transition: transform 320ms ease, box-shadow 320ms ease, opacity 320ms ease; opacity: 1 !important; display: block !important; visibility: visible !important; }
-.gallery-img.img-1 { top: 0; transform: translateY(12px) rotate(-2deg); z-index: 1; }
-.gallery-img.img-2 { top: 18px; transform: translateY(8px) rotate(-1deg); z-index: 2; }
-.gallery-img.img-3 { top: 36px; transform: translateY(0px) rotate(0deg); z-index: 3; }
-.gallery-stack:hover .gallery-img { transform: translateY(-6px) scale(1.02); box-shadow: 0 30px 70px rgba(6,8,20,0.6); opacity: 1; }
-.gallery-img { z-index: 40; }
-.gallery-stack .mock-overlay { position: absolute; right: 12px; bottom: 12px; z-index: 4; }
+
+.hero-ornaments { position: absolute; inset: auto 0 0 0; display:flex; justify-content:flex-end; gap: 1rem; pointer-events: none; z-index: 2; }
+.orb { display:block; width: 84px; height: 84px; border-radius: 999px; opacity: 0.12; filter: blur(8px); transform: translateZ(0); }
+.orb-1 { background: radial-gradient(circle at 30% 30%, var(--brand-1), transparent 40%); margin-right: 12px; }
+.orb-2 { background: radial-gradient(circle at 70% 70%, var(--brand-2), transparent 40%); width: 56px; height: 56px; }
+
+/* Price pill: more contrast and subtle glow */
+.price-pill { background: linear-gradient(90deg,var(--primary-color), #1a2233); color: var(--accent-color); padding: 0.5rem 0.9rem; border-radius: 999px; font-weight:800; box-shadow: 0 12px 34px rgba(35,35,74,0.18); }
+
+/* Responsive: stack hero content on smaller screens with preserved spacing */
+@media (max-width: 980px) {
+    .creative-hero .hero-inner.container { grid-template-columns: 1fr; padding: 2rem 1rem; }
+    .hero-ornaments { display: none; }
+}
 
 /* Debugging aid: outline the gallery area so we can see its bounds if images aren't visible */
-.hero-gallery .gallery-stack { outline: 2px dashed rgba(255,255,255,0.04); }
-
-/* DEBUG: Force gallery images into normal flow so they are visible while diagnosing issues.
-   Remove this block once images are confirmed. */
-.gallery-stack.debug, .hero-gallery.debug .gallery-stack { outline: 3px dashed rgba(99,102,241,0.14); }
-.gallery-stack.debug .gallery-img, .hero-gallery.debug .gallery-img {
-    position: static !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    transform: none !important;
-    right: auto !important;
-    top: auto !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
-}
-
-/* Also ensure the gallery stack uses a visible background while debugging */
-.hero-gallery.debug .gallery-stack { background-image: none !important; background-color: rgba(255,255,255,0.02) !important; }
+/* gallery-stack area */
+/* hero-gallery .gallery-stack styles are defined above; kept intentionally minimal here */
 .price-pill strong { font-weight: 900; color: #fff; }
 
 /* Wave divider */
@@ -418,38 +420,104 @@ header .menu-toggle { display: none; }
 }
 
 /* ==========================================================================
-   6. Why Choose Us Section (NEW)
+   6. Why Choose Us Section (NEW) — enhanced styling
    ========================================================================== */
 .why-choose-us-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    grid-template-columns: 1fr 460px;
+    gap: 3rem;
+    align-items: start;
+    padding-top: 1rem;
 }
 
-.why-choose-us-image img {
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+.why-choose-images-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 }
 
-.benefits-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 2rem;
+.img-tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 18px 54px rgba(11,21,60,0.06);
+    transform-origin: center;
+    transition: transform 360ms cubic-bezier(.2,.9,.25,1), box-shadow 360ms ease, filter 360ms ease;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+}
+.img-tile img { display:block; width:100%; height:100%; object-fit:cover; transition: transform 420ms ease; }
+.img-tile::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(7,10,20,0.08), rgba(7,10,20,0.18));
+    opacity: 0; transition: opacity 300ms ease;
+}
+.img-tile:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 30px 80px rgba(11,21,60,0.12); }
+.img-tile:hover img { transform: scale(1.06); }
+.img-tile:hover::after { opacity: 1; }
+
+/* tilt: apply subtle 3D tilt on hover when motion is allowed */
+@media (prefers-reduced-motion: no-preference) {
+    .img-tile[data-tilt] { will-change: transform; perspective: 800px; }
+    .img-tile.tilt-active { transform: translateY(-6px) scale(1.02) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
 }
 
-.benefits-list li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
+/* parallax depth helper for JS to nudge inner image */
+.img-tile img { transform-origin: center; transition: transform 420ms cubic-bezier(.2,.9,.25,1); }
+.img-tile[data-depth] img { transform: translateZ(0); }
+
+/* improved contrast and spacing for the card */
+.why-choose-card { background: linear-gradient(180deg,#ffffff,#fbfdff); border: 1px solid rgba(15,23,36,0.06); }
+.why-choose-card h2 { color: var(--brand-contrast); }
+.why-features .feature-text { color: var(--brand-contrast); }
+.why-features .feature-sub { color: #475569; }
+
+/* Reduce motion override: remove parallax/tilt when user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .img-tile, .img-tile img, .img-tile::after { transition: none !important; transform: none !important; }
+    .img-tile:hover { transform: none !important; box-shadow: 0 18px 40px rgba(11,21,60,0.06); }
 }
 
-.benefits-list i {
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    margin-right: 1rem;
-    margin-top: 0.25rem;
+.img-caption {
+    position: absolute; left: 12px; bottom: 12px; z-index: 6;
+    background: rgba(255,255,255,0.92); color: #0f1724; padding: 0.45rem 0.75rem; border-radius: 10px; font-weight:700; font-size:0.95rem; box-shadow: 0 6px 20px rgba(11,21,60,0.06);
+}
+
+.why-choose-card {
+    background: linear-gradient(180deg,#ffffff,#fbfdff);
+    border: 1px solid rgba(15,23,36,0.04);
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: 0 18px 54px rgba(11,21,60,0.06);
+}
+.why-choose-card h2 { margin: 0 0 0.6rem 0; font-size: 1.9rem; }
+.why-choose-card p { color: #6b7280; margin-bottom: 1.2rem; }
+
+.why-features { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.9rem; }
+.why-features li { display:flex; gap: 0.9rem; align-items:flex-start; }
+.why-features .feature-icon {
+    flex: 0 0 44px; height:44px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; font-size:18px;
+    background: linear-gradient(135deg, rgba(255,214,0,0.14), rgba(124,58,237,0.06)); color: var(--primary-color); box-shadow: 0 8px 24px rgba(11,21,60,0.04);
+}
+.why-features .feature-text { font-weight:700; color:#0f1724; font-size:1rem; }
+.why-features .feature-sub { color:#6b7280; font-size:0.95rem; margin-top:0.25rem; font-weight:500; }
+
+.why-choose-cta { margin-top: 1.35rem; display:flex; gap:0.75rem; }
+.why-choose-cta .btn-primary { padding:0.85rem 1.2rem; border-radius:10px; }
+
+/* subtle entrance animation */
+.why-choose-us-container, .img-tile, .why-choose-card { animation: fadeIn 420ms ease both; }
+
+@media (max-width: 992px) {
+    .why-choose-us-container { grid-template-columns: 1fr; gap: 1.4rem; }
+    .why-choose-images-grid { grid-template-columns: repeat(2,1fr); }
+    .why-choose-us-image { order: -1; }
+}
+
+@media (max-width: 640px) {
+    .why-choose-images-grid { grid-template-columns: 1fr; }
+    .why-choose-card { padding: 1.25rem; }
+    .why-choose-cta { flex-direction: column; }
 }
 
 /* ==========================================================================
@@ -1261,6 +1329,74 @@ body.modal-open { overflow: hidden; }
 
 /* Ensure the range output is visible and aligned */
 .range-row output { font-size: 1rem; color: #0b1220; }
+
+/* ==========================================================================
+   Hero gallery: visual polish (stack frames, soft borders, hover focus states)
+   - Keeps markup unchanged; purely presentational improvements for hero images
+   ========================================================================== */
+.gallery-stack {
+    /* tighter control of the stack box so shadows and overflow render nicely */
+    max-width: 520px;
+    height: 360px;
+    margin: 0 auto;
+    position: relative;
+    display: block;
+    perspective: 1200px;
+}
+
+.gallery-img {
+    border-radius: 14px;
+    border: 6px solid rgba(255,255,255,0.03);
+    box-shadow: 0 30px 80px rgba(6,8,20,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    object-fit: cover;
+    right: 0;
+    width: calc(100% - 48px);
+    transition: transform 520ms cubic-bezier(.2,.9,.25,1), box-shadow 420ms ease, filter 420ms ease, opacity 320ms ease;
+    will-change: transform, filter, opacity;
+    background-color: #111;
+}
+
+/* accentuate the layered feel with slightly larger offsets and subtle rotation */
+.gallery-img.img-1 { top: 0; transform: translateY(14px) rotate(-5deg) scale(.985); z-index: 1; }
+.gallery-img.img-2 { top: 20px; transform: translateY(8px) rotate(-2deg) scale(1); z-index: 2; }
+.gallery-img.img-3 { top: 40px; transform: translateY(0) rotate(1.2deg) scale(1.03); z-index: 3; }
+
+/* on hover: lift and increase depth - accessible to keyboard focus too */
+.gallery-stack:hover .gallery-img,
+.gallery-stack:focus-within .gallery-img { box-shadow: 0 48px 110px rgba(6,8,20,0.7); }
+.gallery-stack:hover .img-1 { transform: translateY(6px) rotate(-4deg) translateZ(-24px) scale(.99); }
+.gallery-stack:hover .img-2 { transform: translateY(2px) rotate(-1.2deg) translateZ(6px) scale(1.01); }
+.gallery-stack:hover .img-3 { transform: translateY(0) rotate(1.2deg) translateZ(44px) scale(1.06); }
+
+/* make individual images keyboard-focusable affordance (doesn't require HTML changes) */
+.gallery-img { outline: none; }
+.gallery-img:focus { box-shadow: 0 48px 110px rgba(6,8,20,0.75), 0 0 0 6px rgba(124,58,237,0.08); transform: translateY(0) scale(1.02); }
+
+/* subtle desaturation overlay to make text overlay readable; on hover bring full color */
+.gallery-img { filter: saturate(.95) contrast(.98) brightness(.98); }
+.gallery-stack:hover .gallery-img { filter: saturate(1.06) contrast(1.02) brightness(1); }
+
+/* mock-overlay / price pill adjustments so it sits clearly above images */
+.gallery-stack .mock-overlay { right: 18px; bottom: 18px; z-index: 6; }
+.gallery-stack .price-pill { transform: translateY(0); box-shadow: 0 18px 48px rgba(35,35,74,0.26); }
+
+/* responsive: reduce stack height and spacing on smaller screens */
+@media (max-width: 980px) {
+    .gallery-stack { max-width: 420px; height: 300px; }
+    .gallery-img { width: calc(100% - 36px); border-radius: 12px; }
+}
+@media (max-width: 520px) {
+    .gallery-stack { max-width: 320px; height: 240px; }
+    .gallery-img { width: calc(100% - 28px); border-radius: 10px; }
+    .gallery-img.img-1 { top: 0; transform: translateY(8px) rotate(-3deg) scale(.98); }
+    .gallery-img.img-2 { top: 10px; transform: translateY(4px) rotate(-1deg) scale(1); }
+    .gallery-img.img-3 { top: 20px; transform: translateY(0) rotate(.6deg) scale(1.02); }
+}
+
+/* motion-reduced: disable translateZ / parallax transforms */
+@media (prefers-reduced-motion: reduce) {
+    .gallery-stack, .gallery-img { transition: none !important; transform: none !important; }
+}
 
 
 

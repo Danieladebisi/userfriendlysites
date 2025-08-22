@@ -141,25 +141,7 @@
 
     <div id="footer-placeholder"></div>
 
-    <script>
-        // Function to load external HTML into an element
-        function loadHTML(elementId, url) {
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(elementId).innerHTML = data;
-                })
-                .catch(error => console.error('Error loading HTML:', error));
-        }
-
-        // Load header and footer
-        document.addEventListener('DOMContentLoaded', () => {
-            loadHTML('header-placeholder', 'header.html');
-            loadHTML('footer-placeholder', 'footer.html');
-        });
-    </script>
-
-    <!-- Note: EmailJS initialization should be centralized. Add your public key in a single place (e.g., header or a small inline script) before `script.js` if you want the contact form to send messages. -->
+    <!-- Header and footer are dynamically loaded by the central `script.js` on page load. -->
     <script src="script.js"></script>
 </body>
 

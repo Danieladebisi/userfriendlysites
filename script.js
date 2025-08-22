@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initUI();
     initInteractiveComponents();
     initBlueprintHeroAnimation();
+    initHeroInteractions();
     setupContactForm();
     // localize hero price once DOM is ready
     localizeHeroPrice();
@@ -124,6 +125,73 @@ function initUI() {
 function initInteractiveComponents() {
     setupTestimonialCarousel();
     setupShowMore();
+    initWhyChooseInteractions();
+}
+
+/* Why Choose Us: parallax on scroll + tilt on hover (motion-safe) */
+function initWhyChooseInteractions() {
+    const tiles = Array.from(document.querySelectorAll('.img-tile'));
+    if (!tiles.length) return;
+
+    const supportsReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Parallax on scroll: translate image slightly based on data-depth and intersection
+    const parallaxObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const el = entry.target;
+            const depth = parseFloat(el.getAttribute('data-depth') || '12');
+            const img = el.querySelector('img');
+            if (!img) return;
+            if (!entry.isIntersecting) return;
+            // compute a small translateY based on viewport position
+            const rect = el.getBoundingClientRect();
+            const viewportCenter = window.innerHeight / 2;
+            const distanceFromCenter = rect.top + rect.height / 2 - viewportCenter;
+            const maxOffset = Math.min(40, depth);
+            const y = - (distanceFromCenter / viewportCenter) * (maxOffset * 0.35);
+            if (!supportsReducedMotion) img.style.transform = `translateY(${y}px) scale(1.04)`;
+        });
+    }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+
+    tiles.forEach(tile => {
+        parallaxObserver.observe(tile);
+
+        // keyboard focus: add a subtle focus outline and enable tilt via arrow keys
+        tile.addEventListener('focus', () => {
+            tile.classList.add('focus-visible');
+            // on focus we nudge the inner image for affordance
+            const img = tile.querySelector('img'); if (img && !supportsReducedMotion) img.style.transform = 'translateY(-6px) scale(1.03)';
+        });
+        tile.addEventListener('blur', () => {
+            tile.classList.remove('focus-visible');
+            const img = tile.querySelector('img'); if (img) img.style.transform = '';
+        });
+
+        // pointer-based tilt effect
+        if (!supportsReducedMotion && window.PointerEvent) {
+            tile.setAttribute('data-tilt', 'true');
+            tile.addEventListener('pointermove', e => {
+                const rect = tile.getBoundingClientRect();
+                const px = (e.clientX - rect.left) / rect.width; // 0..1
+                const py = (e.clientY - rect.top) / rect.height; // 0..1
+                const tiltX = (py - 0.5) * 6; // rotateX
+                const tiltY = (px - 0.5) * -8; // rotateY
+                tile.style.setProperty('--tilt-x', tiltX + 'deg');
+                tile.style.setProperty('--tilt-y', tiltY + 'deg');
+                tile.classList.add('tilt-active');
+                // subtle parallax of inner image based on data-depth
+                const depth = parseFloat(tile.getAttribute('data-depth') || '12');
+                const img = tile.querySelector('img');
+                if (img) img.style.transform = `translate(${(px - 0.5) * depth * 0.4}px, ${(py - 0.5) * depth * 0.28}px) scale(1.05)`;
+            });
+            tile.addEventListener('pointerleave', () => {
+                tile.classList.remove('tilt-active');
+                tile.style.setProperty('--tilt-x', '0deg');
+                tile.style.setProperty('--tilt-y', '0deg');
+                const img = tile.querySelector('img'); if (img) img.style.transform = '';
+            });
+        }
+    });
 }
 
 /* ==========================================================================
@@ -301,6 +369,47 @@ function initBlueprintHeroAnimation() {
     });
 }
 
+/* Lightweight hero interactions: pointer parallax for gallery and floating orbs */
+function initHeroInteractions() {
+    const gallery = document.getElementById('hero-gallery');
+    const ornaments = document.querySelectorAll('.hero-ornaments .orb');
+    if (!gallery && ornaments.length === 0) return;
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReduced && gallery) {
+        // pointer movement on gallery to toggle tilt class and update transforms
+        gallery.addEventListener('pointermove', (e) => {
+            const rect = gallery.getBoundingClientRect();
+            const px = (e.clientX - rect.left) / rect.width; // 0..1
+            const py = (e.clientY - rect.top) / rect.height; // 0..1
+            gallery.classList.add('tilt-active');
+            // small rotation based on pointer
+            const rotY = (px - 0.5) * 8; // degrees
+            const rotX = (py - 0.5) * -6;
+            gallery.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+        });
+        gallery.addEventListener('pointerleave', () => {
+            gallery.classList.remove('tilt-active');
+            gallery.style.transform = '';
+        });
+    }
+
+    // gentle float for orbs — CSS prefers to handle but add slight JS variance for natural motion
+    if (!prefersReduced && ornaments.length) {
+        ornaments.forEach((orb, i) => {
+            const base = 12 + i * 6;
+            let t = 0;
+            function floatTick() {
+                t += 0.016 * (0.6 + i * 0.1);
+                const y = Math.sin(t) * (base * 0.2);
+                orb.style.transform = `translateY(${y}px)`;
+                requestAnimationFrame(floatTick);
+            }
+            requestAnimationFrame(floatTick);
+        });
+    }
+}
+
 
 /* ==========================================================================
    6. Website Calculator Wizard Logic (FIXED & POLISHED)
@@ -420,6 +529,14 @@ function calculateCost() {
     // Unified calculation with graceful fallback
     try {
         calculateAndDisplayCost();
+        // Ensure the results panel is shown and scrolled into view for better UX
+        const result = document.getElementById('cost-result');
+        if (result) {
+            result.classList.add('active');
+            const container = document.querySelector('.cost-result-container') || result;
+            if (container) container.classList.add('active');
+            try { result.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { /* ignore */ }
+        }
     } catch (err) {
         console.error('calculateCost error:', err);
         const form = document.getElementById('calculator-form');
@@ -471,7 +588,7 @@ function setupContactForm() {
             if (!key) missing.push('publicKey');
             const msg = `EmailJS not configured. Missing: ${missing.join(', ')}.`;
             console.warn(msg, { svc, tpl });
-            alert(msg + '\nPlease add data-emailjs-service and data-emailjs-template to your contact form or page, and initialize EmailJS with your public key in an inline header script.');
+            console.warn(msg + ' Please add data-emailjs-service and data-emailjs-template to your contact form or page, and initialize EmailJS with your public key in an inline header script.');
             return false;
         }
         if (svc.includes('YOUR_') || tpl.includes('YOUR_')) {
@@ -488,13 +605,13 @@ function setupContactForm() {
                     resolve(true);
                 } catch (e) {
                     console.error('EmailJS init failed', e);
-                    alert('EmailJS initialization failed. Check that the public key is correct.');
+                        console.warn('EmailJS initialization failed. Check that the public key is correct.');
                     resolve(false);
                 }
             };
             s.onerror = () => {
                 console.error('Failed to load EmailJS SDK from CDN.');
-                alert('Failed to load EmailJS SDK. Check network or CDN access.');
+                console.error('Failed to load EmailJS SDK. Check network or CDN access.');
                 resolve(false);
             };
             document.head.appendChild(s);
@@ -507,19 +624,19 @@ function setupContactForm() {
         if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
 
         const emailAvailable = await ensureEmailJs();
-        if (!emailAvailable) {
-            alert('Contact form is not configured. Please contact us directly at contact@userfriendlysites.com');
+            if (!emailAvailable) {
+            console.warn('Contact form is not configured. Please contact us directly at contact@userfriendlysites.com');
             if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
             return;
         }
 
         emailjs.sendForm(serviceID, templateID, this)
             .then(() => {
-                alert('Message sent successfully!');
+                console.info('Message sent successfully');
                 contactForm.reset();
             }, (err) => {
                 console.error('EmailJS send error:', err);
-                alert('Failed to send message. Please try again later.');
+                console.error('Failed to send message. Please try again later.');
             }).finally(() => {
                 if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
             });
@@ -554,7 +671,7 @@ function setSendBtnLoading(isLoading) {
 window.sendCalculatorQuote = async function sendCalculatorQuote() {
     // gather current estimate from DOM or recompute
     const form = document.getElementById('calculator-form');
-    if (!form) return alert('Calculator not available.');
+    if (!form) { console.warn('Calculator not available.'); return; }
     const estimate = computeEstimate(form);
     const estimateLocalized = localizeEstimateOutput({ ...estimate });
     // prepare payload
@@ -564,6 +681,9 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
         pages: form.querySelector('#pages')?.value || '',
         website_type: form.querySelector('#website-type')?.value || ''
     };
+
+    // small UI handle: reference the send button element once so branches can re-enable it reliably
+    const btn = document.getElementById('send-quote-btn');
 
     // reuse contact form attributes for EmailJS config, but be robust: look for any element with the attributes
     let contactForm = document.getElementById('contactForm');
@@ -583,21 +703,21 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
         if (missing.length) {
             const msg = `EmailJS not configured for calculator. Missing: ${missing.join(', ')}.`;
             console.warn(msg, { serviceID, templateID, publicKey });
-            alert(msg + '\nPlease ensure EmailJS data attributes exist on the contact form or page.');
+            console.warn(msg + ' Please ensure EmailJS data attributes exist on the contact form or page.');
             return false;
         }
         if (serviceID.includes('YOUR_') || templateID.includes('YOUR_')) {
             console.warn('EmailJS config appears to contain placeholder values. Please replace with real values.');
-            alert('EmailJS appears to be using placeholder values. Please update the data attributes with your real keys.');
+            console.warn('EmailJS appears to be using placeholder values. Please update the data attributes with your real keys.');
             return false;
         }
         return new Promise((resolve) => {
             const s = document.createElement('script');
             s.src = 'https://cdn.emailjs.com/sdk/3.2.0/email.min.js';
             s.onload = () => {
-                try { emailjs.init(publicKey); console.info('EmailJS SDK loaded and initialized for calculator.'); resolve(true); } catch (e) { console.error('EmailJS init failed', e); alert('EmailJS initialization failed. Check public key.'); resolve(false); }
+                try { emailjs.init(publicKey); console.info('EmailJS SDK loaded and initialized for calculator.'); resolve(true); } catch (e) { console.error('EmailJS init failed', e); console.warn('EmailJS initialization failed. Check public key.'); resolve(false); }
             };
-            s.onerror = () => { console.error('Failed to load EmailJS SDK (calculator).'); alert('Failed to load EmailJS SDK. Check network or CDN access.'); resolve(false); };
+            s.onerror = () => { console.error('Failed to load EmailJS SDK (calculator).'); console.error('Failed to load EmailJS SDK. Check network or CDN access.'); resolve(false); };
             document.head.appendChild(s);
         });
     }
@@ -621,7 +741,7 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
     }
 
     // If contact form exists and SDK is available, copy hidden fields and send via sendForm (includes name/email).
-    if (contactForm && canSend) {
+            if (contactForm && canSend) {
         try {
             // populate hidden fields (ensure contact form has inputs)
             const qsField = document.getElementById('quote_summary');
@@ -630,10 +750,10 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
             if (qtField) qtField.value = payload.quote_total;
             // send via sendForm so EmailJS receives all form inputs
             await emailjs.sendForm(serviceID, templateID, contactForm);
-            alert('Quote emailed successfully. We will follow up soon.');
+            console.info('Quote emailed successfully. We will follow up soon.');
             } catch (err) {
             console.error('EmailJS sendForm error (calculator):', err);
-            alert('Failed to email quote via contact form.');
+            console.error('Failed to email quote via contact form.');
         } finally {
             setSendBtnLoading(false);
         }
@@ -641,10 +761,10 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
         // SDK available but no contact form — send via SDK send
         emailjs.send(serviceID, templateID, templateParams)
             .then(() => {
-                alert('Quote emailed successfully. We will follow up soon.');
+                console.info('Quote emailed successfully.');
             }, (err) => {
                 console.error('EmailJS send error (calculator):', err);
-                alert('Failed to email quote. Please try again or contact us directly.');
+                console.error('Failed to email quote. Please try again or contact us directly.');
             }).finally(() => { if (btn) { btn.disabled = false; btn.textContent = 'Email this Quote'; } });
     } else {
         // SDK not available — fallback to EmailJS REST API
@@ -652,7 +772,7 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
             const apiUrl = 'https://api.emailjs.com/api/v1.0/email/send';
             const effectiveKey = publicKey || (window.EMAILJS_PUBLIC_KEY || '');
             if (!effectiveKey) {
-                alert('Cannot send via REST fallback: public key is missing. Please initialize window.EMAILJS_PUBLIC_KEY or provide the public key in the page.');
+                console.warn('Cannot send via REST fallback: public key is missing. Please initialize window.EMAILJS_PUBLIC_KEY or provide the public key in the page.');
                 if (btn) { btn.disabled = false; btn.textContent = 'Email this Quote'; }
                 return;
             }
@@ -668,15 +788,15 @@ window.sendCalculatorQuote = async function sendCalculatorQuote() {
                 body: JSON.stringify(body)
             });
             if (resp.ok) {
-                alert('Quote emailed successfully (via REST API fallback). We will follow up soon.');
+                console.info('Quote emailed successfully (via REST API fallback).');
             } else {
                 const text = await resp.text();
                 console.error('EmailJS REST API error', resp.status, text);
-                alert('Failed to send quote via REST API. See console for details.');
+                console.error('Failed to send quote via REST API. See console for details.');
             }
             } catch (err) {
             console.error('EmailJS REST API send failed', err);
-            alert('Failed to send quote via REST API. See console for details.');
+            console.error('Failed to send quote via REST API. See console for details.');
         } finally {
             setSendBtnLoading(false);
         }
@@ -734,19 +854,7 @@ document.body.addEventListener('click', (e) => {
     }
 });
 
-// Show results container after calculate button runs
-const originalCalculate = calculateCost;
-calculateCost = function() {
-    originalCalculate();
-    const result = document.getElementById('cost-result');
-    if (result) {
-        result.classList.add('active');
-        // ensure container is visible if we used .cost-result-container
-        const container = document.querySelector('.cost-result-container') || result;
-        if (container) container.classList.add('active');
-        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-};
+// (Removed duplicate calculateCost override - single implementation above handles showing results)
 
 // Focus trap helpers
 let _focusTrapHandler = null;
@@ -921,8 +1029,8 @@ function wireCalculatorForm() {
             // re-run calculation and show feedback
             try { calculateAndDisplayCost();
                 const code = (document.getElementById('discount-code')?.value || '').trim();
-                if (!code) alert('No discount code entered.');
-                else alert('Discount code applied (if valid).');
+                if (!code) console.warn('No discount code entered.');
+                else console.info('Discount code applied (if valid).');
             } catch (e) { console.warn(e); }
         });
     }
