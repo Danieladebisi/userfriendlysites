@@ -27,13 +27,22 @@
         <meta name="twitter:image" content="https://userfriendlysites.com/images/user-friendly-sites-og-image.png">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/user%20friendly%20sites%20logo.png">
+    <link rel="icon" type="image/png" href="./images/user-friendly-sites-icon.png">
 
         <!-- Fonts and Stylesheets -->
-        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Preconnects to speed up external CSS/font fetches -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons (deferred load to avoid render-blocking) -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></noscript>
         <link rel="stylesheet" href="styles.css">
+        
+    <!-- Preload the hero LCP image (local, optimized) -->
+    <link rel="preload" as="image" href="./images/creative-web-design-workspace.jpg" imagesizes="100vw">
         
 
     <!-- Structured Data: Organization & LocalBusiness -->
@@ -114,40 +123,43 @@
                 </div>
 
                 <div class="hero-column hero-visual">
-                <div class="hero-gallery" aria-label="Examples of our work">
-    <div class="gallery-stack" id="hero-gallery">
-        <img src="https://www.dropbox.com/scl/fi/7h4fm87ul7d3mjeod55jf/creative-web-design-workspace-2.jpg?rlkey=tm33tti21imgg84a93c3d66e1&raw=1"
-             class="gallery-img img-1"
-             alt="Team around computer"
-             loading="lazy"
-             data-depth="10">
+                        <div class="hero-gallery" aria-label="Examples of our work">
+            <div class="gallery-stack" id="hero-gallery">
+            <img src="./images/creative-web-design-workspace.jpg"
+                     class="gallery-img img-1"
+                     alt="Team around computer"
+                     width="1200" height="800"
+                     loading="eager" fetchpriority="high" decoding="async"
+                     data-depth="10">
 
-        <img src="https://www.dropbox.com/scl/fi/6nyqvirmcc2h74e9pl5nk/business-team-standing-around-computer-for-present-2024-09-16-22-11-46-utc.jpg?rlkey=vhza6ctotsqrwqldx6gomqeac&raw=1"
-             alt="Successful online business"
-             loading="lazy"
-             data-depth="18">
+                <img src="images/business-team-standing-around-computer-for-present-2024-09-16-22-11-46-utc.jpg"
+                     alt="Successful online business"
+                     width="1200" height="800"
+                     loading="lazy" fetchpriority="low" decoding="async"
+                     data-depth="18">
 
-        <img src="https://www.dropbox.com/scl/fi/yqja4hrmctfm4gb50ojlh/successful-online-business.JPG?rlkey=mlp9ae768ax7qke1ky14iepq4&raw=1"
-             alt="Modern business team meeting"
-             loading="lazy"
-             data-depth="26">
+            <img src="images/modern-business-team-meeting.jpg"
+                     alt="Modern business team meeting"
+                     width="1200" height="800"
+                     loading="lazy" fetchpriority="low" decoding="async"
+                     data-depth="26">
 
-        <div class="mock-overlay">
-          <div class="price-pill"
-              id="hero-price"
-              data-base-price="800"
-                 role="status"
-                 aria-live="polite">
-                From <strong><span class="currency-value">$800</span></strong>
+                <div class="mock-overlay">
+                  <div class="price-pill"
+                      id="hero-price"
+                      data-base-price="800"
+                         role="status"
+                         aria-live="polite">
+                        From <strong><span class="currency-value">$800</span></strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-ornaments" aria-hidden="true">
+                <span class="orb orb-1"></span>
+                <span class="orb orb-2"></span>
             </div>
         </div>
-    </div>
-
-    <div class="hero-ornaments" aria-hidden="true">
-        <span class="orb orb-1"></span>
-        <span class="orb orb-2"></span>
-    </div>
-</div>
 
             </div>
 
@@ -240,19 +252,19 @@
             <div class="why-choose-us-container">
                 <div class="why-choose-images-grid" role="list" aria-label="Our work examples">
                 <div class="img-tile" role="group" tabindex="0" aria-label="Collaboration — Business meeting" data-depth="18">
-                    <img src="images/business-people-sitting-at-meeting-2025-03-09-11-11-32-utc.jpg" alt="Business Meeting">
+                    <img src="images/business-people-sitting-at-meeting-2025-03-09-11-11-32-utc.jpg" alt="Business Meeting" width="1200" height="800" loading="lazy" decoding="async">
                     <div class="img-caption">Collaboration</div>
                 </div>
                 <div class="img-tile" role="group" tabindex="0" aria-label="Teamwork — Office workers" data-depth="12">
-                    <img src="images/indian-office-worker-and-his-coworkers-having-good-2025-02-11-15-30-12-utc.jpg" alt="Office Workers">
+                    <img src="images/indian-office-worker-and-his-coworkers-having-good-2025-02-11-15-30-12-utc.jpg" alt="Office Workers" width="1200" height="800" loading="lazy" decoding="async">
                     <div class="img-caption">Teamwork</div>
                 </div>
                 <div class="img-tile" role="group" tabindex="0" aria-label="Strategy — Presentation" data-depth="8">
-                    <img src="images/woman-presenting-business-plan-during-office-meeti-2025-03-16-01-45-13-utc.jpg" alt="Business Presentation">
+                    <img src="images/woman-presenting-business-plan-during-office-meeti-2025-03-16-01-45-13-utc.jpg" alt="Business Presentation" width="1200" height="800" loading="lazy" decoding="async">
                     <div class="img-caption">Strategy</div>
                 </div>
                 <div class="img-tile" role="group" tabindex="0" aria-label="Design craft — creative workspace" data-depth="22">
-                    <img src="images/creative web design workspace.jpg" alt="Creative Workspace">
+                    <img src="./images/creative-web-design-workspace.jpg" alt="Creative Workspace" width="1200" height="800" loading="lazy" decoding="async">
                     <div class="img-caption">Design Craft</div>
                 </div>
             </div>
@@ -329,7 +341,7 @@
             <div class="portfolio-grid">
         <a class="portfolio-item" href="case-study-anikeola-schools.html" data-cat="education">
                     <span class="portfolio-badge">Case Study</span>
-                    <img src="./images/anikeolaschools.png" alt="Anikeola Schools - Educational Website Project in Groton CT" loading="lazy">
+                    <img src="./images/anikeolaschools.png" alt="Anikeola Schools - Educational Website Project in Groton CT" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="portfolio-overlay">
             <h3>Anikeola Schools</h3>
             <p>Read Case Study</p>
@@ -342,7 +354,7 @@
                 </a>
         <a class="portfolio-item" href="case-study-jes-loves-interior.html" data-cat="ecommerce">
                     <span class="portfolio-badge">Case Study</span>
-                    <img src="./images/jeslovesinterior.png" alt="Jes Loves Interior - E-commerce Website Project" loading="lazy">
+                    <img src="./images/jeslovesinterior.png" alt="Jes Loves Interior - E-commerce Website Project" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="portfolio-overlay">
             <h3>Jes Loves Interior</h3>
             <p>Read Case Study</p>
@@ -355,7 +367,7 @@
                 </a>
                 <a class="portfolio-item" href="case-study-lifehouse-church.html" data-cat="nonprofit">
                     <span class="portfolio-badge">Case Study</span>
-                    <img src="./images/lifehouseChurch.png" alt="Lifehouse Church - Community Website Project" loading="lazy">
+                    <img src="./images/lifehouseChurch.png" alt="Lifehouse Church - Community Website Project" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="portfolio-overlay">
                         <h3>Lifehouse Church</h3>
                         <p>Read Case Study</p>
@@ -368,7 +380,7 @@
                 </a>
                 <a class="portfolio-item" href="case-study-savings-target.html" data-cat="fintech">
                     <span class="portfolio-badge">Case Study</span>
-                    <img src="./images/savingstarget.png" alt="Savings Target - Financial App Landing Page Project" loading="lazy">
+                    <img src="./images/savingstarget.png" alt="Savings Target - Financial App Landing Page Project" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="portfolio-overlay">
                         <h3>Savings Target</h3>
                         <p>Read Case Study</p>
@@ -381,7 +393,7 @@
                 </a>
                 <a class="portfolio-item" href="case-study-tech-mansion.html" data-cat="technology">
                     <span class="portfolio-badge">Case Study</span>
-                    <img src="./images/techmansion.png" alt="Tech Mansion - Technology Services Website Project" loading="lazy">
+                    <img src="./images/techmansion.png" alt="Tech Mansion - Technology Services Website Project" width="800" height="600" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="portfolio-overlay">
                         <h3>Tech Mansion</h3>
                         <p>Read Case Study</p>
@@ -452,21 +464,21 @@
             <div class="testimonial-carousel-wrapper">
                     <div class="testimonial-carousel">
                     <div class="testimonial-box">
-                        <img src="./images/Alexis.jpg" alt="John Doe - CEO of Anikeola Schools" class="client-image" loading="lazy">
+                        <img src="./images/Alexis.jpg" alt="John Doe - CEO of Anikeola Schools" class="client-image" width="96" height="96" loading="lazy" decoding="async">
                         <div class="testimonial-content">
                             <p>"User Friendly Sites transformed our online presence! The team was professional and attentive to our needs."</p>
                             <h4>- John Doe, CEO of Anikeola Schools</h4>
                         </div>
                     </div>
                     <div class="testimonial-box">
-                        <img src="./images/jes.jpg" alt="Jes - Owner of Jes Loves Interior" class="client-image" loading="lazy">
+                        <img src="./images/jes.jpg" alt="Jes - Owner of Jes Loves Interior" class="client-image" width="96" height="96" loading="lazy" decoding="async">
                         <div class="testimonial-content">
                             <p>"Their SEO strategies brought us new customers and significantly increased our website traffic."</p>
                             <h4>- Jes, Owner of Jes Loves Interior</h4>
                         </div>
                     </div>
                             <div class="testimonial-box">
-                                <img src="./images/olabisi.jpg" alt="Jonathan Santos - Media Director, Lifehouse Church" class="client-image" loading="lazy">
+                                <img src="./images/olabisi.jpg" alt="Jonathan Santos - Media Director, Lifehouse Church" class="client-image" width="96" height="96" loading="lazy" decoding="async">
                         <div class="testimonial-content">
                             <p>"The redesign of our website was seamless and the results were outstanding. Highly recommend!"</p>
                             <h4>- Jonathan Santos, Media Director, Lifehouse Church</h4>
@@ -565,7 +577,7 @@
         </main>
 
     <!-- Scripts -->
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 
     <!-- Floating CTA: opens calculator -->
     <button id="floating-cta" class="floating-cta" data-cta="quote" aria-haspopup="dialog" aria-controls="calculatorModal" title="Get an instant quote">

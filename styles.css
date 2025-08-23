@@ -16,6 +16,13 @@
     --font-secondary: 'Josefin Sans', sans-serif;
 }
 
+/* Ensure faster text rendering for web fonts */
+@font-face {
+    font-family: 'Josefin Sans Fallback';
+    src: local('Arial');
+    font-display: swap;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -715,6 +722,15 @@ body.dark-mode.scrolled header .nav-links a.active { color: #ffde59; }
 .lightbox-actions a { display:inline-flex; align-items:center; gap:.5rem; background: var(--primary-color); color:#0b1220; padding:.5rem .8rem; border-radius: 8px; font-weight: 800; box-shadow: 0 10px 24px var(--shadow-color); }
 .lightbox-actions a.secondary { background: #fff; color: #0f1724; }
 @media (max-width: 800px) { .lightbox-body { grid-template-columns: 1fr; } }
+
+/* Hint the browser to isolate heavy sections for better paint performance */
+section.portfolio, section.metrics, section.testimonials, section.faq, section.contact { contain: content; }
+/* Skip rendering offscreen sections until scrolled into view (huge perf win) */
+section.services, section.industries, section.why-choose-us, section.technologies,
+section.portfolio, section.metrics, section.testimonials, section.faq, section.contact {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px 1000px;
+}
 
 
 /* ==========================================================================
