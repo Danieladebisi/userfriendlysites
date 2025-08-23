@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // These scripts depend on the header being loaded first
         setupDarkMode();
         setupMobileNav();
+    setupHeaderHeightSizing();
     });
     loadHTML('footer-placeholder', 'footer.html');
 
@@ -329,9 +330,35 @@ function setupStickyHeader() {
     const onScroll = () => {
         if (window.scrollY > 10) document.body.classList.add('scrolled');
         else document.body.classList.remove('scrolled');
+        // header height may change due to shrink-on-scroll; update CSS var
+        try { updateHeaderHeightVar(); } catch(_) {}
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+}
+
+// Keep a CSS variable --header-height in sync with actual header size
+function setupHeaderHeightSizing() {
+    // set once now, then observe changes
+    updateHeaderHeightVar();
+    const header = document.querySelector('header');
+    if (!('ResizeObserver' in window) || !header) {
+        // fallback: update on resize
+        window.addEventListener('resize', () => { try { updateHeaderHeightVar(); } catch(_) {} }, { passive: true });
+        return;
+    }
+    try {
+        const ro = new ResizeObserver(() => updateHeaderHeightVar());
+        ro.observe(header);
+    } catch(_) {
+        window.addEventListener('resize', () => { try { updateHeaderHeightVar(); } catch(_) {} }, { passive: true });
+    }
+}
+
+function updateHeaderHeightVar() {
+    const header = document.querySelector('header');
+    const h = header ? Math.ceil(header.getBoundingClientRect().height) : 74;
+    document.documentElement.style.setProperty('--header-height', h + 'px');
 }
 
 // Active nav link highlighting based on section in view
